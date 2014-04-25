@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.Investor" table="investor" catalog="master_tpapelita">
+        <id name="investorId" type="java.lang.Integer">
+            <column name="investor_id" />
+            <generator class="identity" />
+        </id>
+        <property name="investorName" type="string">
+            <column name="investor_name" length="45" />
+        </property>
+        <property name="investorEmail" type="string">
+            <column name="investor_email" length="45" />
+        </property>
+        <property name="investorPhone" type="string">
+            <column name="investor_phone" length="14" />
+        </property>
+        <property name="investorStatus" type="java.lang.Boolean">
+            <column name="investor_status" />
+        </property>
+        <property name="investorRegistration" type="timestamp">
+            <column name="investor_registration" length="19" />
+        </property>
+        <property name="investorPass" type="string">
+            <column name="investor_pass" length="65535" />
+        </property>
+        <property name="investorLastPass" type="string">
+            <column name="investor_last_pass" length="65535" />
+        </property>
+        <set name="investments" table="investment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="investor_id" />
+            </key>
+            <one-to-many class="org.tpapelita.pojo.Investment" />
+        </set>
+    </class>
+</hibernate-mapping>

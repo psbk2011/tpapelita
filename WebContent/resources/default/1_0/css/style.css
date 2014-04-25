@@ -1,0 +1,91 @@
+body{
+	background-color: #efeeee;
+	font-size: 12px;
+	padding: 0px;
+	margin: 0px;
+}
+
+a.link-style{
+	color: white;
+}
+
+.container-content{
+	padding-top: 30px;
+}
+.container-logoTPA{
+	position: relative;
+	left: 15px;
+}
+.logoTPA{
+	width: 118px;
+	height: 48px;
+	padding: 0px;
+	margin: 5px 0px 5px 0px;
+	background-image: url("#{resource['default/1_0/images:pelita.png']}");
+}
+.title-logoTPA,.title-logoTPA-bottom{
+	color: white;
+	font-family: thoma, arial, sans-serif;
+	position:relative;
+	top:-5px;
+	left: 5px;
+}
+
+.title-logoTPA-bottom{
+	left: -5px;
+}
+
+.background-header{
+	height: 400px;
+	background-image: url("#{resource['default/1_0/images:1.JPG']}");
+	background-size:100% 140%;
+	background-repeat:no-repeat;
+	background-position: center;
+}
+ul.menu-footer, ul.menu{
+	margin: 10px 0px 10px 0px;
+	padding: 0px;
+	list-style-type: none;
+	text-decoration: none;
+}
+.author-style{
+	text-align: center;
+	color: white;
+	margin: 10px 0px 10px 0px; 
+}
+
+.image1{
+	background-image: url("#{resource['default/1_0/images:pelita.png']}");
+	background-size: 65%;
+}
+.image2{
+	background-image: url("#{resource['default/1_0/images:source1.png']}");	
+	background-size: 56%;
+}
+.image3{
+	background-image: url("#{resource['default/1_0/images:source4.png']}");
+	background-size: 48%;
+}
+.image-in-text{
+	height: 100px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.text{
+	text-align: justify;
+}
+.navbar-inverse{
+	background-color: black;
+	color: white;
+}
+.nav {
+	margin: 15px 0px 0px 0px;
+}
+.menu-news{
+	margin: 0px;
+}
+.well{
+	background: white;
+	margin-top:10px;
+	margin-bottom: 35px;
+}

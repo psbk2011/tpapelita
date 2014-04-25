@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/master_tpapelita</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <mapping class="org.tpapelita.pojo.Administrator" resource="org/tpapelita/pojo/Administrator.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.Event" resource="org/tpapelita/pojo/Event.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.Investment" resource="org/tpapelita/pojo/Investment.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.InvestmentDetails" resource="org/tpapelita/pojo/InvestmentDetails.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.Investor" resource="org/tpapelita/pojo/Investor.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

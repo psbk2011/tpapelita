@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.Event" table="event" catalog="master_tpapelita">
+        <id name="eventId" type="java.lang.Integer">
+            <column name="event_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select">
+            <column name="admin_id" unique="true" />
+        </many-to-one>
+        <property name="eventDateCreate" type="timestamp">
+            <column name="event_date_create" length="19" />
+        </property>
+        <property name="eventTitle" type="string">
+            <column name="event_title" length="45" />
+        </property>
+        <property name="eventTime" type="timestamp">
+            <column name="event_time" length="19" />
+        </property>
+        <property name="eventText" type="string">
+            <column name="event_text" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

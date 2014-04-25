@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.InvestmentDetails" table="investment_details" catalog="master_tpapelita">
+        <id name="detailsId" type="java.lang.Integer">
+            <column name="details_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="investment" class="org.tpapelita.pojo.Investment" fetch="select">
+            <column name="inves_id" />
+        </many-to-one>
+        <property name="detailsUnitName" type="string">
+            <column name="details_unit_name" length="50" />
+        </property>
+        <property name="detailsUnitPrice" type="java.lang.Integer">
+            <column name="details_unit_price" />
+        </property>
+        <property name="detailsUnitQty" type="java.lang.Integer">
+            <column name="details_unit_qty" />
+        </property>
+        <property name="detailsInfo" type="string">
+            <column name="details_info" length="65535" />
+        </property>
+    </class>
+</hibernate-mapping>

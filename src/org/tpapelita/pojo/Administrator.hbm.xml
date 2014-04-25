@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.Administrator" table="administrator" catalog="master_tpapelita">
+        <id name="adminId" type="java.lang.Integer">
+            <column name="admin_id" />
+            <generator class="identity" />
+        </id>
+        <property name="adminName" type="string">
+            <column name="admin_name" length="45" />
+        </property>
+        <property name="adminEmail" type="string">
+            <column name="admin_email" length="45" />
+        </property>
+        <property name="adminPhone" type="string">
+            <column name="admin_phone" length="14" />
+        </property>
+        <property name="adminGen" type="java.lang.Boolean">
+            <column name="admin_gen" />
+        </property>
+        <property name="adminJob" type="string">
+            <column name="admin_job" length="20" />
+        </property>
+        <property name="adminPass" type="string">
+            <column name="admin_pass" length="65535" />
+        </property>
+        <property name="adminLastPass" type="string">
+            <column name="admin_last_pass" length="65535" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="status" />
+        </property>
+        <set name="events" table="event" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" unique="true" />
+            </key>
+            <one-to-many class="org.tpapelita.pojo.Event" />
+        </set>
+        <set name="investments" table="investment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" />
+            </key>
+            <one-to-many class="org.tpapelita.pojo.Investment" />
+        </set>
+    </class>
+</hibernate-mapping>
