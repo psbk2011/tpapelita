@@ -33,6 +33,7 @@ public class AdministratorC implements Serializable{
 	private Administrator admin;
 	private List<AdministratorC> list;
 	
+	
 	/*
 	 * Support Method
 	 */

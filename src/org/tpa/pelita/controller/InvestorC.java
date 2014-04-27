@@ -32,12 +32,21 @@ public class InvestorC implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Investor investor;
 	private List<InvestorC> list;
+	private int autoInvestorId;
 	
 	/*
 	 * Support Method
 	 */
 	public InvestorC() {
 		this.investor = new Investor();
+	}
+	
+	public int getAutoInvestorId() {
+		return autoInvestorId;
+	}
+
+	public void setAutoInvestorId(int autoInvestorId) {
+		this.autoInvestorId = autoInvestorId;
 	}
 
 	public Investor getInvestor() {
@@ -49,7 +58,17 @@ public class InvestorC implements Serializable{
 	}
 
 	public String getGenInvestorId() {
-		return "INV"+(getRead().size() + 1);
+		int temp = 1;
+		String uniqueChar = "INV";
+		String id = uniqueChar+temp;
+		setAutoInvestorId(temp);
+		List<Investor> investor = getReadLastId(); 
+		if ( investor.size() != 0) {
+			temp = investor.get(0).getInvestorId()+temp;
+			id = uniqueChar+temp;
+			setAutoInvestorId(temp);
+		}
+		return id;
 	}
 
 	public String getInvestorStatusModif() {
@@ -76,8 +95,8 @@ public class InvestorC implements Serializable{
 		return "INV" + getInvestor().getInvestorId();
 	}
 
-	public Map<String, String> getInvestorStatusOption() {
-		Map<String, String> status = new HashMap<String, String>();
+	public Map<String, Object> getInvestorStatusOption() {
+		Map<String, Object> status = new HashMap<String, Object>();
 		status.put("Aktif", "Aktif");
 		status.put("Nonaktif", "Nonaktif");
 		return status;
@@ -103,10 +122,12 @@ public class InvestorC implements Serializable{
 
 	public void create() {
 		InvestorDao dao = new InvestorDao();
+		getInvestor().setInvestorId(getAutoInvestorId());
 		getInvestor().setInvestorPass(getInvestor().getInvestorPhone());
 		getInvestor().setInvestorLastPass(getInvestor().getInvestorPhone());
 		getInvestor().setInvestorRegistration(new Date());
 		getInvestor().setInvestorStatus(false);
+		getInvestor().setInvestorShow(false);
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = dao.create(getInvestor());
 		System.out.println(msg);
@@ -129,6 +150,16 @@ public class InvestorC implements Serializable{
 			return new ArrayList<InvestorC>();
 		}
 	}
+	
+	public List<Investor> getReadLastId() {
+		try {
+			InvestorDao dao = new InvestorDao();
+			List<Investor> investor= dao.getReadLastId(); 
+			return investor;
+		} catch (NullPointerException e) {
+			return new ArrayList<Investor>();
+		}
+	}
 
 	public List<Investment> getReadOneToMany() {
 		try {
@@ -146,6 +177,8 @@ public class InvestorC implements Serializable{
 		} else {
 			getInvestor().setInvestorStatus(false);
 		}
+		getInvestor().setInvestorLastPass(getInvestor().getInvestorPass());
+		getInvestor().setInvestorPass(getInvestor().getInvestorPhone());
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = dao.update(getInvestor());
 		System.out.println(msg);
@@ -156,9 +189,10 @@ public class InvestorC implements Serializable{
 	public void delete() {
 		InvestorDao dao = new InvestorDao();
 		FacesContext context = FacesContext.getCurrentInstance();
+		getInvestor().setInvestorShow(true);
 		String msg = dao.delete(getInvestor());
 		System.out.println(msg);
-		context.addMessage(null, new FacesMessage(msg));
+		context.addMessage(null, new FacesMessage("Delete Succesfully"));
 		clear();
 	}
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.tpapelita.pojo.Administrator" table="administrator" catalog="master_tpapelita">
-        <id name="adminId" type="java.lang.Integer">
+        <id name="adminId" type="int">
             <column name="admin_id" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <property name="adminName" type="string">
             <column name="admin_name" length="45" />
@@ -20,8 +20,8 @@
         <property name="adminGen" type="java.lang.Boolean">
             <column name="admin_gen" />
         </property>
-        <property name="adminJob" type="string">
-            <column name="admin_job" length="20" />
+        <property name="adminJob" type="java.lang.Boolean">
+            <column name="admin_job" />
         </property>
         <property name="adminPass" type="string">
             <column name="admin_pass" length="65535" />
@@ -29,20 +29,29 @@
         <property name="adminLastPass" type="string">
             <column name="admin_last_pass" length="65535" />
         </property>
-        <property name="status" type="java.lang.Boolean">
-            <column name="status" />
+        <property name="adminStatus" type="java.lang.Boolean">
+            <column name="admin_status" />
         </property>
+        <property name="adminShow" type="java.lang.Boolean">
+            <column name="admin_show" />
+        </property>
+        <set name="investments" table="investment" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_id" />
+            </key>
+            <one-to-many class="org.tpapelita.pojo.Investment" />
+        </set>
         <set name="events" table="event" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="admin_id" unique="true" />
             </key>
             <one-to-many class="org.tpapelita.pojo.Event" />
         </set>
-        <set name="investments" table="investment" inverse="true" lazy="true" fetch="select">
+        <set name="outcomes" table="outcome" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="admin_id" />
             </key>
-            <one-to-many class="org.tpapelita.pojo.Investment" />
+            <one-to-many class="org.tpapelita.pojo.Outcome" />
         </set>
     </class>
 </hibernate-mapping>

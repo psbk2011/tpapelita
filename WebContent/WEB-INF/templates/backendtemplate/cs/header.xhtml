@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+</h:head>
+<h:body>
+	<h:form>
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+				<p:button outcome="/index" value="Root" icon="ui-icon-gear"/>
+				<p:button outcome="/cs/index" value="Home" icon="ui-icon-home"/>
+				<p:menuButton value="Menu">
+					<p:menuitem value="Investor" url="/jakatingkir/menu/investor.jsf" />
+					<p:menuitem value="Investment" url="/jakatingkir/menu/investment.jsf" />
+					<p:menuitem value="Support Center" url="/jakatingkir/menu/supportcenter.jsf" />
+				</p:menuButton>
+			</p:toolbarGroup>
+			<p:toolbarGroup align="right">
+				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink"/>
+			</p:toolbarGroup>
+		</p:toolbar>
+	</h:form>
+</h:body>
+</html>

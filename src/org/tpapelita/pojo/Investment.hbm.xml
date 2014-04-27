@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 19, 2014 10:17:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.tpapelita.pojo.Investment" table="investment" catalog="master_tpapelita">
-        <id name="invesId" type="java.lang.Integer">
+        <id name="invesId" type="int">
             <column name="inves_id" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select">
             <column name="admin_id" />
@@ -17,11 +17,11 @@
         <property name="invesDate" type="timestamp">
             <column name="inves_date" length="19" />
         </property>
-        <property name="invesTransType" type="java.lang.Boolean">
-            <column name="inves_trans_type" />
-        </property>
-        <property name="invesType" type="java.lang.Short">
+        <property name="invesType" type="java.lang.Integer">
             <column name="inves_type" />
+        </property>
+        <property name="invesStatus" type="java.lang.Integer">
+            <column name="inves_status" />
         </property>
         <property name="invesTransfer" type="java.lang.Integer">
             <column name="inves_transfer" />
@@ -35,11 +35,5 @@
         <property name="invesAccountNo" type="string">
             <column name="inves_account_no" length="18" />
         </property>
-        <set name="investmentDetailses" table="investment_details" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="inves_id" />
-            </key>
-            <one-to-many class="org.tpapelita.pojo.InvestmentDetails" />
-        </set>
     </class>
 </hibernate-mapping>

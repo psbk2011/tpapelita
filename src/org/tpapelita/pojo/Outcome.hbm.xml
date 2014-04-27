@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.Outcome" table="outcome" catalog="master_tpapelita">
+        <id name="outcomeId" type="int">
+            <column name="outcome_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select">
+            <column name="admin_id" />
+        </many-to-one>
+        <property name="outcomeDate" type="timestamp">
+            <column name="outcome_date" length="19" />
+        </property>
+        <set name="outcomeDetailses" table="outcome_details" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="outcome_id" />
+            </key>
+            <one-to-many class="org.tpapelita.pojo.OutcomeDetails" />
+        </set>
+    </class>
+</hibernate-mapping>

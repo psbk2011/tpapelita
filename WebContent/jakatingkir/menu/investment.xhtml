@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ui:composition
+		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		<ui:define name="content">
+			<p:panel>
+				<!-- Body of Content -->
+				<p:panel header="Income" toggleable="true" toggleSpeed="500"
+					widgetVar="panel1">
+					<h:form id="form1">
+						<p:toolbar>
+							<p:toolbarGroup>
+								<p:commandButton type="button" value="Add Investment"
+									update=":form9:displayAdd" onclick="addInvestment.show()" />
+							</p:toolbarGroup>
+						</p:toolbar>
+					</h:form>
+					<!-- Table Income -->
+
+					<p:panel>
+						<h:form id="form2">
+							<p:dataTable id="tableInvestment" var="list"
+								value="#{investmentC.read}" paginator="true" rows="10"
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+								emptyMessage="No record for investment"
+								filteredValue="#{investmentC.list}">
+								<f:facet name="header">Investment(Rp)</f:facet>
+								<p:column id="idColumn" headerText="ID" width="80"
+									filterMatchMode="contains" filterBy="#{list.invesIdModif}">
+									<h:outputText value="#{list.invesIdModif}" />
+								</p:column>
+								<p:column id="dateColumn" headerText="Date"
+									filterMatchMode="contains" filterBy="#{list.invesDateModif}">
+									<h:outputText value="#{list.invesDateModif}" />
+								</p:column>
+								<p:column id="senderColumn" headerText="Sender"
+									filterMatchMode="contains"
+									filterBy="#{list.inves.invesSenderName}">
+									<h:outputText value="#{list.inves.invesSenderName}" />
+								</p:column>
+								<p:column id="bankNameColumn" headerText="Bank Name"
+									filterMatchMode="contains"
+									filterBy="#{list.inves.invesBankName}">
+									<h:outputText value="#{list.inves.invesBankName}" />
+								</p:column>
+								<p:column id="accountNoColumn" headerText="Account No"
+									filterMatchMode="contains"
+									filterBy="#{list.inves.invesAccountNo}">
+									<h:outputText value="#{list.inves.invesAccountNo}" />
+								</p:column>
+								<p:column id="typeInvesColumn" headerText="Type">
+									<h:outputText value="#{list.invesTypeModif}" />
+								</p:column>
+								<p:column id="statusColumn" headerText="Status">
+									<h:outputText value="#{list.invesStatusModif}" />
+								</p:column>
+								<p:column id="transferColumn" headerText="Tranfer">
+									<h:outputText value="#{list.inves.invesTransfer}" />
+								</p:column>
+								<p:column id="actionColumn" headerText="Action" width="80">
+									<p:commandButton id="editBtn" update=":form10:displayEdit"
+										onclick="editInvestment.show()" icon="ui-icon-pencil"
+										title="Edit">
+										<f:setPropertyActionListener value="#{list.inves}"
+											target="#{investmentC.inves}" />
+									</p:commandButton>
+									<p:commandButton id="deleteBtn" icon="ui-icon-trash"
+										update=":form11:displayDelete" title="Delete"
+										onclick="deleteInvestment.show()">
+										<f:setPropertyActionListener value="#{list.inves}"
+											target="#{investmentC.inves}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:panel>
+					<!-- End of Table Investment -->
+				</p:panel>
+				<p:panel header="Outcome" toggleable="true" toggleSpeed="500"
+					widgetVar="panelOutCome">
+					<h:panelGrid columns="3">
+						<h:form id="form5">
+							<p:toolbar>
+								<p:toolbarGroup>
+									<p:commandButton type="button" value="Add Outcome"
+										action="#{investmentC.create}">
+										<f:setPropertyActionListener value="1"
+											target="#{investmentC.transType}" />
+									</p:commandButton>
+								</p:toolbarGroup>
+							</p:toolbar>
+						</h:form>
+						<br />
+						<h:form id="form6">
+							<p:toolbar>
+								<p:toolbarGroup>
+									<p:commandButton type="button" value="Add Inves Details"
+										onclick="addInvesDetails.show();" />
+								</p:toolbarGroup>
+							</p:toolbar>
+						</h:form>
+						<h:form id="form7">
+							<p:panel>
+								<!-- Table Outcome -->
+								<p:dataTable id="tableOutcome" var="list"
+									value="#{investmentC.read}" paginator="true" rows="10"
+									paginatorPosition="bottom"
+									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+									emptyMessage="No record for investment"
+									filteredValue="#{investmentC.list}">
+									<f:facet name="header">Outcome(Rp)</f:facet>
+									<p:column id="idColumn" headerText="ID" width="120"
+										filterBy="#{list.invesIdModif}" filterMatchMode="contains">
+										<h:outputText value="#{list.invesIdModif}" />
+									</p:column>
+									<p:column id="dateColumn" headerText="Date"
+										filterMatchMode="contains" filterBy="#{list.invesDateModif}">
+										<h:outputText value="#{list.invesDateModif}" />
+									</p:column>
+									<p:column id="responsibilityColumn" headerText="Responsibility">
+										<h:outputText value="#{list.invesResponsibility}" />
+									</p:column>
+									<p:column id="subTotalColumn" headerText="Sub Total">
+										<h:outputText value="#{list.totalInvesDetails}" />
+									</p:column>
+									<p:column id="detailsColumn" headerText="Details">
+										<p:commandButton id="viewBtn" icon="ui-icon-search"
+											title="View">
+											<f:setPropertyActionListener value="#{list.inves}"
+												target="#{investmentC.inves}" />
+										</p:commandButton>
+										<p:commandButton id="deleteBtn" icon="ui-icon-trash"
+											title="View" action="#{investmentC.delete}">
+											<f:setPropertyActionListener value="#{list.inves}"
+												target="#{investmentC.inves}" />
+										</p:commandButton>
+									</p:column>
+								</p:dataTable>
+								<!-- End of Table Outcome -->
+							</p:panel>
+						</h:form>
+						<br />
+						<h:form id="form8">
+							<p:panel id="panel2">
+								<p:dataTable id="tableInvesDetails" var="list"
+									value="#{investmentC.read}" rowIndexVar="rowIndex"
+									emptyMessage="No record">
+									<f:facet name="header">Details (Rp)</f:facet>
+									<p:column id="noColumn" headerText="No">
+										<h:outputText value="#{rowIndex+1}" />
+									</p:column>
+									<p:column id="unitNameColumn" headerText="Name">
+										<h:outputText value="Sepeda Motor" />
+									</p:column>
+									<p:column id="unitPriceColumn" headerText="Price">
+										<h:outputText value="13.000.000" />
+									</p:column>
+									<p:column id="unitQtyColumn" headerText="Qty">
+										<h:outputText value="2" />
+									</p:column>
+									<p:column id="unitInfoColumn" headerText="Info">
+										<h:outputText value="Untuk transportasi guru" />
+									</p:column>
+									<p:column id="subTotalColumn" headerText="Sub Total">
+										<h:outputText value="26.000.000" />
+									</p:column>
+									<p:column id="actionColumn" headerText="Action" width="80">
+										<p:commandButton id="editBtn2"
+											oncomplete="editInvestmentDetails.show()"
+											icon="ui-icon-pencil" title="Edit">
+											<f:setPropertyActionListener value="#{list.invesDetails}"
+												target="#{investmentDetailsC.invesDetails}" />
+										</p:commandButton>
+										<p:commandButton id="editButton"
+											oncomplete="deleteInvestmentDetails.show()"
+											icon="ui-icon-trash" title="Delete">
+											<f:setPropertyActionListener value="#{list.invesDetails}"
+												target="#{investmentDetailsC.invesDetails}" />
+										</p:commandButton>
+									</p:column>
+									<f:facet name="footer">
+										<h:outputText value="Total : #{invesmentC.totalInvesDetails}" />
+									</f:facet>
+								</p:dataTable>
+							</p:panel>
+						</h:form>
+					</h:panelGrid>
+				</p:panel>
+				<!-- Dialog -->
+				<h:form id="form9">
+					<ui:include src="dialog/investment/addInvesInDialog.xhtml" />
+				</h:form>
+				<h:form id="form10">
+					<ui:include src="dialog/investment/editInvesInDialog.xhtml" />
+				</h:form>
+				<h:form id="form11">
+					<ui:include src="dialog/investment/deleteDialog.xhtml" />
+				</h:form>
+				<!-- End Of Dialog -->
+				<!-- End of Body of Content -->
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<ui:composition
+		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		<ui:define name="content">
+			<p:panel>
+				<!-- Header of Content -->
+				<h:form id="form1">
+					<p:toolbar>
+						<p:toolbarGroup>
+							<p:commandButton type="button" value="Add CS" update=":form3:displayAdd"
+								onclick="addCS.show();" />
+						</p:toolbarGroup>
+					</p:toolbar>
+				</h:form>
+				<!-- End of Header of Content -->
+				<p:panel>
+					<h:form id="form2">
+						<!-- Table Administrator -->
+						<p:dataTable id="tableCustomerService" var="list"
+							value="#{administratorC.read}" widgetVar="table" paginator="true"
+							rows="10" paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							emptyMessage="No Customer Service found"
+							filteredValue="#{administratorC.list}">
+							<f:facet name="header">Customer Service</f:facet>
+							<p:column id="idColumn" headerText="ID" width="80"
+								filterBy="#{list.adminIdModif}" filterMatchMode="contains">
+								<h:outputText value="#{list.adminIdModif}" />
+							</p:column>
+							<p:column id="registrationColumn" headerText="Registration Date"
+								filterBy="#{list.adminRegistrationModif}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.adminRegistrationModif}" />
+							</p:column>
+							<p:column id="nameColumn" headerText="Name"
+								filterBy="#{list.administrator.adminName}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.admin.adminName}" />
+							</p:column>
+							<p:column id="emailColumn" headerText="Email"
+								filterBy="#{list.administrator.adminEmail}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.admin.adminEmail}" />
+							</p:column>
+							<p:column id="phoneColumn" headerText="Phone"
+								filterBy="#{list.administrator.adminPhone}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.admin.adminPhone}" />
+							</p:column>
+							<p:column id="statusColumn" headerText="Status"
+								filterBy="#{list.adminStatusModif}"
+								fifilterMatchMode="contains">
+								<h:outputText value="#{list.adminStatusModif}" />
+							</p:column>
+							<p:column id="actionColumn" headerText="Action" width="100">
+								<p:commandButton id="viewBtn" update=":form4:displayView"
+									onclick="viewadmin.show()" icon="ui-icon-search"
+									title="View">
+									<f:setPropertyActionListener value="#{list.admin}"
+										target="#{adminC.admin}" />
+								</p:commandButton>
+								<p:commandButton id="editButton" update=":form5:displayEdit"
+									onclick="editadmin.show()" icon="ui-icon-pencil"
+									title="Edit">
+									<f:setPropertyActionListener value="#{list.admin}"
+										target="#{adminC.investor}" />
+								</p:commandButton>
+								<p:commandButton id="deleteButton" update=":form6:displayDelete"
+									onclick="deleteInvestor.show()" icon="ui-icon-trash"
+									title="Delete">
+									<f:setPropertyActionListener value="#{list.investor}"
+										target="#{investorC.investor}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						<!-- End of Table Investor -->
+					</h:form>
+					<!-- Dialog -->
+					<!-- End Of Dialog -->
+				</p:panel>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

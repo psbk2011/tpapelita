@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<!-- Footer -->
+	<div class="navbar-inverse bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-3">
+					<center>
+						<div>
+							<h:outputLink class="link-style" value="#{request.contextPath}index.jsf">
+								<div class="logoTPA"></div>
+							</h:outputLink>
+							<h:outputLabel class="title-logoTPA title-logoTPA-bottom"
+								value="Keep our hand's up" />
+						</div>
+					</center>
+				</div>
+				<div class="col-sm-3">
+					<center>
+						<ul class="menu-footer">
+							<li><h:outputLink class="link-style" value="#{request.contextPath}/index.jsf#about">About</h:outputLink></li>
+							<li><h:outputLink class="link-style" value="#{request.contextPath}/index.jsf#use">How it
+									work</h:outputLink></li>
+							<li><h:outputLink class="link-style" value="#{request.contextPath}/index.jsf#news">News
+									&amp; Report</h:outputLink></li>
+							<li><h:outputLink class="link-style" value="#{request.contextPath}/index.jsf#help">Help
+									&amp; Support</h:outputLink></li>
+						</ul>
+					</center>
+				</div>
+				<div class="col-sm-3">
+					<center>
+						<ul class="menu-footer">
+							<li>Follow Us On:</li>
+							<li><h:outputLink class="link-style" value="#">Facebook</h:outputLink></li>
+							<li><h:outputLink class="link-style" value="#">Twitter</h:outputLink></li>
+						</ul>
+					</center>
+				</div>
+				<div class="col-sm-3">
+					<div class="author-style">
+						<p>
+							&copy;2014 TPA Pelita<br /> Design &amp; Develop:<br /> PSBK(2)
+							2014 UNPAS BANDUNG
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End of footer -->
+	<!-- Bootstrap core JavaScript -->
+	<h:outputScript library="default" name="js/jquery.min.js" />
+	<h:outputScript library="default" name="js/bootstrap.min.js" />
+	<h:outputScript library="default" name="js/docs.min.js" />
+	<!-- End of Bootstrap core JavaScript -->
+</h:body>
+</html>

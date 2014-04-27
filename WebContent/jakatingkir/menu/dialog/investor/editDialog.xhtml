@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<!-- Edit Dialog -->
+	<h:form id="form5">
+		<p:dialog header="Edit Investor" widgetVar="editInvestor" modal="true"
+			resizable="false" id="dlg2">
+			<p:growl id="msg2" />
+			<p:panel>
+				<p:panelGrid id="displayEdit" columns="2">
+					<p:outputLabel for="investorId" value="Investor ID:" />
+					<p:outputLabel id="investorId" value="#{investorC.investorIdModif}" />
+
+					<p:outputLabel for="investorRegistration" value="Registration :" />
+					<p:outputLabel id="investorRegistration"
+						value="#{investorC.investorRegistrationModif}" />
+
+					<p:outputLabel for="investorName" value="Name :"/>
+					<p:inputText id="investorName"
+						value="#{investorC.investor.investorName}" maxlength="45"/>
+
+					<p:outputLabel for="investorEmail" value="Email :" />
+					<p:inputText id="investorEmail"
+						value="#{investorC.investor.investorEmail}" />
+
+					<p:outputLabel for="investorPhone" value="Phone :" />
+					<p:inputText id="investorPhone"
+						value="#{investorC.investor.investorPhone}" maxlength="14"/>
+						
+					<p:outputLabel for="investorStatus" value="Status :" />
+					<p:selectOneMenu id="investorStatus"
+						value="#{investorC.investor.investorStatus}">
+						<f:selectItem itemLabel="Select Status" itemValue="" />
+						<f:selectItem itemLabel="Aktif" itemValue="false" />
+						<f:selectItem itemLabel="Nonaktif" itemValue="true" />	
+					</p:selectOneMenu>
+					
+					<f:facet name="footer">
+						<p:commandButton id="btn2" value="Update"
+							update="displayEdit msg2 :form2:tableInvestor"
+							actionListener="#{investorC.update}" oncomplete="editInvestor.hide();">
+							<f:ajax execute="@all"/>
+						</p:commandButton>
+					</f:facet>
+				</p:panelGrid>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+	<!-- End of Edit Dialog -->
+</h:body>
+</html>

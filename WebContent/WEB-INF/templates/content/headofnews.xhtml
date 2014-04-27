@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<body>
+		<!-- Head of News Content -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 well">
+				<h3>News &amp; Support</h3>
+				<hr />
+				<div class="row">
+					<div class="col-lg-6">
+						<ul class="nav navbar-nav navbar-left menu-news">
+							<li><h:outputLink value="#{request.contextPath}/content/news.jsf">News</h:outputLink></li>
+							<li><h:outputLink value="#{request.contextPath}/content/report.jsf">Report</h:outputLink></li>
+						</ul>
+					</div>
+					<div class="col-lg-6">
+						<h:form>
+							<div class="input-group">
+								<h:inputText type="text" class="form-control" />
+								<span class="input-group-btn"> <h:button
+										class="btn btn-primary" type="button" value="Search" />
+								</span>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of head of news content -->
+</body>
+</html>

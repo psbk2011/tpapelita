@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<!-- Delete Dialog Investment -->
+		<p:dialog header="Confirmation" widgetVar="deleteInvestment"
+			modal="true" resizable="false" id="dlg4">
+			<p:growl id="msgs3" />
+			<p:panel id="displayDelete">
+				<p:panel>
+					<p:outputLabel value="Are you sure to delete this investment?" />
+					<br />
+				</p:panel>
+				<p:panel>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Inves ID :" />
+						<h:outputText value="#{investmentC.invesIdModif}" />
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+			<f:facet name="footer">
+				<p:commandButton value="Yes" icon="ui-icon-check"
+					update="displayDelete :form9:displayAdd :form2:tableInvestment msgs3" onclick="deleteInvestment.hide();" action="#{investmentC.delete}"/>
+				<p:commandButton value="No" update="displayDelete"
+					icon="ui-icon-close" onclick="deleteInvestment.hide();" />
+			</f:facet>
+		</p:dialog>
+	<!-- End of Delete Dialog of Investor -->
+</h:body>
+</html>

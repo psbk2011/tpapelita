@@ -9,24 +9,24 @@ import javax.faces.bean.SessionScoped;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.tpapelita.pojo.InvestmentDetails;
+import org.tpapelita.pojo.OutcomeDetails;
 import org.tpapelita.util.HibernateUtil;
 
 @ManagedBean
 @SessionScoped
-public class InvestmentDetailsDao implements Serializable {
+public class OutcomeDetailsDao implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public String create(InvestmentDetails invesDetails) {
+	public String create(OutcomeDetails outDetails) {
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			session.save(invesDetails);
+			session.save(outDetails);
 			session.getTransaction().commit();
 			return "Save Succesfully";
 		} catch (RuntimeException e) {
@@ -42,15 +42,15 @@ public class InvestmentDetailsDao implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<InvestmentDetails> getRead() {
-		List<InvestmentDetails> invesDetails = new ArrayList<InvestmentDetails>();
+	public List<OutcomeDetails> getRead() {
+		List<OutcomeDetails> invesDetails = new ArrayList<OutcomeDetails>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			invesDetails = session.createQuery("from InvestmentDetails").list();
+			invesDetails = session.createQuery("from OutcomeDetails").list();
 			return invesDetails;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			return new ArrayList<InvestmentDetails>();
+			return new ArrayList<OutcomeDetails>();
 		} finally {
 			session.flush();
 			session.close();
@@ -58,8 +58,8 @@ public class InvestmentDetailsDao implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<InvestmentDetails> getReadManyToOne(int investmentId) {
-		List<InvestmentDetails> invesDetails = new ArrayList<InvestmentDetails>();
+	public List<OutcomeDetails> getReadManyToOne(int investmentId) {
+		List<OutcomeDetails> invesDetails = new ArrayList<OutcomeDetails>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			invesDetails = session.createQuery(
@@ -67,14 +67,14 @@ public class InvestmentDetailsDao implements Serializable {
 			return invesDetails;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			return new ArrayList<InvestmentDetails>();
+			return new ArrayList<OutcomeDetails>();
 		} finally {
 			session.flush();
 			session.close();
 		}
 	}
 
-	public String update(InvestmentDetails invesDetails) {
+	public String update(OutcomeDetails invesDetails) {
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
@@ -94,7 +94,7 @@ public class InvestmentDetailsDao implements Serializable {
 		}
 	}
 
-	public String delete(InvestmentDetails invesDetails) {
+	public String delete(OutcomeDetails invesDetails) {
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {

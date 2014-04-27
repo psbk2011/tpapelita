@@ -40,12 +40,13 @@ public class InvestmentDao implements Serializable {
 			session.close();
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Investment> getRead() {
 		List<Investment> investment = new ArrayList<Investment>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			investment = session.createQuery("from Investment").list();
+			investment = session.createQuery("from Investment order by invesId Desc").list();
 			return investment;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -55,24 +56,22 @@ public class InvestmentDao implements Serializable {
 			session.close();
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
-	public List<Investment> getReadBy(int value) {
-		List<Investment> investment = new ArrayList<Investment>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			switch (value) {
-			case 1: investment = session.createQuery("from Investment where invesTransType = 0").list();break;
-			case 2: investment = session.createQuery("from Investment where invesTransType = 1").list();break;
-			}
-			return investment;
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			return new ArrayList<Investment>();
-		} finally {
-			session.flush();
-			session.close();
-		}
-	}
+	public List<Investment> getReadLastId() {
+        List<Investment> inves = new ArrayList<Investment>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            inves = session.createQuery("from Investment order by invesId DESC").list();
+            return inves;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return new ArrayList<Investment>();
+        } finally {
+            session.flush();
+            session.close();
+        }
+    }
 
 	@SuppressWarnings("unchecked")
 	public List<Investment> getReadManyToOne(int investorId) {

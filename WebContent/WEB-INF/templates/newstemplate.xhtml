@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>TPA Pelita</title>
+	<h:outputStylesheet library="default" name="css/bootstrap.min.css"></h:outputStylesheet>
+	<h:outputStylesheet library="default" name="css/style.css"></h:outputStylesheet>
+</h:head>
+
+<body>
+
+		<ui:insert name="header">
+			<ui:include src="/WEB-INF/templates/content/header.xhtml" />
+		</ui:insert>
+		<!-- Content -->
+		<div class="container container-content">
+			<ui:insert name="headofnews">
+				<ui:include src="/WEB-INF/templates/content/headofnews.xhtml"/>
+			</ui:insert>
+			<ui:insert name="content">
+			</ui:insert>
+		</div>
+		<!-- End of content -->
+
+		<ui:insert name="footer">
+			<ui:include src="/WEB-INF/templates/content/footer.xhtml" />
+		</ui:insert>
+</body>
+
+</html>

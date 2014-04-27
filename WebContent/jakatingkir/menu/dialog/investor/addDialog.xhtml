@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<!-- Add Dialog -->
+	<h:form id="form3">
+		<p:dialog header="Add Investor" widgetVar="addInvestor" modal="true"
+			resizable="false" id="dlg1">
+			<p:growl id="msg1" />
+			<p:panel>
+				<h:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
+					<p:outputLabel for="investorId" value="Id Investor :" />
+					<h:outputText id="investorId" value="#{investorC.genInvestorId}" />
+
+					<p:outputLabel for="investorName" value="Name :" />
+					<p:inputText id="investorName"
+						value="#{investorC.investor.investorName}" />
+
+					<p:outputLabel for="investorEmail" value="Email :" />
+					<p:inputText id="investorEmail"
+						value="#{investorC.investor.investorEmail}" />
+
+					<p:outputLabel for="investorPhone" value="Phone number :" title="This phone number will be password" />
+					<p:inputText id="investorPhone"
+						value="#{investorC.investor.investorPhone}" />
+					
+					<f:facet name="footer">
+						<p:commandButton id="btn1" value="Save"
+							update="displayAdd msg1 :form2:tableInvestor"
+							action="#{investorC.create}" oncomplete="addInvestor.hide();" />
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+	<!-- End of Add Dialog -->
+</h:body>
+</html>

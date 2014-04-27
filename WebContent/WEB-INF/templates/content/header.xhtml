@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+<h:body>
+	<!-- Header -->
+	<div id="header" class="navbar-inverse top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar" /> <span class="icon-bar" /> <span
+						class="icon-bar" /> <span class="icon-bar" /> <span
+						class="icon-bar" />
+				</button>
+				<h:outputLink class="link-style" value="#{request.contextPath}/index.jsf">
+					<div class="logoTPA"></div>
+				</h:outputLink>
+				<h:outputLabel class="title-logoTPA" value="Keep our hand's up" />
+			</div>
+
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><h:outputLink value="#{request.contextPath}/index.jsf#about">About</h:outputLink></li>
+					<li><h:outputLink value="#{request.contextPath}/index.jsf#use">How it work</h:outputLink></li>
+					<li><h:outputLink value="#{request.contextPath}/investor/login.jsf">Login</h:outputLink></li>
+					<li><h:outputLink value="#{request.contextPath}/index.jsf#news">News &amp; Report</h:outputLink></li>
+					<li><h:outputLink value="#{request.contextPath}/index.jsf#help">Help &amp; Support</h:outputLink></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Background header -->
+	<div>
+		<div class="background-header"></div>
+	</div>
+	<!-- End of background header -->
+	<!-- End of header -->
+</h:body>
+</html>

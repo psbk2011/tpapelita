@@ -5,6 +5,8 @@
   <table-filter match-catalog="master_tpapelita" match-name="administrator"/>
   <table-filter match-catalog="master_tpapelita" match-name="event"/>
   <table-filter match-catalog="master_tpapelita" match-name="investment"/>
-  <table-filter match-catalog="master_tpapelita" match-name="investment_details"/>
   <table-filter match-catalog="master_tpapelita" match-name="investor"/>
+  <table-filter match-catalog="master_tpapelita" match-name="outcome"/>
+  <table-filter match-catalog="master_tpapelita" match-name="outcome_details"/>
+  <table-filter match-catalog="master_tpapelita" match-name="report_publish"/>
 </hibernate-reverse-engineering>

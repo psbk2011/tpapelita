@@ -47,7 +47,23 @@ public class InvestorDao implements Serializable {
         List<Investor> investors = new ArrayList<Investor>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            investors = session.createQuery("from Investor order by investorStatus , investorId DESC").list();
+            investors = session.createQuery("from Investor where investorShow = 0 order by investorStatus , investorId DESC").list();
+            return investors;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return new ArrayList<Investor>();
+        } finally {
+            session.flush();
+            session.close();
+        }
+    }
+	
+	@SuppressWarnings("unchecked")
+	public List<Investor> getReadLastId() {
+        List<Investor> investors = new ArrayList<Investor>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            investors = session.createQuery("from Investor order by investorId DESC").list();
             return investors;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -75,18 +91,14 @@ public class InvestorDao implements Serializable {
     }
 	
     public String update(Investor investor) {
-    	System.out.println("Masuk dao.update");
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("Berhasil initialization session");
         try {
-        	System.out.println("Masuk try case");
             trns = session.beginTransaction();
             session.update(investor);
             session.getTransaction().commit();
             return "Update Successfully";
         } catch (RuntimeException e) {
-        	System.out.println("Masuk cath");
             if (trns != null) {
                 trns.rollback();
             }

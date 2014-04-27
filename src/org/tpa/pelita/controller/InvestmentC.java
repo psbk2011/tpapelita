@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -16,8 +15,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.tpapelita.dao.InvestmentDao;
+import org.tpapelita.pojo.Administrator;
 import org.tpapelita.pojo.Investment;
-import org.tpapelita.pojo.Investor;
 
 @ManagedBean
 @SessionScoped
@@ -32,12 +31,56 @@ public class InvestmentC implements Serializable {
 	private Investment inves;
 	private List<InvestmentC> list;
 	private int transType;
+	private int totalInvesDetails;
+	private String invesResponsibility;
+	private int autoInvestmentId;
+	private String investorId;
 
 	/*
 	 * Support Method
 	 */
 	public InvestmentC() {
 		this.inves = new Investment();
+	}
+	
+	public Investment getInves() {
+		return inves;
+	}
+
+	public void setInves(Investment inves) {
+		this.inves = inves;
+	}
+	
+	public String getInvestorId() {
+		return investorId;
+	}
+
+	public void setInvestorId(String investorId) {
+		this.investorId = investorId;
+	}
+
+	public int getAutoInvestmentId() {
+		return autoInvestmentId;
+	}
+
+	public void setAutoInvestmentId(int autoInvestmentId) {
+		this.autoInvestmentId = autoInvestmentId;
+	}
+
+	public String getInvesResponsibility() {
+		return invesResponsibility;
+	}
+	
+	public void setInvesResponsibility(String invesResponsibility) {
+		this.invesResponsibility = invesResponsibility;
+	}
+
+	public int getTotalInvesDetails() {
+		return totalInvesDetails;
+	}
+
+	public void setTotalInvesDetails(int totalInvesDetails) {
+		this.totalInvesDetails = totalInvesDetails;
 	}
 
 	public String getInvesDateModif() {
@@ -65,32 +108,55 @@ public class InvestmentC implements Serializable {
 		this.list = list;
 	}
 
-	public Investment getInves() {
-		return inves;
-	}
-
-	public void setInves(Investment inves) {
-		this.inves = inves;
-	}
-
 	public String getGenInvesId() {
-		return "TR" + (getRead().size() + 1);
+		int temp = 1;
+		String uniqueChar = "INVTR";
+		String id = uniqueChar+temp;
+		setAutoInvestmentId(temp);
+		List<Investment> inves = getReadLastId(); 
+		if ( inves.size() != 0) {
+			temp = inves.get(0).getInvesId()+temp;
+			id = uniqueChar+temp;
+			setAutoInvestmentId(temp);
+		}
+		return id;
 	}
 
 	public String getInvesIdModif() {
 		try {
-			return ("TR" + getInves().getInvesId());
+			return ("INVTR" + getInves().getInvesId());
 		} catch (NullPointerException e) {
-			return "TR0";
+			return "INVTR0";
 		}
 	}
-
-	public Map<String, String> getInvesTypeOption() {
-		Map<String, String> invesType = new HashMap<String, String>();
-		invesType.put("Zakat", "Zakat");
-		invesType.put("Infak", "Infak");
-		invesType.put("Sodaqoh", "Sodaqoh");
-		return invesType;
+	
+	public String getInvesStatusModif() {
+		try {
+			String status = "";
+			if (getInves().getInvesStatus()==1) {
+				status = "Recieved";
+			} else if(getInves().getInvesStatus()==2) {
+				status = "Not Valid";
+			} else {
+				status = "Pending";
+			}
+			return status;
+		} catch (Exception e) {
+			return "Pending";
+		}
+		
+	}
+	
+	public String getInvesTypeModif() {
+		String type = "";
+		if (getInves().getInvesType()==1) {
+			type = "Zakat";
+		} else if(getInves().getInvesType()==2) {
+			type = "Infaq";
+		} else {
+			type = "Sodaqoh";
+		}
+		return type;
 	}
 
 	public void clear() {
@@ -104,18 +170,13 @@ public class InvestmentC implements Serializable {
 		InvestmentDao dao = new InvestmentDao();
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = "";
-		if (getTransType() == 0) {
-			getInves().setInvesDate(new Date());
-			Investor investor = new Investor();
-			investor.setInvestorId(1);
-			getInves().setInvestor(investor);
-			getInves().setInvesTransType(false);
-			msg = dao.create(getInves());
-		} else {
-			getInves().setInvesDate(new Date());
-			getInves().setInvesTransType(true);
-			msg = dao.create(getInves());
-		}
+		getInves().setInvesId(getAutoInvestmentId());
+		getInves().setInvesDate(new Date());
+		getInves().setInvesStatus(3);
+		Administrator admin = new Administrator();
+		admin.setAdminId(1);
+		getInves().setAdministrator(admin);
+		msg = dao.create(getInves());
 		System.out.println(msg);
 		clear();
 		context.addMessage(null, new FacesMessage(msg));
@@ -137,35 +198,13 @@ public class InvestmentC implements Serializable {
 		}
 	}
 
-	public List<InvestmentC> getReadByIncome() {
-		List<InvestmentC> list = new ArrayList<InvestmentC>();
+	public List<Investment> getReadLastId() {
 		try {
 			InvestmentDao dao = new InvestmentDao();
-			List<Investment> inves = dao.getReadBy(1);
-			for (int i = 0; i < inves.size(); i++) {
-				InvestmentC ic = new InvestmentC();
-				ic.setInves(inves.get(i));
-				list.add(ic);
-			}
-			return list;
+			List<Investment> inves= dao.getReadLastId(); 
+			return inves;
 		} catch (NullPointerException e) {
-			return new ArrayList<InvestmentC>();
-		}
-	}
-
-	public List<InvestmentC> getReadByOutCome() {
-		List<InvestmentC> list = new ArrayList<InvestmentC>();
-		try {
-			InvestmentDao dao = new InvestmentDao();
-			List<Investment> inves = dao.getReadBy(2);
-			for (int i = 0; i < inves.size(); i++) {
-				InvestmentC ic = new InvestmentC();
-				ic.setInves(inves.get(i));
-				list.add(ic);
-			}
-			return list;
-		} catch (NullPointerException e) {
-			return new ArrayList<InvestmentC>();
+			return new ArrayList<Investment>();
 		}
 	}
 

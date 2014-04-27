@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/templates/newstemplate.xhtml">
+	<ui:define name="content">
+		<!-- Body of News content -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 well">
+				<h3>News</h3>
+				<hr />
+				<h:outputText value="#{newsController.news}" escape="false"/>
+				<div class="col-md-offset-8 col-md-4">
+					<ul class="pagination pagination-sm navbar-right">
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- End of body news content -->
+	</ui:define>
+</ui:composition>
+</html>
