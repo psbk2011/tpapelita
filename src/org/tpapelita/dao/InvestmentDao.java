@@ -50,7 +50,7 @@ public class InvestmentDao implements Serializable {
 			return investment;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
-			return investment;
+			return new ArrayList<Investment>();
 		} finally {
 			session.flush();
 			session.close();

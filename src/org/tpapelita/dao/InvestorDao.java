@@ -47,7 +47,7 @@ public class InvestorDao implements Serializable {
         List<Investor> investors = new ArrayList<Investor>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            investors = session.createQuery("from Investor where investorShow = 0 order by investorStatus , investorId DESC").list();
+            investors = session.createQuery("from Investor order by investorStatus , investorId DESC").list();
             return investors;
         } catch (RuntimeException e) {
             e.printStackTrace();

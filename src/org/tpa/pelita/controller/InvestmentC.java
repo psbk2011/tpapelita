@@ -8,10 +8,8 @@ import java.util.List;
 
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.tpapelita.dao.InvestmentDao;
@@ -20,8 +18,6 @@ import org.tpapelita.pojo.Investment;
 
 @ManagedBean
 @SessionScoped
-@ViewScoped
-@ApplicationScoped
 public class InvestmentC implements Serializable {
 
 	/**
@@ -30,7 +26,6 @@ public class InvestmentC implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Investment inves;
 	private List<InvestmentC> list;
-	private int transType;
 	private int totalInvesDetails;
 	private String invesResponsibility;
 	private int autoInvestmentId;
@@ -90,14 +85,6 @@ public class InvestmentC implements Serializable {
 		} catch (NullPointerException e) {
 			return "0000-00-00";
 		}
-	}
-
-	public int getTransType() {
-		return transType;
-	}
-
-	public void setTransType(int transType) {
-		this.transType = transType;
 	}
 
 	public List<InvestmentC> getList() {
@@ -174,7 +161,7 @@ public class InvestmentC implements Serializable {
 		getInves().setInvesDate(new Date());
 		getInves().setInvesStatus(3);
 		Administrator admin = new Administrator();
-		admin.setAdminId(1);
+		admin.setAdminId(0);
 		getInves().setAdministrator(admin);
 		msg = dao.create(getInves());
 		System.out.println(msg);

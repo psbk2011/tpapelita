@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<!-- Add Dialog -->
+	<p:dialog header="Add Customer Service" widgetVar="addCS" modal="true"
+		resizable="false" id="dlg1">
+		<p:panel>
+			<h:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
+				<p:outputLabel for="adminId" value="CS ID:" />
+				<h:outputText id="adminId" value="#{administratorC.genAdminId}" />
+
+				<p:outputLabel for="adminName" value="Name :" />
+				<p:inputText id="adminName"
+					value="#{administratorC.admin.adminName}" />
+
+				<p:outputLabel for="adminEmail" value="Email :" />
+				<p:inputText id="adminEmail"
+					value="#{administratorC.admin.adminEmail}" />
+
+				<p:outputLabel for="adminPhone" value="Phone number :"
+					title="This phone number will be password" />
+				<p:inputText id="adminPhone"
+					value="#{administratorC.admin.adminPhone}" />
+
+				<f:facet name="footer">
+					<p:commandButton id="btn1" value="Save"
+						update="displayAdd :form0:msg :form2:tableCustomerService"
+						action="#{administratorC.create}" oncomplete="addCS.hide();" />
+				</f:facet>
+			</h:panelGrid>
+		</p:panel>
+	</p:dialog>
+	<!-- End of Add Dialog -->
+</h:body>
+</html>

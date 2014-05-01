@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1
+// Generated Apr 29, 2014 11:13:23 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,7 +29,6 @@ public class Investor implements java.io.Serializable {
 	private Date investorRegistration;
 	private String investorPass;
 	private String investorLastPass;
-	private Boolean investorShow;
 	private Set<Investment> investments = new HashSet<Investment>(0);
 
 	public Investor() {
@@ -42,8 +41,7 @@ public class Investor implements java.io.Serializable {
 	public Investor(int investorId, String investorName, String investorEmail,
 			String investorPhone, Boolean investorStatus,
 			Date investorRegistration, String investorPass,
-			String investorLastPass, Boolean investorShow,
-			Set<Investment> investments) {
+			String investorLastPass, Set<Investment> investments) {
 		this.investorId = investorId;
 		this.investorName = investorName;
 		this.investorEmail = investorEmail;
@@ -52,7 +50,6 @@ public class Investor implements java.io.Serializable {
 		this.investorRegistration = investorRegistration;
 		this.investorPass = investorPass;
 		this.investorLastPass = investorLastPass;
-		this.investorShow = investorShow;
 		this.investments = investments;
 	}
 
@@ -128,15 +125,6 @@ public class Investor implements java.io.Serializable {
 
 	public void setInvestorLastPass(String investorLastPass) {
 		this.investorLastPass = investorLastPass;
-	}
-
-	@Column(name = "investor_show")
-	public Boolean getInvestorShow() {
-		return this.investorShow;
-	}
-
-	public void setInvestorShow(Boolean investorShow) {
-		this.investorShow = investorShow;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "investor")

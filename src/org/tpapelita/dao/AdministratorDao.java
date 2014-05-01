@@ -46,7 +46,23 @@ public class AdministratorDao implements Serializable {
 		List<Administrator> admin = new ArrayList<Administrator>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			admin = session.createQuery("from Administrator").list();
+			admin = session.createQuery("from Administrator where adminJob = 1 order by adminStatus, adminId DESC").list();
+			return admin;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new ArrayList<Administrator>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Administrator> getReadLastId() {
+		List<Administrator> admin = new ArrayList<Administrator>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			admin = session.createQuery("from Administrator order by adminId DESC").list();
 			return admin;
 		} catch (RuntimeException e) {
 			e.printStackTrace();

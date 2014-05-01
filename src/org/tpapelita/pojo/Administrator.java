@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1
+// Generated Apr 29, 2014 11:13:23 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,12 +22,10 @@ public class Administrator implements java.io.Serializable {
 	private String adminName;
 	private String adminEmail;
 	private String adminPhone;
-	private Boolean adminGen;
 	private Boolean adminJob;
 	private String adminPass;
 	private String adminLastPass;
 	private Boolean adminStatus;
-	private Boolean adminShow;
 	private Set<Investment> investments = new HashSet<Investment>(0);
 	private Set<Event> events = new HashSet<Event>(0);
 	private Set<Outcome> outcomes = new HashSet<Outcome>(0);
@@ -40,20 +38,18 @@ public class Administrator implements java.io.Serializable {
 	}
 
 	public Administrator(int adminId, String adminName, String adminEmail,
-			String adminPhone, Boolean adminGen, Boolean adminJob,
-			String adminPass, String adminLastPass, Boolean adminStatus,
-			Boolean adminShow, Set<Investment> investments, Set<Event> events,
+			String adminPhone, Boolean adminJob, String adminPass,
+			String adminLastPass, Boolean adminStatus,
+			Set<Investment> investments, Set<Event> events,
 			Set<Outcome> outcomes) {
 		this.adminId = adminId;
 		this.adminName = adminName;
 		this.adminEmail = adminEmail;
 		this.adminPhone = adminPhone;
-		this.adminGen = adminGen;
 		this.adminJob = adminJob;
 		this.adminPass = adminPass;
 		this.adminLastPass = adminLastPass;
 		this.adminStatus = adminStatus;
-		this.adminShow = adminShow;
 		this.investments = investments;
 		this.events = events;
 		this.outcomes = outcomes;
@@ -96,15 +92,6 @@ public class Administrator implements java.io.Serializable {
 		this.adminPhone = adminPhone;
 	}
 
-	@Column(name = "admin_gen")
-	public Boolean getAdminGen() {
-		return this.adminGen;
-	}
-
-	public void setAdminGen(Boolean adminGen) {
-		this.adminGen = adminGen;
-	}
-
 	@Column(name = "admin_job")
 	public Boolean getAdminJob() {
 		return this.adminJob;
@@ -139,15 +126,6 @@ public class Administrator implements java.io.Serializable {
 
 	public void setAdminStatus(Boolean adminStatus) {
 		this.adminStatus = adminStatus;
-	}
-
-	@Column(name = "admin_show")
-	public Boolean getAdminShow() {
-		return this.adminShow;
-	}
-
-	public void setAdminShow(Boolean adminShow) {
-		this.adminShow = adminShow;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "administrator")

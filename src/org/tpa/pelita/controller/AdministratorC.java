@@ -4,17 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-
-
-
 
 import org.tpapelita.dao.AdministratorDao;
 import org.tpapelita.pojo.Administrator;
@@ -22,8 +15,6 @@ import org.tpapelita.pojo.Administrator;
 
 @ManagedBean
 @SessionScoped
-@ViewScoped
-@ApplicationScoped
 public class AdministratorC implements Serializable{
 	
 	/**
@@ -32,7 +23,7 @@ public class AdministratorC implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Administrator admin;
 	private List<AdministratorC> list;
-	
+	private int autoAdminId;
 	
 	/*
 	 * Support Method
@@ -41,6 +32,17 @@ public class AdministratorC implements Serializable{
 		this.admin = new Administrator();
 	}
 	
+	
+	public int getAutoAdminId() {
+		return autoAdminId;
+	}
+
+
+	public void setAutoAdminId(int autoAdminId) {
+		this.autoAdminId = autoAdminId;
+	}
+
+
 	public List<AdministratorC> getList() {
 		return list;
 	}
@@ -61,13 +63,56 @@ public class AdministratorC implements Serializable{
 		setAdmin(new Administrator());
 		
 	}
-
+	
+	public String getAdminStatusModif() {
+		String status = "Aktif";
+		try {
+			if (getAdmin().getAdminStatus() == true) {
+				status = "Nonaktif";
+			}
+			return status;
+		} catch (NullPointerException e) {
+			return status;
+		}
+	}
+	
+	public String getAdminIdModif() {
+		return "CS" + getAdmin().getAdminId();
+	}
+	
+	public String getAdminJobModif(){
+		String job ="Customer Service";
+		if (getAdmin().getAdminJob()==false) {
+			job = "Super Admin";
+		}
+		return job;
+	}
+	
+	public String getGenAdminId() {
+		AdministratorDao dao = new AdministratorDao();
+		int temp = 1;
+		String uniqueChar = "CS";
+		String id = uniqueChar+temp;
+		setAutoAdminId(temp);
+		List<Administrator> admin = dao.getReadLastId(); 
+		if ( admin.size() != 0) {
+			temp = admin.get(0).getAdminId()+temp;
+			id = uniqueChar+temp;
+			setAutoAdminId(temp);
+		}
+		return id;
+	}
 	/*
 	 * CRUD Method
 	 */
 	public void create() {
 		AdministratorDao dao = new AdministratorDao();
 		FacesContext context = FacesContext.getCurrentInstance();
+		getAdmin().setAdminId(getAutoAdminId());
+		getAdmin().setAdminPass(getAdmin().getAdminPhone());
+		getAdmin().setAdminLastPass(getAdmin().getAdminPhone());
+		getAdmin().setAdminJob(true);
+		getAdmin().setAdminStatus(false);
 		String msg = dao.create(getAdmin());
 		System.out.println(msg);
 		clear();

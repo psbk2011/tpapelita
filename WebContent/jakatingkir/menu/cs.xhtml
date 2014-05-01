@@ -13,6 +13,9 @@
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
 		<ui:define name="content">
 			<p:panel>
+				<h:form id="form0">
+					<p:growl id="msg"/>
+				</h:form>
 				<!-- Header of Content -->
 				<h:form id="form1">
 					<p:toolbar>
@@ -37,23 +40,18 @@
 								filterBy="#{list.adminIdModif}" filterMatchMode="contains">
 								<h:outputText value="#{list.adminIdModif}" />
 							</p:column>
-							<p:column id="registrationColumn" headerText="Registration Date"
-								filterBy="#{list.adminRegistrationModif}"
-								filterMatchMode="contains">
-								<h:outputText value="#{list.adminRegistrationModif}" />
-							</p:column>
 							<p:column id="nameColumn" headerText="Name"
-								filterBy="#{list.administrator.adminName}"
+								filterBy="#{list.admin.adminName}"
 								filterMatchMode="contains">
 								<h:outputText value="#{list.admin.adminName}" />
 							</p:column>
 							<p:column id="emailColumn" headerText="Email"
-								filterBy="#{list.administrator.adminEmail}"
+								filterBy="#{list.admin.adminEmail}"
 								filterMatchMode="contains">
 								<h:outputText value="#{list.admin.adminEmail}" />
 							</p:column>
 							<p:column id="phoneColumn" headerText="Phone"
-								filterBy="#{list.administrator.adminPhone}"
+								filterBy="#{list.admin.adminPhone}"
 								filterMatchMode="contains">
 								<h:outputText value="#{list.admin.adminPhone}" />
 							</p:column>
@@ -63,29 +61,32 @@
 								<h:outputText value="#{list.adminStatusModif}" />
 							</p:column>
 							<p:column id="actionColumn" headerText="Action" width="100">
-								<p:commandButton id="viewBtn" update=":form4:displayView"
-									onclick="viewadmin.show()" icon="ui-icon-search"
-									title="View">
-									<f:setPropertyActionListener value="#{list.admin}"
-										target="#{adminC.admin}" />
-								</p:commandButton>
-								<p:commandButton id="editButton" update=":form5:displayEdit"
-									onclick="editadmin.show()" icon="ui-icon-pencil"
+								<p:commandButton id="editButton" update=":form4:displayEdit"
+									onclick="editCS.show()" icon="ui-icon-pencil"
 									title="Edit">
 									<f:setPropertyActionListener value="#{list.admin}"
-										target="#{adminC.investor}" />
+										target="#{administratorC.admin}" />
 								</p:commandButton>
-								<p:commandButton id="deleteButton" update=":form6:displayDelete"
-									onclick="deleteInvestor.show()" icon="ui-icon-trash"
+								<p:commandButton id="deleteButton" update=":form5:displayDelete"
+									onclick="deleteCS.show()" icon="ui-icon-trash"
 									title="Delete">
-									<f:setPropertyActionListener value="#{list.investor}"
-										target="#{investorC.investor}" />
+									<f:setPropertyActionListener value="#{list.admin}"
+										target="#{administratorC.admin}" />
 								</p:commandButton>
 							</p:column>
 						</p:dataTable>
 						<!-- End of Table Investor -->
 					</h:form>
 					<!-- Dialog -->
+						<h:form id="form3">
+							<ui:include src="dialog/cs/addDialog.xhtml" />
+						</h:form>
+						<h:form id="form4">
+							<ui:include src="dialog/cs/editDialog.xhtml" />
+						</h:form>
+						<h:form id="form5">
+							<ui:include src="dialog/cs/deleteDialog.xhtml" />
+						</h:form>
 					<!-- End Of Dialog -->
 				</p:panel>
 			</p:panel>

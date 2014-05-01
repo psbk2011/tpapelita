@@ -9,23 +9,30 @@
 
 <h:body>
 	<!-- Delete Dialog InvestmentDetails -->
-	<h:form id="form12">
-		<p:dialog header="Confirmation" widgetVar="deleteInvestmentDetails" modal="true"
-			resizable="false" id="del">
+		<p:dialog header="Confirmation" widgetVar="deleteOutcome"
+			modal="true" resizable="false" id="dlg4">
 			<p:panel id="displayDelete">
-				<p:outputLabel value="Are you sure?" /><br/>
+				<p:panel>
+					<p:outputLabel value="Are you sure to delete this outcome?" />
+					<br />
+				</p:panel>
+				<p:panel>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Outcome ID :" />
+						<h:outputText value="#{outcomeC.outcomeIdModif}" />
+					</h:panelGrid>
+				</p:panel>
 			</p:panel>
 			<f:facet name="footer">
 				<p:commandButton value="Yes"
 					icon="ui-icon-check"
-					update="displayDelete"
-					onclick="deleteInvestmentDetails.hide();" />
+					update="displayDelete :form7:tableOutcome :form12:displayAdd :form0:msgs1"
+					onclick="deleteOutcome.hide();" action="#{outcomeC.delete}"/>
 				<p:commandButton value="No"
 					update="displayDelete"
-					icon="ui-icon-close" onclick="deleteInvestmentDetails.hide();" />
+					icon="ui-icon-close" onclick="deleteOutcome.hide();" />
 			</f:facet>
 		</p:dialog>
-	</h:form>
 	<!-- End of Delete Dialog of InvestmentDetails -->
 </h:body>
 </html>

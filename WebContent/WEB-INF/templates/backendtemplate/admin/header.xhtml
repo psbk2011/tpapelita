@@ -6,9 +6,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
-</h:head>
+<h:head></h:head>
 <h:body>
 	<h:form>
 		<p:toolbar>
@@ -18,13 +16,14 @@
 					<p:menuitem value="Investor" url="/jakatingkir/menu/investor.jsf" />
 					<p:menuitem value="Investment" url="/jakatingkir/menu/investment.jsf" />
 					<p:menuitem value="Customer Service" url="/jakatingkir/menu/cs.jsf" />
-					<p:menuitem value="Support Center" url="#" />
-					<p:menuitem value="Event" url="#"/>
-					<p:menuitem value="Report" url="#"/>
+					<p:menuitem value="Support Center" url="/jakatingkir/menu/SupportCenter.jsf" />
+					<p:menuitem value="Event" url="/jakatingkir/menu/event.jsf"/>
+					<p:menuitem value="Report" url="/jakatingkir/menu/report.jsf"/> 
 				</p:menuButton>
+				<p:button outcome="/jakatingkir/menu/profile" value="Profile" icon="ui-icon-user"/>
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:commandButton type="button" value="Logout" icon="ui-icon-extlink"/>
+				<p:button type="button" value="Logout" icon="ui-icon-extlink" outcome="/jakatingkir/login"/>
 			</p:toolbarGroup>
 		</p:toolbar>
 	</h:form>

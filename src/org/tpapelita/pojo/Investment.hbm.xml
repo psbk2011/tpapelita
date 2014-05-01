@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 28, 2014 12:27:07 AM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Apr 29, 2014 11:13:23 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.tpapelita.pojo.Investment" table="investment" catalog="master_tpapelita">
         <id name="invesId" type="int">
             <column name="inves_id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select">
+        <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select" lazy="false">
             <column name="admin_id" />
         </many-to-one>
-        <many-to-one name="investor" class="org.tpapelita.pojo.Investor" fetch="select">
+        <many-to-one name="investor" class="org.tpapelita.pojo.Investor" fetch="select" lazy="false" >
             <column name="investor_id" />
         </many-to-one>
         <property name="invesDate" type="timestamp">

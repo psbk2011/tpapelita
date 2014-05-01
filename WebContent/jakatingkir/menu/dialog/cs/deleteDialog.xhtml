@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<!-- Delete Dialog Investor -->
+	<p:dialog header="Confirmation" widgetVar="deleteCS" modal="true"
+		resizable="false" id="dlg4">
+		<p:panel id="displayDelete">
+			<p:panel>
+				<p:outputLabel value="Are you sure to delete this Customer Service?" />
+				<br />
+			</p:panel>
+			<p:panel>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="CS ID :" />
+					<h:outputText value="#{administratorC.adminIdModif}" />
+					<p:outputLabel value="Name :" />
+					<h:outputText value="#{administratorC.admin.adminName}" />
+				</h:panelGrid>
+			</p:panel>
+		</p:panel>
+
+		<f:facet name="footer">
+			<p:commandButton value="Yes" icon="ui-icon-check"
+				update="displayDelete :form3:displayAdd :form2:tableCustomerService :form0:msg"
+				onclick="deleteCS.hide();" action="#{administratorC.delete}" />
+			<p:commandButton value="No" update="displayDelete"
+				icon="ui-icon-close" onclick="deleteCS.hide();" />
+		</f:facet>
+	</p:dialog>
+	<!-- End of Delete Dialog of Investor -->
+</h:body>
+</html>

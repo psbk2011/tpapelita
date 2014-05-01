@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<!-- Edit Dialog -->
+	<p:dialog header="Edit Customer Service" widgetVar="editCS" modal="true"
+		resizable="false" id="dlg2">
+		<p:panel>
+			<p:panelGrid id="displayEdit" columns="2">
+				<p:outputLabel for="adminId" value="CS ID:" />
+				<p:outputLabel id="adminId" value="#{administratorC.adminIdModif}" />
+
+				<p:outputLabel for="adminName" value="Name :" />
+				<p:inputText id="adminName"
+					value="#{administratorC.admin.adminName}" maxlength="45" />
+
+				<p:outputLabel for="adminEmail" value="Email :" />
+				<p:inputText id="adminEmail"
+					value="#{administratorC.admin.adminEmail}" />
+
+				<p:outputLabel for="adminPhone" value="Phone :" />
+				<p:inputText id="adminPhone"
+					value="#{administratorC.admin.adminPhone}" maxlength="14" />
+
+				<p:outputLabel for="adminStatus" value="Status :" />
+				<p:selectOneMenu id="adminStatus"
+					value="#{administratorC.admin.adminStatus}">
+					<f:selectItem itemLabel="Select Status" itemValue="" />
+					<f:selectItem itemLabel="Aktif" itemValue="false" />
+					<f:selectItem itemLabel="Nonaktif" itemValue="true" />
+				</p:selectOneMenu>
+
+				<f:facet name="footer">
+					<p:commandButton id="btn2" value="Update"
+						update="displayEdit :form0:msg :form2:tableCustomerService"
+						actionListener="#{administratorC.update}"
+						oncomplete="editCS.hide();">
+						<f:ajax execute="@all" />
+					</p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
+	</p:dialog>
+	<!-- End of Edit Dialog -->
+</h:body>
+</html>

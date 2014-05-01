@@ -8,13 +8,12 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
-	<!-- Edit Dialog -->
-	<p:dialog header="Edit Investment" widgetVar="editInvestment"
+	<!-- Add Dialog -->
+	<p:dialog header="Add Investment" widgetVar="addInvestment"
 		modal="true" resizable="false">
-		<p:growl id="msgs2" />
-		<p:panelGrid id="displayEdit" columns="2" style="margin-bottom:10px">
+		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
 			<p:outputLabel for="invesId" value="Inves Id :" />
-			<h:outputText id="invesId" value="#{investmentC.invesIdModif}" />
+			<h:outputText id="invesId" value="#{investmentC.genInvesId}" />
 
 			<p:outputLabel for="investorId" value="Investor ID :" />
 			<p:inputText id="investorId" value="#{investmentC.investorId}" />
@@ -49,21 +48,15 @@
 			<p:inputText id="invesTransfer"
 				value="#{investmentC.inves.invesTransfer}" />
 
-			<p:outputLabel for="invesStatus" value="Inves Status :" />
-			<p:selectOneMenu id="invesStatus"
-				value="#{investmentC.inves.invesStatus}">
-				<f:selectItem itemLabel="Recieved" itemValue="1" />
-				<f:selectItem itemLabel="Not Valid" itemValue="2" />
-				<f:selectItem itemLabel="Pending" itemValue="3" />
-			</p:selectOneMenu>
-			
 			<f:facet name="footer">
-				<p:commandButton id="btn2" value="Update"
-					update="displayEdit msgs2 :form2:tableInvestment"
-					action="#{investmentC.update}" oncomplete="editInvestment.hide();" />
+				<p:commandButton id="btn1" value="Save"
+					update="displayAdd :form2:tableInvestment :form0:msgs1"
+					action="#{investmentC.create}" oncomplete="addInvestment.hide();">
+					<f:ajax execute="@all"/>
+				</p:commandButton>
 			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
-	<!-- End of Edit Dialog -->
+	<!-- End of Add Dialog -->
 </h:body>
 </html>

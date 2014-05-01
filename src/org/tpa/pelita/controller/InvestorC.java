@@ -4,15 +4,11 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.tpapelita.dao.InvestmentDao;
@@ -22,8 +18,6 @@ import org.tpapelita.pojo.Investor;
 
 @ManagedBean
 @SessionScoped
-@ViewScoped
-@ApplicationScoped
 public class InvestorC implements Serializable{
 	
 	/**
@@ -62,7 +56,8 @@ public class InvestorC implements Serializable{
 		String uniqueChar = "INV";
 		String id = uniqueChar+temp;
 		setAutoInvestorId(temp);
-		List<Investor> investor = getReadLastId(); 
+		InvestorDao dao = new InvestorDao();
+		List<Investor> investor= dao.getReadLastId();  
 		if ( investor.size() != 0) {
 			temp = investor.get(0).getInvestorId()+temp;
 			id = uniqueChar+temp;
@@ -95,14 +90,6 @@ public class InvestorC implements Serializable{
 		return "INV" + getInvestor().getInvestorId();
 	}
 
-	public Map<String, Object> getInvestorStatusOption() {
-		Map<String, Object> status = new HashMap<String, Object>();
-		status.put("Aktif", "Aktif");
-		status.put("Nonaktif", "Nonaktif");
-		return status;
-
-	}
-
 	public void clear() {
 		setInvestor(new Investor());
 	}
@@ -127,7 +114,6 @@ public class InvestorC implements Serializable{
 		getInvestor().setInvestorLastPass(getInvestor().getInvestorPhone());
 		getInvestor().setInvestorRegistration(new Date());
 		getInvestor().setInvestorStatus(false);
-		getInvestor().setInvestorShow(false);
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = dao.create(getInvestor());
 		System.out.println(msg);
@@ -148,16 +134,6 @@ public class InvestorC implements Serializable{
 			return list;
 		} catch (NullPointerException e) {
 			return new ArrayList<InvestorC>();
-		}
-	}
-	
-	public List<Investor> getReadLastId() {
-		try {
-			InvestorDao dao = new InvestorDao();
-			List<Investor> investor= dao.getReadLastId(); 
-			return investor;
-		} catch (NullPointerException e) {
-			return new ArrayList<Investor>();
 		}
 	}
 
@@ -189,7 +165,6 @@ public class InvestorC implements Serializable{
 	public void delete() {
 		InvestorDao dao = new InvestorDao();
 		FacesContext context = FacesContext.getCurrentInstance();
-		getInvestor().setInvestorShow(true);
 		String msg = dao.delete(getInvestor());
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage("Delete Succesfully"));
