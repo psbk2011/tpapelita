@@ -7,13 +7,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+	<title>Login Investor</title>
 	<style>
 body {
 	font-size: 12px;
 }
 
 #container {
-	width: 250px;
+	width: 300px;
 	margin-top: 200px;
 }
 </style>
@@ -21,14 +22,26 @@ body {
 <h:body>
 	<center>
 		<p:panel id="container">
-			<p:panel>
-				<h:outputText value="Login Page is Under Contruction" />
-			</p:panel>
-			<p:panel>
+			<h:form>
+				<p:growl id="msg" />
+				<p:panel>
+					<h:panelGrid columns="3">
+						<p:outputLabel for="investorId" value="ID" />
+						<p:outputLabel value=":" />
+						<h:inputText id="investorId" maxlength="10" value="#{login.id}" />
 
-				<p:button value="Go To Investor Page" outcome="index.jsf" />
+						<p:outputLabel for="investorPass" value="Password" />
+						<p:outputLabel value=":" />
+						<h:inputSecret id="investorPass" maxlength="16"
+							value="#{login.pass}" />
 
-			</p:panel>
+						<f:facet name="footer">
+							<p:commandButton value="Login" action="#{login.logInvestor}"
+								update="msg" />
+						</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
 		</p:panel>
 	</center>
 </h:body>

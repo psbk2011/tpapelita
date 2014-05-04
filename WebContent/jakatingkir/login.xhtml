@@ -7,13 +7,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+	<title>Login Admin</title>
 	<style>
 body {
 	font-size: 12px;
 }
 
 #container {
-	width: 250px;
+	width: 300px;
 	margin-top: 200px;
 }
 </style>
@@ -21,14 +22,24 @@ body {
 <h:body>
 	<center>
 		<p:panel id="container">
-			<p:panel>
-				<h:outputText value="Login Page is Under Contruction" />
-			</p:panel>
-			<p:panel>
+			<h:form>
+				<p:growl id="msg"/>
+				<p:panel>
+					<h:panelGrid columns="3">
+						<p:outputLabel for="adminId" value="ID" />
+						<p:outputLabel value=":" />
+						<h:inputText id="adminId" maxlength="10" value="#{login.id}" />
 
-				<p:button value="Go To Admin Page" outcome="index.jsf" />
-
-			</p:panel>
+						<p:outputLabel for="adminPass" value="Password" />
+						<p:outputLabel value=":" />
+						<h:inputSecret id="adminPass" maxlength="16" value="#{login.pass}"/>
+						
+						<f:facet name="footer">
+							<p:commandButton value="Login" action="#{login.logAdmin}" update="msg"/>
+						</f:facet>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
 		</p:panel>
 	</center>
 </h:body>
