@@ -22,26 +22,54 @@ body {
 <h:body>
 	<center>
 		<p:panel id="container">
-			<h:form>
-				<p:growl id="msg" />
-				<p:panel>
-					<h:panelGrid columns="3">
-						<p:outputLabel for="investorId" value="ID" />
-						<p:outputLabel value=":" />
-						<h:inputText id="investorId" maxlength="10" value="#{login.id}" />
+			<p:panel>
+				<h:form id="loginForm">
+					<p:growl id="msg" showDetail="true" life="3000" />
+					<p:panel header="Login" style="width: 280px;">
 
-						<p:outputLabel for="investorPass" value="Password" />
-						<p:outputLabel value=":" />
-						<h:inputSecret id="investorPass" maxlength="16"
-							value="#{login.pass}" />
+						<h:panelGrid id="loginPanel" columns="2">
 
-						<f:facet name="footer">
-							<p:commandButton value="Login" action="#{login.logInvestor}"
-								update="msg" />
-						</f:facet>
-					</h:panelGrid>
-				</p:panel>
-			</h:form>
+							<h:outputText value="Username" />
+
+							<p:inputText id="username" value="#{administratorC.admin.adminId}"></p:inputText>
+
+							<p:spacer></p:spacer>
+
+							<p:message for="username"></p:message>
+
+							<h:outputText value="Password" />
+
+							<p:password id="password" value="#{administratorC.admin.adminPass}"
+								feedback="false"></p:password>
+
+							<p:spacer></p:spacer>
+
+							<p:message for="password"></p:message>
+
+							<p:spacer></p:spacer>
+
+							<p:commandButton action="#{administratorC.login}" value="Login"
+								update="loginForm" ajax="true"></p:commandButton>
+
+						</h:panelGrid>
+
+					</p:panel>
+
+				</h:form>
+
+				<script type="text/javascript">
+					function handleLoginRequest(xhr, status, args) {
+						if (args.validationFailed || !args.loggedIn) {
+							PF('dlg').jq.effect("shake", {
+								times : 5
+							}, 100);
+						} else {
+							PF('dlg').hide();
+							$('#loginLink').fadeOut();
+						}
+					}
+				</script>
+			</p:panel>
 		</p:panel>
 	</center>
 </h:body>

@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.tpapelita.dao.AdministratorDao;
 import org.tpapelita.pojo.Administrator;
@@ -159,5 +160,64 @@ public class AdministratorC implements Serializable{
 		System.out.println(msg);
         context.addMessage(null, new FacesMessage(msg));
         clear();
+	}
+	
+	/**
+	 * puput 1-105
+	 */
+	
+	public String login() {
+		AdministratorDao dao = new AdministratorDao();
+		boolean result = dao.Read(admin.getAdminId(), admin.getAdminPass());
+		if (result) {
+			// get Http Session and store username
+			HttpSession session = Util.getSession();
+			session.setAttribute("id", admin.getAdminPass());
+
+			return "index";
+		} else {
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Invalid Login!", "Please Try Again!"));
+
+			// invalidate session, and redirect to other pages
+
+			// message = "Invalid Login. Please Try Again!";
+			return "login";
+		}
+		// AdministratorDao dao = new AdministratorDao();
+		// if(dao.Read(admin.getAdminId(),
+		// admin.getAdminPass()).equals("sukses")){
+		// System.out.println("capcus");
+		// // get Http Session and store username
+		// HttpSession session = SessionUtil.getSession();
+		// session.setAttribute("username", admin.getAdminId());
+		// FacesContext.getCurrentInstance().addMessage(
+		// null,
+		// new FacesMessage(FacesMessage.SEVERITY_INFO,
+		// "Login Success!",
+		// "Welcome Home"));
+		//
+		// return "index.jsp";
+		// }else{
+		// FacesContext.getCurrentInstance().addMessage(
+		// null,
+		// new FacesMessage(FacesMessage.SEVERITY_WARN,
+		// "Invalid Login!",
+		// "Please Try Again!"));
+		//
+		// // invalidate session, and redirect to other pages
+		//
+		// //message = "Invalid Login. Please Try Again!";
+		// return "login";
+		// }
+	}
+
+	public String logout() {
+		HttpSession session = Util.getSession();
+		session.invalidate();
+		return "login";
 	}
 }

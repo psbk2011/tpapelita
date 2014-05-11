@@ -154,19 +154,35 @@ public class InvestmentC implements Serializable {
 	 * CRUD Method
 	 */
 	public void create() {
-		InvestmentDao dao = new InvestmentDao();
-		FacesContext context = FacesContext.getCurrentInstance();
-		String msg = "";
-		getInves().setInvesId(getAutoInvestmentId());
-		getInves().setInvesDate(new Date());
-		getInves().setInvesStatus(3);
-		Administrator admin = new Administrator();
-		admin.setAdminId(0);
-		getInves().setAdministrator(admin);
-		msg = dao.create(getInves());
-		System.out.println(msg);
-		clear();
-		context.addMessage(null, new FacesMessage(msg));
+		if (String.valueOf(inves.getInvesId()).isEmpty()
+				|| inves.getInvesBankName().isEmpty()
+				|| String.valueOf(inves.getInvesType()).isEmpty() 
+				|| inves.getInvesSenderName().isEmpty() 
+				|| inves.getInvesBankName().isEmpty()
+				|| inves.getInvesAccountNo().isEmpty()
+				|| String.valueOf(inves.getInvesTransfer()).isEmpty()){
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"gagal membuat!", "isi semua kolom!"));
+			clear();
+
+		} else {
+			InvestmentDao dao = new InvestmentDao();
+			FacesContext context = FacesContext.getCurrentInstance();
+			String msg = "";
+			getInves().setInvesId(getAutoInvestmentId());
+			getInves().setInvesDate(new Date());
+			getInves().setInvesStatus(3);
+			Administrator admin = new Administrator();
+			admin.setAdminId(0);
+			getInves().setAdministrator(admin);
+			msg = dao.create(getInves());
+			System.out.println(msg);
+			clear();
+			context.addMessage(null, new FacesMessage(msg));
+		}
 	}
 
 	public List<InvestmentC> getRead() {

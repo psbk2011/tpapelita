@@ -112,4 +112,25 @@ public class AdministratorDao implements Serializable {
 			session.close();
 		}
 	}
+	
+	/**
+	 * puput 1-105
+	 */
+	
+	public Boolean Read(int id, String pass) {
+		List<Administrator> admin = new ArrayList<Administrator>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		System.out.println(id+", "+pass);
+		try {
+			admin = session.createQuery("from Administrator where admin_id = "+id+" and admin_pass = '"+pass+"'").list();
+			System.out.println(admin.get(0));
+			return true;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 }
