@@ -106,17 +106,26 @@ public class AdministratorC implements Serializable{
 	 * CRUD Method
 	 */
 	public void create() {
-		AdministratorDao dao = new AdministratorDao();
-		FacesContext context = FacesContext.getCurrentInstance();
-		getAdmin().setAdminId(getAutoAdminId());
-		getAdmin().setAdminPass(getAdmin().getAdminPhone());
-		getAdmin().setAdminLastPass(getAdmin().getAdminPhone());
-		getAdmin().setAdminJob(true);
-		getAdmin().setAdminStatus(false);
-		String msg = dao.create(getAdmin());
-		System.out.println(msg);
-		clear();
-		context.addMessage(null, new FacesMessage(msg));
+		if (admin.getAdminName().isEmpty() || admin.getAdminEmail().isEmpty() || admin.getAdminPhone().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"gagal membuat!", "isi semua kolom!"));
+			clear();
+
+		} else {
+			AdministratorDao dao = new AdministratorDao();
+			FacesContext context = FacesContext.getCurrentInstance();
+			getAdmin().setAdminId(getAutoAdminId());
+			getAdmin().setAdminPass(getAdmin().getAdminPhone());
+			getAdmin().setAdminLastPass(getAdmin().getAdminPhone());
+			getAdmin().setAdminJob(true);
+			getAdmin().setAdminStatus(false);
+			String msg = dao.create(getAdmin());
+			System.out.println(msg);
+			context.addMessage(null, new FacesMessage(msg));
+			clear();
+		}
 	}
 
 	public List<AdministratorC> getRead() {
