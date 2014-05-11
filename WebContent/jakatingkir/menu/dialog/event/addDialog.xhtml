@@ -9,53 +9,33 @@
 
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Add Investment" widgetVar="addInvestment"
-		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-			<p:outputLabel for="invesId" value="Inves Id :" />
-			<h:outputText id="invesId" value="#{investmentC.genInvesId}" />
+	<p:dialog widgetVar="eventDialog" header="Event Details"
+		showEffect="clip" hideEffect="clip">
+		<h:panelGrid id="eventDetails" columns="2">
+			<h:outputLabel for="title" value="Title:" />
+			<p:inputText id="title" value="#{schedule.event.title}"
+				required="true" />
 
-			<p:outputLabel for="investorId" value="Investor ID :" />
-			<p:inputText id="investorId" value="#{investmentC.investorId}" />
+			<h:outputLabel for="from" value="From:" />
+			<p:inputMask id="from" value="#{schedule.event.startDate}"
+				mask="99/99/9999">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputMask>
 
-			<p:outputLabel for="invesType" value="Inves Type :" />
-			<p:selectOneMenu id="invesType"
-				value="#{investmentC.inves.invesType}">
-				<f:selectItem itemLabel="Zakat" itemValue="1" />
-				<f:selectItem itemLabel="Infaq" itemValue="2" />
-				<f:selectItem itemLabel="Sodaqoh" itemValue="3" />
-			</p:selectOneMenu>
+			<h:outputLabel for="to" value="To:" />
+			<p:inputMask id="to" value="#{schedule.event.endDate}"
+				mask="99/99/9999">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputMask>
 
-			<p:outputLabel for="invesSenderName" value="Inves Sender Name :" />
-			<p:inputText id="invesSenderName"
-				value="#{investmentC.inves.invesSenderName}" />
+			<h:outputLabel for="allDay" value="All Day:" />
+			<h:selectBooleanCheckbox id="allDay" value="#{schedule.event.allDay}" />
 
-			<p:outputLabel for="invesBankName" value="Inves Bank Name :" />
-			<p:selectOneMenu id="invesBankName"
-				value="#{investmentC.inves.invesBankName}">
-				<f:selectItem itemLabel="MANDIRI" itemValue="MANDIRI" />
-				<f:selectItem itemLabel="BCA" itemValue="BCA" />
-				<f:selectItem itemLabel="BRI" itemValue="BRI" />
-				<f:selectItem itemLabel="BNI" itemValue="BNI" />
-				<f:selectItem itemLabel="BJB" itemValue="BJB" />
-			</p:selectOneMenu>
-
-			<p:outputLabel for="invesAccountNo" value="Inves Account No :" />
-			<p:inputText id="invesAccountNo"
-				value="#{investmentC.inves.invesAccountNo}" />
-
-			<p:outputLabel for="invesTransfer" value="Inves Transfer :" />
-			<p:inputText id="invesTransfer"
-				value="#{investmentC.inves.invesTransfer}" />
-
-			<f:facet name="footer">
-				<p:commandButton id="btn1" value="Save"
-					update="displayAdd :form2:tableInvestment :form0:msgs1"
-					action="#{investmentC.create}" oncomplete="addInvestment.hide();">
-					<f:ajax execute="@all"/>
-				</p:commandButton>
-			</f:facet>
-		</p:panelGrid>
+			<p:commandButton type="reset" value="Reset" />
+			<p:commandButton id="addButton" value="Save"
+				actionListener="#{scheduleController.addEvent}"
+				oncomplete="PF(':form1:myschedule').update();PF('eventDialog').hide();" />
+		</h:panelGrid>
 	</p:dialog>
 	<!-- End of Add Dialog -->
 </h:body>

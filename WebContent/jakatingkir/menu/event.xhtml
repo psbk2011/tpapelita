@@ -15,8 +15,25 @@
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
 		<ui:define name="content">
 			<p:panel>
-				<!-- Please write your code here -->
-				<h:outputText value="Under Contruction"/>
+				<h:form id="form0">
+					<p:growl id="messages" showDetail="true" />
+				</h:form>
+				<h:form id="form1">
+					<p:schedule id="schedule" value="#{schedule.eventModel}"
+						widgetVar="myschedule">
+						<p:ajax event="dateSelect" listener="#{schedule.onDateSelect}"
+							update=":form2:eventDetails" oncomplete="PF('eventDialog').show()" />
+						<p:ajax event="eventSelect" listener="#{schedule.onEventSelect}"
+							update=":form2:eventDetails" oncomplete="PF('eventDialog').show()" />
+						<p:ajax event="eventMove" listener="#{schedule.onEventMove}"
+							update=":form0:messages" />
+						<p:ajax event="eventResize" listener="#{schedule.onEventResize}"
+							update=":form0:messages" />
+					</p:schedule>
+				</h:form>
+				<h:form id="form2">
+					<ui:include src="dialog/event/addDialog.xhtml"/>
+				</h:form>
 			</p:panel>
 		</ui:define>
 	</ui:composition>

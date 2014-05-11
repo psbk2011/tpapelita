@@ -1,4 +1,4 @@
-package org.tpa.pelita.controller;
+package org.tpapelita.util;
  
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;

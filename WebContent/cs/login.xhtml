@@ -7,14 +7,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title>Login Customer Service</title>
+	<title>Login Investor</title>
 	<style>
 body {
 	font-size: 12px;
 }
 
 #container {
-	width: 300px;
+	width: 315px;
 	margin-top: 200px;
 }
 </style>
@@ -22,24 +22,29 @@ body {
 <h:body>
 	<center>
 		<p:panel id="container">
-			<h:form>
-				<p:growl id="msg"/>
-				<p:panel>
-					<h:panelGrid columns="3">
-						<p:outputLabel for="adminId" value="ID" />
-						<p:outputLabel value=":" />
-						<h:inputText id="adminId" maxlength="10" value="#{login.id}" />
+				<h:form id="loginForm">
+					<p:growl id="msg" showDetail="true" life="3000" />
+					<p:panel header="Login" style="width: 280px;">
 
-						<p:outputLabel for="adminPass" value="Password" />
-						<p:outputLabel value=":" />
-						<h:inputSecret id="adminPass" maxlength="16" value="#{login.pass}"/>
-						
-						<f:facet name="footer">
-							<p:commandButton value="Login" action="#{login.logCS}" update="msg"/>
-						</f:facet>
-					</h:panelGrid>
-				</p:panel>
-			</h:form>
+						<h:panelGrid id="loginPanel" columns="3">
+
+							<h:outputText value="ID" />
+							<p:outputLabel value=":"/>
+							<p:inputText id="id" value="#{administratorC.admin.adminId}"></p:inputText>
+							
+
+							<h:outputText value="Password" />
+							<p:outputLabel value=":"/>
+							<p:password id="pass" value="#{administratorC.admin.adminPass}"
+								feedback="false"></p:password>
+								
+							<p:outputLabel/>
+							<p:outputLabel/>	
+							<p:commandButton action="#{administratorC.login}" value="Login"
+								update="loginForm" ajax="true"></p:commandButton>
+						</h:panelGrid>
+					</p:panel>
+				</h:form>
 		</p:panel>
 	</center>
 </h:body>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.tpapelita.dao.AdministratorDao;
 import org.tpapelita.pojo.Administrator;
+import org.tpapelita.util.Util;
 
 
 @ManagedBean
@@ -181,38 +182,8 @@ public class AdministratorC implements Serializable{
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Invalid Login!", "Please Try Again!"));
-
-			// invalidate session, and redirect to other pages
-
-			// message = "Invalid Login. Please Try Again!";
 			return "login";
 		}
-		// AdministratorDao dao = new AdministratorDao();
-		// if(dao.Read(admin.getAdminId(),
-		// admin.getAdminPass()).equals("sukses")){
-		// System.out.println("capcus");
-		// // get Http Session and store username
-		// HttpSession session = SessionUtil.getSession();
-		// session.setAttribute("username", admin.getAdminId());
-		// FacesContext.getCurrentInstance().addMessage(
-		// null,
-		// new FacesMessage(FacesMessage.SEVERITY_INFO,
-		// "Login Success!",
-		// "Welcome Home"));
-		//
-		// return "index.jsp";
-		// }else{
-		// FacesContext.getCurrentInstance().addMessage(
-		// null,
-		// new FacesMessage(FacesMessage.SEVERITY_WARN,
-		// "Invalid Login!",
-		// "Please Try Again!"));
-		//
-		// // invalidate session, and redirect to other pages
-		//
-		// //message = "Invalid Login. Please Try Again!";
-		// return "login";
-		// }
 	}
 
 	public String logout() {

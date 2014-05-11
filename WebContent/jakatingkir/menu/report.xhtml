@@ -9,14 +9,35 @@
 <h:head>
 	<title>TPA Administrator - Admin - Report</title>
 </h:head>
-
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
 		<ui:define name="content">
-			<p:panel>
-				<!-- Please write your code here -->
-				<h:outputText value="Under Contruction"/>
+			<p:panel header="Report">
+				<h:form>
+					<p:selectOneMenu id="select1" value="#{chartBean.pilih1}"
+						style="margin:10px">
+						<f:selectItem itemLabel="Select time" itemValue="" />
+						<f:selectItems value="#{chartBean.select1}" />
+						<p:ajax update="select2" listener="#{chartBean.handleChange}" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="select2" value="#{chartBean.pilih2}"
+						style="margin:10px">
+						<f:selectItem itemLabel="Select time #{chartBean.pilih1}"
+							itemValue="" />
+						<f:selectItems value="#{chartBean.select2}" />
+						<p:ajax update="basic" listener="#{chartBean.handleGraphChange}" />
+					</p:selectOneMenu>
+					<p:panel>
+						<p:barChart id="basic" value="#{chartBean.reportGraph}"
+							legendPosition="ne" title="Financial report for #{chartBean.pilih2}"
+							min="0" max="#{chartBean.max}" style="height:300px" />
+					</p:panel>
+					<p:panel>
+						<h:outputText value="*1:1.000"
+						style="font-family: Helvetica; font-size: 14px"></h:outputText>
+					</p:panel>
+				</h:form>
 			</p:panel>
 		</ui:define>
 	</ui:composition>
