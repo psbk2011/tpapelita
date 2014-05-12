@@ -8,26 +8,42 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<!-- Edit Dialog -->
-	<p:dialog header="Edit Customer Service" widgetVar="editCS" modal="true"
-		resizable="false" id="dlg2">
+	<p:dialog header="Edit Customer Service" widgetVar="editCS"
+		modal="true" resizable="false" id="dlg2">
 		<p:panel>
-			<p:panelGrid id="displayEdit" columns="2">
-				<p:outputLabel for="adminId" value="CS ID:" />
+			<p:panelGrid id="displayEdit" columns="3">
+				<p:outputLabel for="adminId" value="CS ID" />
+				<p:outputLabel value=":" />
 				<p:outputLabel id="adminId" value="#{administratorC.adminIdModif}" />
 
-				<p:outputLabel for="adminName" value="Name :" />
+				<p:outputLabel for="adminName" value="Name" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminName"
-					value="#{administratorC.admin.adminName}" maxlength="45" />
+					value="#{administratorC.admin.adminName}" required="true"
+					requiredMessage="Please insert cs name" maxlength="35"
+					style="color:black" />
 
-				<p:outputLabel for="adminEmail" value="Email :" />
+				<p:outputLabel for="adminEmail" value="Email" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminEmail"
-					value="#{administratorC.admin.adminEmail}" />
+					value="#{administratorC.admin.adminEmail}"
+					validatorMessage="Email is not valid" style="color:black">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
 
-				<p:outputLabel for="adminPhone" value="Phone :" />
+				<p:outputLabel for="adminPhone" value="Phone" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminPhone"
-					value="#{administratorC.admin.adminPhone}" maxlength="14" />
+					value="#{administratorC.admin.adminPhone}" required="true"
+					requiredMessage="Please insert phonenumber"
+					validatorMessage="Phone number must be number" maxlength="12"
+					style="color:black">
+					<f:validateDoubleRange />
+				</p:inputText>
 
-				<p:outputLabel for="adminStatus" value="Status :" />
+				<p:outputLabel for="adminStatus" value="Status" />
+				<p:outputLabel value=":" />
 				<p:selectOneMenu id="adminStatus"
 					value="#{administratorC.admin.adminStatus}">
 					<f:selectItem itemLabel="Select Status" itemValue="" />
@@ -38,8 +54,7 @@
 				<f:facet name="footer">
 					<p:commandButton id="btn2" value="Update"
 						update="displayEdit :form0:msg :form2:tableCustomerService"
-						actionListener="#{administratorC.update}"
-						oncomplete="editCS.hide();">
+						actionListener="#{administratorC.update}" validateClient="true">
 						<f:ajax execute="@all" />
 					</p:commandButton>
 				</f:facet>

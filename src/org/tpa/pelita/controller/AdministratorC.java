@@ -10,15 +10,15 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.AdministratorDao;
 import org.tpapelita.pojo.Administrator;
 import org.tpapelita.util.Util;
 
-
 @ManagedBean
 @SessionScoped
-public class AdministratorC implements Serializable{
-	
+public class AdministratorC implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -26,24 +26,21 @@ public class AdministratorC implements Serializable{
 	private Administrator admin;
 	private List<AdministratorC> list;
 	private int autoAdminId;
-	
+
 	/*
 	 * Support Method
 	 */
 	public AdministratorC() {
 		this.admin = new Administrator();
 	}
-	
-	
+
 	public int getAutoAdminId() {
 		return autoAdminId;
 	}
 
-
 	public void setAutoAdminId(int autoAdminId) {
 		this.autoAdminId = autoAdminId;
 	}
-
 
 	public List<AdministratorC> getList() {
 		return list;
@@ -60,12 +57,12 @@ public class AdministratorC implements Serializable{
 	public void setAdmin(Administrator admin) {
 		this.admin = admin;
 	}
-	
+
 	public void clear() {
 		setAdmin(new Administrator());
-		
+
 	}
-	
+
 	public String getAdminStatusModif() {
 		String status = "Aktif";
 		try {
@@ -77,64 +74,57 @@ public class AdministratorC implements Serializable{
 			return status;
 		}
 	}
-	
+
 	public String getAdminIdModif() {
 		return "CS" + getAdmin().getAdminId();
 	}
-	
-	public String getAdminJobModif(){
-		String job ="Customer Service";
-		if (getAdmin().getAdminJob()==false) {
+
+	public String getAdminJobModif() {
+		String job = "Customer Service";
+		if (getAdmin().getAdminJob() == false) {
 			job = "Super Admin";
 		}
 		return job;
 	}
-	
+
 	public String getGenAdminId() {
 		AdministratorDao dao = new AdministratorDao();
 		int temp = 1;
 		String uniqueChar = "CS";
-		String id = uniqueChar+temp;
+		String id = uniqueChar + temp;
 		setAutoAdminId(temp);
-		List<Administrator> admin = dao.getReadLastId(); 
-		if ( admin.size() != 0) {
-			temp = admin.get(0).getAdminId()+temp;
-			id = uniqueChar+temp;
+		List<Administrator> admin = dao.getReadLastId();
+		if (admin.size() != 0) {
+			temp = admin.get(0).getAdminId() + temp;
+			id = uniqueChar + temp;
 			setAutoAdminId(temp);
 		}
 		return id;
 	}
+
 	/*
 	 * CRUD Method
 	 */
 	public void create() {
-		if (admin.getAdminName().isEmpty() || admin.getAdminEmail().isEmpty() || admin.getAdminPhone().isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"gagal membuat!", "isi semua kolom!"));
-			clear();
-
-		} else {
-			AdministratorDao dao = new AdministratorDao();
-			FacesContext context = FacesContext.getCurrentInstance();
-			getAdmin().setAdminId(getAutoAdminId());
-			getAdmin().setAdminPass(getAdmin().getAdminPhone());
-			getAdmin().setAdminLastPass(getAdmin().getAdminPhone());
-			getAdmin().setAdminJob(true);
-			getAdmin().setAdminStatus(false);
-			String msg = dao.create(getAdmin());
-			System.out.println(msg);
-			context.addMessage(null, new FacesMessage(msg));
-			clear();
-		}
+		AdministratorDao dao = new AdministratorDao();
+		FacesContext context = FacesContext.getCurrentInstance();
+		getAdmin().setAdminId(getAutoAdminId());
+		getAdmin().setAdminPass(getAdmin().getAdminPhone());
+		getAdmin().setAdminLastPass(getAdmin().getAdminPass());
+		getAdmin().setAdminJob(true);
+		getAdmin().setAdminStatus(false);
+		String msg = dao.create(getAdmin());
+		System.out.println(msg);
+		context.addMessage(null, new FacesMessage(msg));
+		RequestContext.getCurrentInstance().execute("addCS.hide()");
+		clear();
 	}
 
 	public List<AdministratorC> getRead() {
 		List<AdministratorC> list = new ArrayList<AdministratorC>();
 		try {
 			AdministratorDao dao = new AdministratorDao();
-			List<Administrator> admin= dao.getRead(); 
+			List<Administrator> admin = dao.getRead();
 			for (int i = 0; i < admin.size(); i++) {
 				AdministratorC ac = new AdministratorC();
 				ac.setAdmin(admin.get(i));
@@ -145,28 +135,30 @@ public class AdministratorC implements Serializable{
 			return new ArrayList<AdministratorC>();
 		}
 	}
-	
+
 	public void update() {
 		AdministratorDao dao = new AdministratorDao();
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = dao.update(getAdmin());
 		System.out.println(msg);
-        context.addMessage(null, new FacesMessage(msg));
-        clear();
+		context.addMessage(null, new FacesMessage(msg));
+		RequestContext.getCurrentInstance().execute("editCS.hide()");
+		clear();
 	}
+
 	public void delete() {
 		AdministratorDao dao = new AdministratorDao();
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = dao.delete(getAdmin());
 		System.out.println(msg);
-        context.addMessage(null, new FacesMessage(msg));
-        clear();
+		context.addMessage(null, new FacesMessage(msg));
+		clear();
 	}
-	
+
 	/**
 	 * puput 1-105
 	 */
-	
+
 	public String login() {
 		AdministratorDao dao = new AdministratorDao();
 		boolean result = dao.Read(admin.getAdminId(), admin.getAdminPass());

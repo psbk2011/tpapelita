@@ -10,29 +10,43 @@
 	<p:dialog header="Add Customer Service" widgetVar="addCS" modal="true"
 		resizable="false" id="dlg1">
 		<p:panel>
-			<h:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-				<p:outputLabel for="adminId" value="CS ID:" />
+			<p:panelGrid id="displayAdd" columns="3" style="margin-bottom:10px">
+				<p:outputLabel for="adminId" value="CS ID" />
+				<p:outputLabel value=":" />
 				<h:outputText id="adminId" value="#{administratorC.genAdminId}" />
 
-				<p:outputLabel for="adminName" value="Name :" />
+				<p:outputLabel for="adminName" value="Name" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminName"
-					value="#{administratorC.admin.adminName}" />
+					value="#{administratorC.admin.adminName}" required="true"
+					requiredMessage="Please insert cs name" maxlength="35"
+					style="color:black" />
 
-				<p:outputLabel for="adminEmail" value="Email :" />
+				<p:outputLabel for="adminEmail" value="Email" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminEmail"
-					value="#{administratorC.admin.adminEmail}" />
+					value="#{administratorC.admin.adminEmail}"
+					validatorMessage="Email is not valid" style="color:black">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
 
-				<p:outputLabel for="adminPhone" value="Phone number :"
-					title="This phone number will be password" />
+				<p:outputLabel for="adminPhone" value="Phone number" />
+				<p:outputLabel value=":" />
 				<p:inputText id="adminPhone"
-					value="#{administratorC.admin.adminPhone}" />
+					value="#{administratorC.admin.adminPhone}" required="true"
+					requiredMessage="Please insert phonenumber"
+					validatorMessage="Phone number must be number" maxlength="12"
+					style="color:black">
+					<f:validateDoubleRange />
+				</p:inputText>
 
 				<f:facet name="footer">
 					<p:commandButton id="btn1" value="Save"
 						update="displayAdd :form0:msg :form2:tableCustomerService"
-						action="#{administratorC.create}" oncomplete="addCS.hide();" />
+						action="#{administratorC.create}" validateClient="true" />
 				</f:facet>
-			</h:panelGrid>
+			</p:panelGrid>
 		</p:panel>
 	</p:dialog>
 	<!-- End of Add Dialog -->
