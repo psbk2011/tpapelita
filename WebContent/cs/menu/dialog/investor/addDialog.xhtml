@@ -1,20 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Add Investment" widgetVar="addInvestment"
-		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
-		</p:panelGrid>
+	<p:dialog header="Add Investor" widgetVar="addInvestor" modal="true"
+		resizable="false" id="dlg1">
+		<p:panel>
+			<p:panelGrid id="displayAdd" columns="3">
+				<p:outputLabel for="investorId" value="Id Investor" />
+				<p:outputLabel value=":" />
+				<h:outputText id="investorId" value="#{investorC.genInvestorId}" />
+
+				<p:outputLabel for="investorName" value="Name" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorName"
+					value="#{investorC.investor.investorName}" required="true"
+					requiredMessage="Please insert investor name" maxlength="35" style="color:black"/>
+
+				<p:outputLabel for="investorEmail" value="Email" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorEmail"
+					value="#{investorC.investor.investorEmail}"
+					validatorMessage="Email is not valid" style="color:black">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
+
+				<p:outputLabel for="investorPhone" value="Phone number" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorPhone"
+					value="#{investorC.investor.investorPhone}" required="true"
+					requiredMessage="Please insert phonenumber"
+					validatorMessage="Phone number must be number" maxlength="12" style="color:black">
+					<f:validateDoubleRange />
+				</p:inputText>
+
+				<f:facet name="footer">
+					<p:commandButton id="btn1" value="Save"
+						update=":form3:displayAdd :form0:msg :form2:tableInvestor"
+						action="#{investorC.create}" validateClient="true" />
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
 	</p:dialog>
 	<!-- End of Add Dialog -->
 </h:body>

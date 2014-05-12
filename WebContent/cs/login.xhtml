@@ -22,26 +22,22 @@ body {
 <h:body>
 	<center>
 		<p:panel id="container">
-				<h:form id="loginForm">
-					<p:growl id="msg" showDetail="true" life="3000" />
+				<h:form id="form">
+					<p:growl id="msg" showDetail="true" life="3000" autoUpdate="true"/>
 					<p:panel header="Login" style="width: 280px;">
-
 						<h:panelGrid id="loginPanel" columns="3">
-
-							<h:outputText value="ID" />
+							<p:outputLabel for="id" value="ID" />
 							<p:outputLabel value=":"/>
-							<p:inputText id="id" value="#{administratorC.admin.adminId}"></p:inputText>
-							
+							<p:inputText id="id" value="#{administratorC.admin.adminId}" required="true" requiredMessage="Please insert your id"/>
 
-							<h:outputText value="Password" />
+							<p:outputLabel for="pass" value="Password" />
 							<p:outputLabel value=":"/>
-							<p:password id="pass" value="#{administratorC.admin.adminPass}"
-								feedback="false"></p:password>
+							<p:password id="pass" value="#{administratorC.admin.adminPass}" feedback="false" required="true" maxlength="16" requiredMessage="Please insert your password"/>
 								
 							<p:outputLabel/>
 							<p:outputLabel/>	
 							<p:commandButton action="#{administratorC.login}" value="Login"
-								update="loginForm" ajax="true"></p:commandButton>
+								update=":form:msg" ajax="false" validateClient="true"/>
 						</h:panelGrid>
 					</p:panel>
 				</h:form>

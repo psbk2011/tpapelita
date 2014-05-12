@@ -6,15 +6,64 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:body>
 	<!-- Edit Dialog -->
-	<p:dialog header="Edit Investment" widgetVar="editInvestment"
-		modal="true" resizable="false">
-		<p:panelGrid id="displayEdit" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
-		</p:panelGrid>
+	<p:dialog header="Edit Investor" widgetVar="editInvestor" modal="true"
+		resizable="false" id="dlg2">
+		<p:panel>
+			<p:panelGrid id="displayEdit" columns="3">
+				<p:outputLabel for="investorId" value="Investor ID" />
+				<p:outputLabel value=":" />
+				<p:outputLabel id="investorId" value="#{investorC.investorIdModif}" />
+
+				<p:outputLabel for="investorRegistration" value="Registration" />
+				<p:outputLabel value=":" />
+				<p:outputLabel id="investorRegistration"
+					value="#{investorC.investorRegistrationModif}" />
+
+				<p:outputLabel for="investorName" value="Name" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorName"
+					value="#{investorC.investor.investorName}" required="true"
+					requiredMessage="Please insert investor name" maxlength="35" style="color:black"/>
+
+				<p:outputLabel for="investorEmail" value="Email" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorEmail"
+					value="#{investorC.investor.investorEmail}"
+					validatorMessage="Email is not valid" style="color:black">
+					<f:validateRegex
+						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+				</p:inputText>
+
+
+				<p:outputLabel for="investorPhone" value="Phone" />
+				<p:outputLabel value=":" />
+				<p:inputText id="investorPhone"
+					value="#{investorC.investor.investorPhone}" required="true"
+					requiredMessage="Please insert phonenumber"
+					validatorMessage="Phone number must be number" maxlength="12" style="color:black">
+					<f:validateDoubleRange />
+				</p:inputText>
+
+				<p:outputLabel for="investorStatus" value="Status" />
+				<p:outputLabel value=":" />
+				<p:selectOneMenu id="investorStatus"
+					value="#{investorC.investor.investorStatus}">
+					<f:selectItem itemLabel="Select Status" itemValue="" />
+					<f:selectItem itemLabel="Aktif" itemValue="false" />
+					<f:selectItem itemLabel="Nonaktif" itemValue="true" />
+				</p:selectOneMenu>
+
+				<f:facet name="footer">
+					<p:commandButton id="btn2" value="Update"
+						update=":form5:displayEdit :form0:msg :form2:tableInvestor"
+						actionListener="#{investorC.update}">
+						<f:ajax execute="@all" />
+					</p:commandButton>
+				</f:facet>
+			</p:panelGrid>
+		</p:panel>
 	</p:dialog>
 	<!-- End of Edit Dialog -->
 </h:body>

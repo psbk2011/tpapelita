@@ -6,16 +6,102 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>TPA Administrator - Customer Service - Investor</title>
-</h:head>	
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/cs/cstemplate.xhtml">
+		<ui:define name="title"> - Investor</ui:define>
 		<ui:define name="content">
 			<p:panel>
-				<!-- Please write your code here -->
-				<h:outputText value="Under Contruction"/>
+				<!-- Header of Content -->
+				<h:form id="form0">
+					<p:growl id="msg"/>
+				</h:form>
+				<h:form id="form1">
+					<p:toolbar>
+						<p:toolbarGroup>
+							<p:commandButton type="button" value="Add Investor" update=":form3:displayAdd"
+								onclick="addInvestor.show();" />
+						</p:toolbarGroup>
+					</p:toolbar>
+				</h:form>
+				<!-- End of Header of Content -->
+				<p:panel>
+					<h:form id="form2">
+						<!-- Table Investor -->
+						<p:dataTable id="tableInvestor" var="list"
+							value="#{investorC.read}" widgetVar="table" paginator="true"
+							rows="10" paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							emptyMessage="No investors found"
+							filteredValue="#{investorC.list}">
+							<f:facet name="header">Investor</f:facet>
+							<p:column id="idColumn" headerText="ID" width="80"
+								filterBy="#{list.investorIdModif}" filterMatchMode="contains">
+								<h:outputText value="#{list.investorIdModif}" />
+							</p:column>
+							<p:column id="registrationColumn" headerText="Registration Date"
+								filterBy="#{list.investorRegistrationModif}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.investorRegistrationModif}" />
+							</p:column>
+							<p:column id="nameColumn" headerText="Name"
+								filterBy="#{list.investor.investorName}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.investor.investorName}" />
+							</p:column>
+							<p:column id="emailColumn" headerText="Email"
+								filterBy="#{list.investor.investorEmail}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.investor.investorEmail}" />
+							</p:column>
+							<p:column id="phoneColumn" headerText="Phone"
+								filterBy="#{list.investor.investorPhone}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.investor.investorPhone}" />
+							</p:column>
+							<p:column id="statusColumn" headerText="Status"
+								filterBy="#{list.investorStatusModif}"
+								fifilterMatchMode="contains">
+								<h:outputText value="#{list.investorStatusModif}" />
+							</p:column>
+							<p:column id="actionColumn" headerText="Action" width="100">
+								<p:commandButton id="viewBtn" update=":form4:displayView"
+									onclick="viewInvestor.show()" icon="ui-icon-search"
+									title="View">
+									<f:setPropertyActionListener value="#{list.investor}"
+										target="#{investorC.investor}" />
+								</p:commandButton>
+								<p:commandButton id="editButton" update=":form5:displayEdit"
+									onclick="editInvestor.show()" icon="ui-icon-pencil"
+									title="Edit">
+									<f:setPropertyActionListener value="#{list.investor}"
+										target="#{investorC.investor}" />
+								</p:commandButton>
+								<p:commandButton id="deleteButton" update=":form6:displayDelete"
+									onclick="deleteInvestor.show()" icon="ui-icon-trash"
+									title="Delete">
+									<f:setPropertyActionListener value="#{list.investor}"
+										target="#{investorC.investor}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						<!-- End of Table Investor -->
+					</h:form>
+					<!-- Dialog -->
+					<h:form id="form3">
+						<ui:include src="dialog/investor/addDialog.xhtml" />
+					</h:form>
+					<h:form id="form4">
+						<ui:include src="dialog/investor/viewDialog.xhtml" />
+					</h:form>
+					<h:form id="form5">
+						<ui:include src="dialog/investor/editDialog.xhtml" />
+					</h:form>
+					<h:form id="form6">
+						<ui:include src="dialog/investor/deleteDialog.xhtml" />
+					</h:form>					
+					<!-- End Of Dialog -->
+				</p:panel>
 			</p:panel>
 		</ui:define>
 	</ui:composition>

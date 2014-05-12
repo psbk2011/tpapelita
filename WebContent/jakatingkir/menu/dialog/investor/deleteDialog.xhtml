@@ -9,10 +9,8 @@
 
 <h:body>
 	<!-- Delete Dialog Investor -->
-	<h:form id="form6">
 		<p:dialog header="Confirmation" widgetVar="deleteInvestor"
 			modal="true" resizable="false" id="dlg4">
-			<p:growl id="msg4" />
 			<p:panel id="displayDelete">
 				<p:panel>
 					<p:outputLabel value="Are you sure to delete this investor?" />
@@ -30,12 +28,11 @@
 
 			<f:facet name="footer">
 				<p:commandButton value="Yes" icon="ui-icon-check"
-					update="displayDelete :form3:displayAdd :form2:tableInvestor msg4" onclick="deleteInvestor.hide();" action="#{investorC.delete}"/>
+					update="displayDelete :form3:displayAdd :form2:tableInvestor :form0:msg" onclick="deleteInvestor.hide();" action="#{investorC.delete}"/>
 				<p:commandButton value="No" update="displayDelete"
 					icon="ui-icon-close" onclick="deleteInvestor.hide();" />
 			</f:facet>
 		</p:dialog>
-	</h:form>
 	<!-- End of Delete Dialog of Investor -->
 </h:body>
 </html>

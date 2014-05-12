@@ -6,16 +6,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>TPA Administrator - Admin - Investor</title>
-</h:head>
-
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		<ui:define name="title"> - Investor</ui:define>
 		<ui:define name="content">
 			<p:panel>
 				<!-- Header of Content -->
+				<h:form id="form0">
+					<p:growl id="msg"/>
+				</h:form>
 				<h:form id="form1">
 					<p:toolbar>
 						<p:toolbarGroup>
@@ -88,10 +88,18 @@
 						<!-- End of Table Investor -->
 					</h:form>
 					<!-- Dialog -->
-					<ui:include src="dialog/investor/addDialog.xhtml" />
-					<ui:include src="dialog/investor/viewDialog.xhtml" />
-					<ui:include src="dialog/investor/editDialog.xhtml" />
-					<ui:include src="dialog/investor/deleteDialog.xhtml" />
+					<h:form id="form3">
+						<ui:include src="dialog/investor/addDialog.xhtml" />
+					</h:form>
+					<h:form id="form4">
+						<ui:include src="dialog/investor/viewDialog.xhtml" />
+					</h:form>
+					<h:form id="form5">
+						<ui:include src="dialog/investor/editDialog.xhtml" />
+					</h:form>
+					<h:form id="form6">
+						<ui:include src="dialog/investor/deleteDialog.xhtml" />
+					</h:form>					
 					<!-- End Of Dialog -->
 				</p:panel>
 			</p:panel>

@@ -10,8 +10,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
+import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.InvestmentDao;
 import org.tpapelita.dao.InvestorDao;
 import org.tpapelita.pojo.Investment;
@@ -109,18 +109,6 @@ public class InvestorC implements Serializable{
 	// CRUD METHOD
 
 	public void create() {
-		if (getInvestor().getInvestorName().isEmpty()
-				|| getInvestor().getInvestorPhone().isEmpty()
-				|| getInvestor().getInvestorEmail().isEmpty()) {
-
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"gagal membuat!", "isi semua kolom!"));
-			clear();
-
-		} else {
-
 			InvestorDao dao = new InvestorDao();
 			getInvestor().setInvestorId(getAutoInvestorId());
 			getInvestor().setInvestorPass(getInvestor().getInvestorPhone());
@@ -131,8 +119,8 @@ public class InvestorC implements Serializable{
 			String msg = dao.create(getInvestor());
 			System.out.println(msg);
 			context.addMessage(null, new FacesMessage(msg));
+			RequestContext.getCurrentInstance().execute("addInvestor.hide()");
 			clear();
-		}
 	}
 
 	public List<InvestorC> getRead() {
@@ -173,6 +161,7 @@ public class InvestorC implements Serializable{
 		String msg = dao.update(getInvestor());
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage(msg));
+		RequestContext.getCurrentInstance().execute("editInvestor.hide()");
 		clear();
 	}
 	
@@ -184,59 +173,4 @@ public class InvestorC implements Serializable{
 		context.addMessage(null, new FacesMessage("Delete Succesfully"));
 		clear();
 	}
-	
-//	public String login() {
-//		InvestorDao dao = new InvestorDao();
-//		boolean result = dao.Read(investor.getInvestorId(), investor.getInvestorPass());
-//		if (result) {
-//			// get Http Session and store username
-//			HttpSession session = Util.getSession();
-//			session.setAttribute("id", investor.getInvestorPass());
-//
-//			return "index";
-//		} else {
-//
-//			FacesContext.getCurrentInstance().addMessage(
-//					null,
-//					new FacesMessage(FacesMessage.SEVERITY_WARN,
-//							"Invalid Login!", "Please Try Again!"));
-//
-//			// invalidate session, and redirect to other pages
-//
-//			// message = "Invalid Login. Please Try Again!";
-//			return "login";
-//		}
-//		// AdministratorDao dao = new AdministratorDao();
-//		// if(dao.Read(admin.getAdminId(),
-//		// admin.getAdminPass()).equals("sukses")){
-//		// System.out.println("capcus");
-//		// // get Http Session and store username
-//		// HttpSession session = SessionUtil.getSession();
-//		// session.setAttribute("username", admin.getAdminId());
-//		// FacesContext.getCurrentInstance().addMessage(
-//		// null,
-//		// new FacesMessage(FacesMessage.SEVERITY_INFO,
-//		// "Login Success!",
-//		// "Welcome Home"));
-//		//
-//		// return "index.jsp";
-//		// }else{
-//		// FacesContext.getCurrentInstance().addMessage(
-//		// null,
-//		// new FacesMessage(FacesMessage.SEVERITY_WARN,
-//		// "Invalid Login!",
-//		// "Please Try Again!"));
-//		//
-//		// // invalidate session, and redirect to other pages
-//		//
-//		// //message = "Invalid Login. Please Try Again!";
-//		// return "login";
-//		// }
-//	}
-//
-//	public String logout() {
-//		HttpSession session = Util.getSession();
-//		session.invalidate();
-//		return "login";
-//	}
 }
