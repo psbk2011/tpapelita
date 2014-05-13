@@ -56,6 +56,22 @@ public class OutcomeDetailsDao implements Serializable {
 			session.close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<OutcomeDetails> getReadById(int outcomeId) {
+		List<OutcomeDetails> invesDetails = new ArrayList<OutcomeDetails>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			invesDetails = session.createQuery("from OutcomeDetails where outcome="+outcomeId).list();
+			return invesDetails;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new ArrayList<OutcomeDetails>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<OutcomeDetails> getReadManyToOne(int investmentId) {

@@ -25,7 +25,11 @@
 				<p:outputLabel value=":" />
 				<p:inputText id="investorName"
 					value="#{investorC.investor.investorName}" required="true"
-					requiredMessage="Please insert investor name" maxlength="35" style="color:black"/>
+					requiredMessage="Please insert investor name"
+					validatorMessage="Name must no number" maxlength="35"
+					style="color:black">
+					<f:validateRegex pattern="^[a-zA-Z]+$" />
+				</p:inputText>
 
 				<p:outputLabel for="investorEmail" value="Email" />
 				<p:outputLabel value=":" />
@@ -42,7 +46,8 @@
 				<p:inputText id="investorPhone"
 					value="#{investorC.investor.investorPhone}" required="true"
 					requiredMessage="Please insert phonenumber"
-					validatorMessage="Phone number must be number" maxlength="12" style="color:black">
+					validatorMessage="Phone number must be number" maxlength="12"
+					style="color:black">
 					<f:validateDoubleRange />
 				</p:inputText>
 

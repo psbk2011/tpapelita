@@ -7,13 +7,14 @@ import java.util.Date;
 import java.util.List;
 
 
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.InvestmentDao;
-import org.tpapelita.pojo.Administrator;
 import org.tpapelita.pojo.Investment;
 
 @ManagedBean
@@ -29,7 +30,6 @@ public class InvestmentC implements Serializable {
 	private int totalInvesDetails;
 	private String invesResponsibility;
 	private int autoInvestmentId;
-	private String investorId;
 
 	/*
 	 * Support Method
@@ -46,14 +46,16 @@ public class InvestmentC implements Serializable {
 		this.inves = inves;
 	}
 	
-	public String getInvestorId() {
+	public String getInvestorIdModif() {
+		String investorId = "Not Register";
+		try {
+			if (getInves().getInvestor().getInvestorId() > 0) {
+				investorId = "INV"+getInves().getInvestor().getInvestorId();
+			}
+		} catch (NullPointerException e) {}
 		return investorId;
 	}
-
-	public void setInvestorId(String investorId) {
-		this.investorId = investorId;
-	}
-
+	
 	public int getAutoInvestmentId() {
 		return autoInvestmentId;
 	}
@@ -134,6 +136,13 @@ public class InvestmentC implements Serializable {
 		
 	}
 	
+	public String getInvesAccountNoModif(){
+		String acc = "NO ACCOUNT";
+		if (!getInves().getInvesAccountNo().isEmpty()) {
+			acc = getInves().getInvesAccountNo();
+		}
+		return acc;
+	}
 	public String getInvesTypeModif() {
 		String type = "";
 		if (getInves().getInvesType()==1) {
@@ -154,35 +163,17 @@ public class InvestmentC implements Serializable {
 	 * CRUD Method
 	 */
 	public void create() {
-		if (String.valueOf(inves.getInvesId()).isEmpty()
-				|| inves.getInvesBankName().isEmpty()
-				|| String.valueOf(inves.getInvesType()).isEmpty() 
-				|| inves.getInvesSenderName().isEmpty() 
-				|| inves.getInvesBankName().isEmpty()
-				|| inves.getInvesAccountNo().isEmpty()
-				|| String.valueOf(inves.getInvesTransfer()).isEmpty()){
-
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"gagal membuat!", "isi semua kolom!"));
-			clear();
-
-		} else {
 			InvestmentDao dao = new InvestmentDao();
 			FacesContext context = FacesContext.getCurrentInstance();
 			String msg = "";
 			getInves().setInvesId(getAutoInvestmentId());
 			getInves().setInvesDate(new Date());
 			getInves().setInvesStatus(3);
-			Administrator admin = new Administrator();
-			admin.setAdminId(0);
-			getInves().setAdministrator(admin);
 			msg = dao.create(getInves());
 			System.out.println(msg);
 			clear();
+			RequestContext.getCurrentInstance().execute("addInvestment.hide()");
 			context.addMessage(null, new FacesMessage(msg));
-		}
 	}
 
 	public List<InvestmentC> getRead() {
@@ -217,6 +208,7 @@ public class InvestmentC implements Serializable {
 		String msg = dao.update(getInves());
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage(msg));
+		RequestContext.getCurrentInstance().execute("editInvestment.hide()");
 		clear();
 	}
 

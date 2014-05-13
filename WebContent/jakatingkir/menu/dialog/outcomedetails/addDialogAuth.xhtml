@@ -9,16 +9,19 @@
 
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Add OutcomeDetails" widgetVar="addOutDetails"
+	<p:dialog header="Add OutcomeDetails" widgetVar="addOutDetailsAuth"
 		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="3">
-			<f:facet name="footer">
-				<p:commandButton id="btn1" value="Save"
-					update="">
-					<f:ajax execute="@all"/>
-				</p:commandButton>
-			</f:facet>
-		</p:panelGrid>
+		<center>
+			<p:panel>
+				<p:outputLabel value="To Add Outcome Details, please clik OK." />
+			</p:panel>
+			<p:panel>
+				<p:commandButton id="btn1" value="OK"
+					update=":form14:displayAdd :form0:msgs1"
+					action="#{outcomeDetailsC.authentication}"
+					oncomplete="addOutDetailsAuth.hide()" />
+			</p:panel>
+		</center>
 	</p:dialog>
 	<!-- End of Add Dialog -->
 </h:body>

@@ -6,13 +6,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>TPA Administrator - Admin - Investment</title>
-</h:head>
 
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		<ui:define name="title"> - Investment &amp; Outcome</ui:define>
 		<ui:define name="content">
 			<p:panel>
 				<h:form id="form0">
@@ -60,8 +58,8 @@
 								</p:column>
 								<p:column id="accountNoColumn" headerText="Account No"
 									filterMatchMode="contains"
-									filterBy="#{list.inves.invesAccountNo}">
-									<h:outputText value="#{list.inves.invesAccountNo}" />
+									filterBy="#{list.invesAccountNoModif}">
+									<h:outputText value="#{list.invesAccountNoModif}" />
 								</p:column>
 								<p:column id="typeInvesColumn" headerText="Type">
 									<h:outputText value="#{list.invesTypeModif}" />
@@ -109,7 +107,7 @@
 							<p:toolbar>
 								<p:toolbarGroup>
 									<p:commandButton type="button" value="Add Outcome Details"
-										onclick="addInvesDetails.show();" />
+										onclick="addOutDetailsAuth.show()"/>
 								</p:toolbarGroup>
 							</p:toolbar>
 						</h:form>
@@ -139,9 +137,9 @@
 									</p:column>
 									<p:column id="actionColumn" headerText="Action">
 										<p:commandButton id="viewBtn" icon="ui-icon-search"
-											title="View">
+											title="View" update=":form8:tableOutcomeDetails">
 											<f:setPropertyActionListener value="#{list.outcome}"
-												target="#{outcomeC.outcome}" />
+												target="#{outcomeDetailsC.outcome}" />
 										</p:commandButton>
 										<p:commandButton id="deleteBtn" icon="ui-icon-trash"
 											title="Delete" update=":form13:displayDelete" onclick="deleteOutcome.show()">
@@ -155,16 +153,16 @@
 						</h:form>
 						<br />
 						<h:form id="form8">
-							<p:panel id="panel2">
-								<p:dataTable id="tableInvesDetails" var="list"
-									value="#{investmentC.read}" rowIndexVar="rowIndex"
+							<p:panel>
+								<p:dataTable id="tableOutcomeDetails" var="list"
+									value="#{outcomeDetailsC.readById}" rowIndexVar="rowIndex"
 									emptyMessage="No record">
 									<f:facet name="header">Details (Rp)</f:facet>
 									<p:column id="noColumn" headerText="No">
 										<h:outputText value="#{rowIndex+1}" />
 									</p:column>
 									<p:column id="unitNameColumn" headerText="Name">
-										<h:outputText value="Sepeda Motor" />
+										<h:outputText value="#{list.outDetails.detailsUnitName}" />
 									</p:column>
 									<p:column id="unitPriceColumn" headerText="Price">
 										<h:outputText value="13.000.000" />
@@ -215,6 +213,12 @@
 				</h:form>
 				<h:form id="form13">
 					<ui:include src="dialog/outcome/deleteDialog.xhtml" />
+				</h:form>
+				<h:form id="form14">
+					<ui:include src="dialog/outcomedetails/addDialog.xhtml" />
+				</h:form>
+				<h:form id="form15">
+					<ui:include src="dialog/outcomedetails/addDialogAuth.xhtml" />
 				</h:form>
 				<!-- End Of Dialog -->
 				<!-- End of Body of Content -->
