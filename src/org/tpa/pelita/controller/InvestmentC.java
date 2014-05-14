@@ -163,17 +163,28 @@ public class InvestmentC implements Serializable {
 	 * CRUD Method
 	 */
 	public void create() {
-			InvestmentDao dao = new InvestmentDao();
-			FacesContext context = FacesContext.getCurrentInstance();
-			String msg = "";
-			getInves().setInvesId(getAutoInvestmentId());
-			getInves().setInvesDate(new Date());
-			getInves().setInvesStatus(3);
+		FacesContext context = FacesContext.getCurrentInstance();
+		InvestmentDao dao = new InvestmentDao();
+		String msg = "";
+		getInves().setInvesId(getAutoInvestmentId());
+		getInves().setInvesDate(new Date());
+		getInves().setInvesStatus(3);
+		if (!getInves().getInvesBankName().equalsIgnoreCase("NO BANK") && !getInves().getInvesAccountNo().isEmpty()) {
 			msg = dao.create(getInves());
 			System.out.println(msg);
 			clear();
 			RequestContext.getCurrentInstance().execute("addInvestment.hide()");
 			context.addMessage(null, new FacesMessage(msg));
+		} else if (getInves().getInvesBankName().equalsIgnoreCase("NO BANK")) {
+			getInves().setInvesAccountNo("");
+			msg = dao.create(getInves());
+			System.out.println(msg);
+			clear();
+			RequestContext.getCurrentInstance().execute("addInvestment.hide()");
+			context.addMessage(null, new FacesMessage(msg));
+		} else {
+			context.addMessage(null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Please Insert Account No", "Please Insert Account No"));
+		}
 	}
 
 	public List<InvestmentC> getRead() {
@@ -205,11 +216,21 @@ public class InvestmentC implements Serializable {
 	public void update() {
 		InvestmentDao dao = new InvestmentDao();
 		FacesContext context = FacesContext.getCurrentInstance();
-		String msg = dao.update(getInves());
-		System.out.println(msg);
-		context.addMessage(null, new FacesMessage(msg));
-		RequestContext.getCurrentInstance().execute("editInvestment.hide()");
 		clear();
+		if (!getInves().getInvesBankName().equalsIgnoreCase("NO BANK") && !getInves().getInvesAccountNo().isEmpty()) {
+			String msg = dao.update(getInves());
+			System.out.println(msg);
+			context.addMessage(null, new FacesMessage(msg));
+			RequestContext.getCurrentInstance().execute("editInvestment.hide()");
+		} else if (getInves().getInvesBankName().equalsIgnoreCase("NO BANK")) {
+			getInves().setInvesAccountNo("");
+			String msg = dao.update(getInves());
+			System.out.println(msg);
+			context.addMessage(null, new FacesMessage(msg));
+			RequestContext.getCurrentInstance().execute("editInvestment.hide()");
+		} else {
+			context.addMessage(null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Please Insert Account No", "Please Insert Account No"));
+		}
 	}
 
 	public void delete() {

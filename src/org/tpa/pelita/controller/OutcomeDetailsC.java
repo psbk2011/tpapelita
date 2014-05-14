@@ -26,7 +26,8 @@ public class OutcomeDetailsC implements Serializable {
 	private OutcomeDetails outDetails;
 	private List<OutcomeDetailsC> list;
 	private Outcome outcome;
-
+	private int totalOutDetails;
+	private int subTotalOutDetails;
 
 	/*
 	 * Support Method
@@ -34,6 +35,22 @@ public class OutcomeDetailsC implements Serializable {
 	public OutcomeDetailsC() {
 		this.outDetails = new OutcomeDetails();
 		this.outcome = new Outcome();
+	}
+	
+	public int getTotalOutDetails() {
+		return totalOutDetails;
+	}
+
+	public void setTotalOutDetails(int totalOutDetails) {
+		this.totalOutDetails = totalOutDetails;
+	}
+
+	public int getSubTotalOutDetails() {
+		return subTotalOutDetails;
+	}
+
+	public void setSubTotalOutDetails(int subTotalOutDetails) {
+		this.subTotalOutDetails = subTotalOutDetails;
 	}
 
 	public Outcome getOutcome() {
@@ -64,18 +81,6 @@ public class OutcomeDetailsC implements Serializable {
 		setOutDetails(new OutcomeDetails());
 	}
 
-	public void authentication() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		try {
-			if (getOutcome().getOutcomeId() > 0) {
-				RequestContext.getCurrentInstance().execute("addOutDetails.show()");
-			} else {
-				context.addMessage(null, new FacesMessage("Please select data outcome at table outcome"));
-			}
-		} catch (NullPointerException e) {
-			context.addMessage(null, new FacesMessage("Please select data outcome at table outcome"));
-		}
-	}
 	/*
 	 * CRUD Method
 	 */
@@ -129,6 +134,7 @@ public class OutcomeDetailsC implements Serializable {
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage(msg));
 		clear();
+		RequestContext.getCurrentInstance().execute("editOutDetails.hide()");
 	}
 
 	public void delete() {

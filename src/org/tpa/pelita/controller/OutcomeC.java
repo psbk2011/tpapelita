@@ -7,11 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.OutcomeDao;
 import org.tpapelita.pojo.Administrator;
 import org.tpapelita.pojo.Outcome;
@@ -107,6 +109,19 @@ public class OutcomeC implements Serializable {
 		}
 	}
 	
+	public void authentication() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			if (getOutcome().getOutcomeId() > 0) {
+				RequestContext.getCurrentInstance().execute("addOutDetails.show()");
+			} else {
+				context.addMessage(null, new FacesMessage("Please select data outcome at table outcome"));
+			}
+		} catch (NullPointerException e) {
+			context.addMessage(null, new FacesMessage("Please select data outcome at table outcome"));
+		}
+	}
+	
 	public void clear() {
 		setOutcome(new Outcome());
 
@@ -115,7 +130,6 @@ public class OutcomeC implements Serializable {
 	 * CRUD Method
 	 */
 	public void create() {
-		System.out.println("Masuk Create");
 		OutcomeDao dao = new OutcomeDao();
 		FacesContext context = FacesContext.getCurrentInstance();
 		String msg = "";

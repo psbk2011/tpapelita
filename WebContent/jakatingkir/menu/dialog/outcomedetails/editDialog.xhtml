@@ -9,57 +9,48 @@
 
 <h:body>
 	<!-- Edit Dialog -->
-	<p:dialog header="Edit Investment" widgetVar="editInvestment"
+	<p:dialog header="Edit Outcome Details" widgetVar="editOutDetails"
 		modal="true" resizable="false">
-		<p:panelGrid id="displayEdit" columns="2" style="margin-bottom:10px">
-			<p:outputLabel for="invesId" value="Inves Id :" />
-			<h:outputText id="invesId" value="#{investmentC.invesIdModif}" />
+		<p:panelGrid id="displayEdit" columns="3">
+			<p:outputLabel for="unitName" value="Unit Name" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitName" value="#{outcomeDetails.outDetails.detailsUnitName}" required="true"
+				requiredMessage="Please insert unit name"
+				validatorMessage="Unit name must no number" maxlength="35"
+				style="color:black">
+				<f:validateRegex pattern="^[a-zA-Z]+$" />
+			</p:inputText>
 
-			<p:outputLabel for="investorId" value="Investor ID :" />
-			<p:inputText id="investorId" value="#{investmentC.investorId}" />
+			<p:outputLabel for="unitPrice" value="Unit Price" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitPrice" value="#{outcomeDetails.outDetails.detailsUnitPrice}" required="true"
+				requiredMessage="Please insert unit price"
+				validatorMessage="Price must be number" maxlength="10"
+				style="color:black">
+				<f:validateDoubleRange />
+			</p:inputText>
 
-			<p:outputLabel for="invesType" value="Inves Type :" />
-			<p:selectOneMenu id="invesType"
-				value="#{investmentC.inves.invesType}">
-				<f:selectItem itemLabel="Zakat" itemValue="1" />
-				<f:selectItem itemLabel="Infaq" itemValue="2" />
-				<f:selectItem itemLabel="Sodaqoh" itemValue="3" />
-			</p:selectOneMenu>
+			<p:outputLabel for="unitQty" value="Unit Qty" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitQty" value="#{outcomeDetails.outDetails.detailsUnitQty}" required="true"
+				requiredMessage="Please insert Qty"
+				validatorMessage="Qty must be number" maxlength="2"
+				style="color:black">
+				<f:validateDoubleRange maximum="2" />
+			</p:inputText>
 
-			<p:outputLabel for="invesSenderName" value="Inves Sender Name :" />
-			<p:inputText id="invesSenderName"
-				value="#{investmentC.inves.invesSenderName}" />
+			<p:outputLabel for="info" value="Unit Info" />
+			<p:outputLabel value=":" />
+			<p:inputTextarea id="info" value="#{outcomeDetails.outDetails.detailsInfo}" required="true"
+				requiredMessage="Please insert unit information" maxlength="200"/>
 
-			<p:outputLabel for="invesBankName" value="Inves Bank Name :" />
-			<p:selectOneMenu id="invesBankName"
-				value="#{investmentC.inves.invesBankName}">
-				<f:selectItem itemLabel="MANDIRI" itemValue="MANDIRI" />
-				<f:selectItem itemLabel="BCA" itemValue="BCA" />
-				<f:selectItem itemLabel="BRI" itemValue="BRI" />
-				<f:selectItem itemLabel="BNI" itemValue="BNI" />
-				<f:selectItem itemLabel="BJB" itemValue="BJB" />
-			</p:selectOneMenu>
 
-			<p:outputLabel for="invesAccountNo" value="Inves Account No :" />
-			<p:inputText id="invesAccountNo"
-				value="#{investmentC.inves.invesAccountNo}" />
-
-			<p:outputLabel for="invesTransfer" value="Inves Transfer :" />
-			<p:inputText id="invesTransfer"
-				value="#{investmentC.inves.invesTransfer}" />
-
-			<p:outputLabel for="invesStatus" value="Inves Status :" />
-			<p:selectOneMenu id="invesStatus"
-				value="#{investmentC.inves.invesStatus}">
-				<f:selectItem itemLabel="Recieved" itemValue="1" />
-				<f:selectItem itemLabel="Not Valid" itemValue="2" />
-				<f:selectItem itemLabel="Pending" itemValue="3" />
-			</p:selectOneMenu>
-			
 			<f:facet name="footer">
-				<p:commandButton id="btn2" value="Update"
-					update="displayEdit :form0:msgs1 :form2:tableInvestment"
-					action="#{investmentC.update}" oncomplete="editInvestment.hide();" />
+				<p:commandButton id="btn1" value="Update"
+					update=":form8:tableOutcomeDetails :form0:msgs1 :form16:displayEdit"
+					action="#{outcomeDetailsC.update}" validateClient="true">
+					<f:ajax execute="@all" />
+				</p:commandButton>
 			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
