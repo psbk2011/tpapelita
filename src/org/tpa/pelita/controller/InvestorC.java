@@ -10,12 +10,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.InvestmentDao;
 import org.tpapelita.dao.InvestorDao;
 import org.tpapelita.pojo.Investment;
 import org.tpapelita.pojo.Investor;
+import org.tpapelita.util.Util;
 
 @ManagedBean
 @SessionScoped
@@ -172,5 +174,34 @@ public class InvestorC implements Serializable {
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage("Delete Succesfully"));
 		clear();
+	}
+	
+	/**
+	 * puput 1-705
+	 */
+
+	public String login() {
+		InvestorDao dao = new InvestorDao();
+		boolean result = dao.Read(investor.getInvestorId(), investor.getInvestorPass());
+		if (result) {
+			// get Http Session and store username
+			HttpSession session = Util.getSession();
+			session.setAttribute("id", investor.getInvestorPass());
+
+			return "index";
+		} else {
+
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Invalid Login!", "Please Try Again!"));
+			return "login";
+		}
+	}
+
+	public String logout() {
+		HttpSession session = Util.getSession();
+		session.invalidate();
+		return "login";
 	}
 }

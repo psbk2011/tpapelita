@@ -129,4 +129,25 @@ public class InvestorDao implements Serializable {
             session.close();
         }
     }
+	
+	/**
+	 * puput 1-705
+	 */
+	
+	public Boolean Read(int id, String pass) {
+		List<Investor> investor = new ArrayList<Investor>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		System.out.println(id+", "+pass);
+		try {
+			investor = session.createQuery("from Investor where investor_id = "+id+" and investor_pass = '"+pass+"'").list();
+			System.out.println(investor.get(0));
+			return true;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 }
