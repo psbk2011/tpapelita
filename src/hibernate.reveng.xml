@@ -9,4 +9,5 @@
   <table-filter match-catalog="master_tpapelita" match-name="outcome"/>
   <table-filter match-catalog="master_tpapelita" match-name="outcome_details"/>
   <table-filter match-catalog="master_tpapelita" match-name="report_publish"/>
+  <table-filter match-catalog="master_tpapelita" match-name="support_center"/>
 </hibernate-reverse-engineering>

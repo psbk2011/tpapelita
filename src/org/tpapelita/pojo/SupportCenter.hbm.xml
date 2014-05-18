@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 18, 2014 3:44:25 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.SupportCenter" table="support_center" catalog="master_tpapelita">
+        <id name="supportId" type="java.lang.Integer">
+            <column name="support_id" />
+            <generator class="identity" />
+        </id>
+        <property name="supportDate" type="timestamp">
+            <column name="support_date" length="19" />
+        </property>
+        <property name="supportName" type="string">
+            <column name="support_name" length="35" />
+        </property>
+        <property name="supportSubject" type="string">
+            <column name="support_subject" length="20" />
+        </property>
+        <property name="supportEmail" type="string">
+            <column name="support_email" length="50" />
+        </property>
+        <property name="supportMessage" type="string">
+            <column name="support_message" length="65535" />
+        </property>
+        <property name="supportShow" type="java.lang.Boolean">
+            <column name="support_show" />
+        </property>
+        <property name="supportStatus" type="java.lang.Integer">
+            <column name="support_status" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<div id="help" class="row">
+		<div class="col-md-offset-2 col-md-8 well">
+			<h3>Help &amp; Support</h3>
+			<hr />
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="text">Donec ullamcorper nulla non metus auctor
+						fringilla. Vestibulum id ligula porta felis euismod semper.
+						Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+						Fusce dapibus, tellus ac cursus commodo. Donec ullamcorper nulla
+						non metus auctor fringilla. Donec ullamcorper nulla non metus
+						auctor fringilla. Vestibulum id ligula porta felis euismod semper.
+						Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+						Fusce dapibus, tellus ac cursus commodo. Donec ullamcorper nulla
+						non metus auctor fringilla.</div>
+				</div>
+				<div class="col-sm-8">
+					<h:form styleClass="form-horizontal" role="form" id="form">
+						<div class="form-group">
+							<p:message for="inputName"/>
+							<p:outputLabel for="inputName" styleClass="col-sm-3 control-label"
+								value="Full Name" />
+							<div class="col-sm-9">
+								<p:inputText id="inputName" type="text" styleClass="form-control"
+									value="#{supportCenterC.sc.suppportName}"
+									required="true"
+									requiredMessage="Please insert your full name"
+									validatorMessage="Name must alpahabet" maxlength="25"
+									style="color:black">
+									<f:validateRegex pattern="^[a-zA-Z]+$" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-group">
+							<p:message for="inputEmail"/>
+							<p:outputLabel for="inputEmail" styleClass="col-sm-3 control-label"
+								value="Email" />
+							<div class="col-sm-9">
+								<p:inputText type="email" styleClass="form-control" id="inputEmail"
+									value="#{supportCenterC.sc.supportEmail}"
+									required="true"
+									requiredMessage="Please insert your email"
+									validatorMessage="Email is not valid" style="color:black">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-group">
+						<p:message for="inputSubject"/>
+							<p:outputLabel for="inputSubject" styleClass="col-sm-3 control-label"
+								value="Subject" />
+							<div class="col-sm-9">
+								<p:inputText type="text" styleClass="form-control" id="inputSubject"
+								 	value="#{supportCenterC.sc.supportSubject}"
+								    required="true"
+									requiredMessage="Please insert subject field"
+									validatorMessage="Subject must be alpahabet" maxlength="20"
+									style="color:black">
+									<f:validateRegex pattern="^[a-zA-Z]+$" />
+								</p:inputText>
+							</div>
+						</div>
+						<div class="form-group">
+							<p:message for="inputMessage"/>
+							<p:outputLabel for="inputMessage" styleClass="col-sm-3 control-label"
+								value="Message" />
+							<div class="col-sm-9">
+								<p:inputTextarea id="inputMessage" styleClass="form-control" rows="5"
+									value="#{supportCenterC.sc.supportMessage}"
+									required="true"
+									requiredMessage="Please insert unit information"
+									maxlength="500" style="color:black" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-9 col-sm-3">
+								<p:commandButton id="btn2"
+									value="Submit" action="#{supportCenterC.create}" ajax="false" validateClient="true" onclick="index.jsf#help"/>
+							</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+			<hr />
+			<div class="col-sm-offset-10 col-sm-2 navbar-right">
+				<a href="index.jsf#header">Back to Top</a>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

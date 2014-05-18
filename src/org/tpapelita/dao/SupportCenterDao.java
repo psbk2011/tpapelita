@@ -9,25 +9,25 @@ import javax.faces.bean.SessionScoped;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.tpapelita.pojo.Investor;
+import org.tpapelita.pojo.SupportCenter;
 import org.tpapelita.util.HibernateUtil;
 
 
 @ManagedBean
 @SessionScoped
-public class InvestorDao implements Serializable {
+public class SupportCenterDao implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public String create(Investor investor) {
+	public String create(SupportCenter sc) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.save(investor);
+            session.save(sc);
             session.getTransaction().commit();
             return "Save Succesfully";
         } catch (RuntimeException e) {
@@ -43,15 +43,15 @@ public class InvestorDao implements Serializable {
     }
  
 	@SuppressWarnings("unchecked")
-	public List<Investor> getRead() {
-        List<Investor> investors = new ArrayList<Investor>();
+	public List<SupportCenter> getRead() {
+        List<SupportCenter> sc = new ArrayList<SupportCenter>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            investors = session.createQuery("from Investor order by investorStatus , investorId DESC").list();
-            return investors;
+            sc = session.createQuery("from SupportCenter order by supportShow, supportDate DESC").list();
+            return sc;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return new ArrayList<Investor>();
+            return new ArrayList<SupportCenter>();
         } finally {
             session.flush();
             session.close();
@@ -59,15 +59,15 @@ public class InvestorDao implements Serializable {
     }
 	
 	@SuppressWarnings("unchecked")
-	public List<Investor> getReadLastId() {
-        List<Investor> investors = new ArrayList<Investor>();
+	public List<SupportCenter> getReadLastId() {
+        List<SupportCenter> sc = new ArrayList<SupportCenter>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            investors = session.createQuery("from Investor order by investorId DESC").list();
-            return investors;
+            sc = session.createQuery("from SupportCenter order by supportShow, supportDate DESC").list();
+            return sc;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return new ArrayList<Investor>();
+            return new ArrayList<SupportCenter>();
         } finally {
             session.flush();
             session.close();
@@ -75,27 +75,27 @@ public class InvestorDao implements Serializable {
     }
 	
 	@SuppressWarnings("unchecked")
-	public List<Investor> getReadById(int investorId) {
-        List<Investor> investors = new ArrayList<Investor>();
+	public List<SupportCenter> getReadById(int investorId) {
+        List<SupportCenter> sc = new ArrayList<SupportCenter>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            investors = session.createQuery("from Investor where investorId = "+investorId).list();
-            return investors;
+            sc = session.createQuery("from Investor where investorId = "+investorId).list();
+            return sc;
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return new ArrayList<Investor>();
+            return new ArrayList<SupportCenter>();
         } finally {
             session.flush();
             session.close();
         }
     }
 	
-    public String update(Investor investor) {
+    public String update(SupportCenter sc) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.update(investor);
+            session.update(sc);
             session.getTransaction().commit();
             return "Update Successfully";
         } catch (RuntimeException e) {
@@ -110,12 +110,12 @@ public class InvestorDao implements Serializable {
         }
     }
  	
-	public String delete(Investor investor) {
+	public String delete(SupportCenter sc) {
         Transaction trns = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             trns = session.beginTransaction();
-            session.delete(investor);
+            session.delete(sc);
             session.getTransaction().commit();
             return "Delete Successfully";
         } catch (RuntimeException e) {
@@ -129,26 +129,4 @@ public class InvestorDao implements Serializable {
             session.close();
         }
     }
-	
-	/**
-	 * puput 1-705
-	 */
-	
-	@SuppressWarnings("unchecked")
-	public Boolean Read(int id, String pass) {
-		List<Investor> investor = new ArrayList<Investor>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		System.out.println(id+", "+pass);
-		try {
-			investor = session.createQuery("from Investor where investor_id = "+id+" and investor_pass = '"+pass+"'").list();
-			System.out.println(investor.get(0));
-			return true;
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			return false;
-		} finally {
-			session.flush();
-			session.close();
-		}
-	}
 }

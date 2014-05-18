@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated Apr 29, 2014 11:13:23 AM by Hibernate Tools 3.4.0.CR1
+// Generated May 18, 2014 1:43:50 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;

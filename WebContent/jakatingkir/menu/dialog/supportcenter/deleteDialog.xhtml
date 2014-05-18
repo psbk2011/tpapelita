@@ -9,27 +9,27 @@
 
 <h:body>
 	<!-- Delete Dialog Investment -->
-	<p:dialog header="Confirmation" widgetVar="deleteInvestment"
+	<p:dialog header="Confirmation" widgetVar="deleteSc"
 		modal="true" resizable="false" id="dlg4">
 		<p:panel id="displayDelete">
 			<p:panel>
-				<p:outputLabel value="Are you sure to delete this investment?" />
+				<p:outputLabel value="Are you sure to delete this tiket?" />
 				<br />
 			</p:panel>
 			<p:panel>
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Inves ID :" />
-					<h:outputText value="#{investmentC.invesIdModif}" />
+					<p:outputLabel value="Tiket ID :" />
+					<h:outputText value="#{supportCenterC.sc.supportId}" />
 				</h:panelGrid>
 			</p:panel>
 		</p:panel>
 
 		<f:facet name="footer">
 			<p:commandButton value="Yes" icon="ui-icon-check"
-				update="displayDelete :form9:displayAdd :form2:tableInvestment :form0:msgs1"
-				onclick="deleteInvestment.hide();" action="#{investmentC.delete}" />
+				update="displayDelete :form1:tableSc :form0:msg"
+				onclick="deleteSc.hide();" action="#{supportCenterC.delete}" />
 			<p:commandButton value="No" update="displayDelete"
-				icon="ui-icon-close" onclick="deleteInvestment.hide();" />
+				icon="ui-icon-close" onclick="deleteSc.hide();" />
 		</f:facet>
 	</p:dialog>
 	<!-- End of Delete Dialog of Investor -->

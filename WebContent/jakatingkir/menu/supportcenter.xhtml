@@ -6,17 +6,85 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<title>TPA Administrator - Admin - Support Center</title>
-</h:head>
-
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		<ui:define name="title"> - Support Center</ui:define>
 		<ui:define name="content">
 			<p:panel>
-				<!-- Please write your code here -->
-				<h:outputText value="Under Contruction"/>
+				<!-- Header of Content -->
+				<h:form id="form0">
+					<p:growl id="msg" />
+				</h:form>
+				<!-- End of Header of Content -->
+				<p:panel>
+					<h:form id="form1">
+						<!-- Table Investor -->
+						<p:dataTable id="tableSc" var="list"
+							value="#{supportCenterC.read}" widgetVar="table" paginator="true"
+							rows="10" paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+							emptyMessage="No support center found"
+							filteredValue="#{supportCenterC.list}">
+							<f:facet name="header">Support Center</f:facet>
+							<p:column id="idColumn" headerText="ID" width="80"
+								filterBy="#{list.sc.supportId}" filterMatchMode="contains">
+								<h:outputText value="#{list.sc.supportId}" />
+							</p:column>
+							<p:column id="dateColumn" headerText="Date"
+								filterBy="#{list.supportDateModif}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.supportDateModif}" />
+							</p:column>
+							<p:column id="nameColumn" headerText="Name"
+								filterBy="#{list.sc.supportName}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.sc.supportName}" />
+							</p:column>
+							<p:column id="emailColumn" headerText="Email"
+								filterBy="#{list.sc.supportEmail}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.sc.supportEmail}" />
+							</p:column>
+							<p:column id="statusColumn" headerText="Status"
+								filterBy="#{list.supportCenterStatusModif}"
+								fifilterMatchMode="contains">
+								<h:outputText value="#{list.supportCenterStatusModif}" />
+							</p:column>
+							<p:column id="actionColumn" headerText="Action" width="100">
+								<p:commandButton id="viewBtn" update=":form2:displayView"
+									onclick="viewSc.show()" icon="ui-icon-search"
+									title="View">
+									<f:setPropertyActionListener value="#{list.scs}"
+										target="#{supportCenterC.sc}" />
+								</p:commandButton>
+								<p:commandButton id="answerBtn" update=":form3:displayAnswer"
+									onclick="answerSc.show()" icon="ui-icon-search"
+									title="View">
+									<f:setPropertyActionListener value="#{list.sc}"
+										target="#{supportCenterC.sc}" />
+								</p:commandButton>
+								<p:commandButton id="deleteButton" update=":form4:displayDelete"
+									onclick="deleteSc.show()" icon="ui-icon-trash"
+									title="Delete">
+									<f:setPropertyActionListener value="#{list.sc}"
+										target="#{supportCenterC.sc}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						<!-- End of Table Investor -->
+					</h:form>
+					<!-- Dialog -->
+					<h:form id="form2">
+						<ui:include src="dialog/supportcenter/viewDialog.xhtml" />
+					</h:form>
+					<h:form id="form3">
+						<ui:include src="dialog/supportcenter/answerDialog.xhtml" />
+					</h:form>
+					<h:form id="form4">
+						<ui:include src="dialog/supportcenter/deleteDialog.xhtml" />
+					</h:form>
+				</p:panel>
 			</p:panel>
 		</ui:define>
 	</ui:composition>

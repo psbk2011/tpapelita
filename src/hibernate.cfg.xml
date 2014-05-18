@@ -14,5 +14,6 @@
   <mapping class="org.tpapelita.pojo.Outcome" resource="org/tpapelita/pojo/Outcome.hbm.xml"/>
   <mapping class="org.tpapelita.pojo.OutcomeDetails" resource="org/tpapelita/pojo/OutcomeDetails.hbm.xml"/>
   <mapping class="org.tpapelita.pojo.ReportPublish" resource="org/tpapelita/pojo/ReportPublish.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.SupportCenter" resource="org/tpapelita/pojo/SupportCenter.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
