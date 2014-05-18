@@ -8,14 +8,18 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
-	<!-- Add Dialog -->
-	<p:dialog header="Add Investment" widgetVar="addInvestment"
-		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
-		</p:panelGrid>
-	</p:dialog>
-	<!-- End of Add Dialog -->
+	<!-- Add Dialog Outcome -->
+		<p:dialog header="Confirmation" widgetVar="addOutcome"
+			modal="true" resizable="false" id="dlg4">
+			<p:panel id="displayAdd">
+				<p:outputLabel value="Add Outcome Transaction With ID = #{outcomeC.genOutcomeId}" />
+			</p:panel>
+			<f:facet name="footer">
+				<p:commandButton value="OK"
+					update="displayAdd :form7:tableOutcome :form0:msgs1"
+					onclick="addOutcome.hide();" action="#{outcomeC.create}"/>
+			</f:facet>
+		</p:dialog>
+	<!-- End of Add Dialog Outcome -->
 </h:body>
 </html>

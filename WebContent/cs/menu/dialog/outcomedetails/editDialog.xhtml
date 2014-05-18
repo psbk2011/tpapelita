@@ -9,11 +9,49 @@
 
 <h:body>
 	<!-- Edit Dialog -->
-	<p:dialog header="Edit Investment" widgetVar="editInvestment"
+	<p:dialog header="Edit Outcome Details" widgetVar="editOutDetails"
 		modal="true" resizable="false">
-		<p:panelGrid id="displayEdit" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
+		<p:panelGrid id="displayEdit" columns="3">
+			<p:outputLabel for="unitName" value="Unit Name" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitName" value="#{outcomeDetails.outDetails.detailsUnitName}" required="true"
+				requiredMessage="Please insert unit name"
+				validatorMessage="Unit name must no number" maxlength="35"
+				style="color:black">
+				<f:validateRegex pattern="^[a-zA-Z]+$" />
+			</p:inputText>
+
+			<p:outputLabel for="unitPrice" value="Unit Price" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitPrice" value="#{outcomeDetails.outDetails.detailsUnitPrice}" required="true"
+				requiredMessage="Please insert unit price"
+				validatorMessage="Price must be number" maxlength="10"
+				style="color:black">
+				<f:validateDoubleRange />
+			</p:inputText>
+
+			<p:outputLabel for="unitQty" value="Unit Qty" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitQty" value="#{outcomeDetails.outDetails.detailsUnitQty}" required="true"
+				requiredMessage="Please insert Qty"
+				validatorMessage="Qty must be number" maxlength="2"
+				style="color:black">
+				<f:validateDoubleRange maximum="2" />
+			</p:inputText>
+
+			<p:outputLabel for="info" value="Unit Info" />
+			<p:outputLabel value=":" />
+			<p:inputTextarea id="info" value="#{outcomeDetails.outDetails.detailsInfo}" required="true"
+				requiredMessage="Please insert unit information" maxlength="200"/>
+
+
+			<f:facet name="footer">
+				<p:commandButton id="btn1" value="Update"
+					update=":form8:tableOutcomeDetails :form0:msgs1 :form16:displayEdit"
+					action="#{outcomeDetailsC.update}" validateClient="true">
+					<f:ajax execute="@all" />
+				</p:commandButton>
+			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
 	<!-- End of Edit Dialog -->

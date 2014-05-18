@@ -12,8 +12,55 @@
 	<p:dialog header="Edit Investment" widgetVar="editInvestment"
 		modal="true" resizable="false">
 		<p:panelGrid id="displayEdit" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
+			<p:outputLabel for="invesId" value="Inves Id :" />
+			<h:outputText id="invesId" value="#{investmentC.invesIdModif}" />
+
+			<p:outputLabel for="investorId" value="Investor ID :" />
+			<p:inputText id="investorId" value="#{investmentC.investorId}" />
+
+			<p:outputLabel for="invesType" value="Inves Type :" />
+			<p:selectOneMenu id="invesType"
+				value="#{investmentC.inves.invesType}">
+				<f:selectItem itemLabel="Zakat" itemValue="1" />
+				<f:selectItem itemLabel="Infaq" itemValue="2" />
+				<f:selectItem itemLabel="Sodaqoh" itemValue="3" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="invesSenderName" value="Inves Sender Name :" />
+			<p:inputText id="invesSenderName"
+				value="#{investmentC.inves.invesSenderName}" />
+
+			<p:outputLabel for="invesBankName" value="Inves Bank Name :" />
+			<p:selectOneMenu id="invesBankName"
+				value="#{investmentC.inves.invesBankName}">
+				<f:selectItem itemLabel="MANDIRI" itemValue="MANDIRI" />
+				<f:selectItem itemLabel="BCA" itemValue="BCA" />
+				<f:selectItem itemLabel="BRI" itemValue="BRI" />
+				<f:selectItem itemLabel="BNI" itemValue="BNI" />
+				<f:selectItem itemLabel="BJB" itemValue="BJB" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="invesAccountNo" value="Inves Account No :" />
+			<p:inputText id="invesAccountNo"
+				value="#{investmentC.inves.invesAccountNo}" />
+
+			<p:outputLabel for="invesTransfer" value="Inves Transfer :" />
+			<p:inputText id="invesTransfer"
+				value="#{investmentC.inves.invesTransfer}" />
+
+			<p:outputLabel for="invesStatus" value="Inves Status :" />
+			<p:selectOneMenu id="invesStatus"
+				value="#{investmentC.inves.invesStatus}">
+				<f:selectItem itemLabel="Recieved" itemValue="1" />
+				<f:selectItem itemLabel="Not Valid" itemValue="2" />
+				<f:selectItem itemLabel="Pending" itemValue="3" />
+			</p:selectOneMenu>
+			
+			<f:facet name="footer">
+				<p:commandButton id="btn2" value="Update"
+					update="displayEdit :form0:msgs1 :form2:tableInvestment"
+					action="#{investmentC.update}" oncomplete="editInvestment.hide();" />
+			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
 	<!-- End of Edit Dialog -->

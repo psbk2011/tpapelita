@@ -9,11 +9,19 @@
 
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Add Investment" widgetVar="addInvestment"
+	<p:dialog header="Answer Tiket" widgetVar="answerSc"
 		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
+		<p:panelGrid id="displayAnswer" columns="2" style="margin-bottom:10px">
+			<p:panel>
+				Under Contruction
+			</p:panel>
+			<f:facet name="footer">
+				<p:commandButton id="btn1" value="Save"
+					update="displayAnswer :form1:tableSc :form0:msg"
+					action="#{supportCenterC.send}" oncomplete="answerSc.hide();">
+					<f:ajax execute="@all"/>
+				</p:commandButton>
+			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
 	<!-- End of Add Dialog -->

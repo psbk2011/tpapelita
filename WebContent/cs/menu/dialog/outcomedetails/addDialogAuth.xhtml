@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<!-- Add Dialog -->
+	<p:dialog header="Add OutcomeDetails" widgetVar="addOutDetailsAuth"
+		modal="true" resizable="false">
+		<center>
+			<p:panel>
+				<p:outputLabel value="To Add Outcome Details, please clik OK." />
+			</p:panel>
+			<p:panel>
+				<p:commandButton id="btn1" value="OK"
+					update=":form14:displayAdd :form0:msgs1"
+					action="#{outcomeC.authentication}"
+					oncomplete="addOutDetailsAuth.hide()">
+					<f:setPropertyActionListener value="#{outcomeC.outcome}"
+						target="#{outcomeDetailsC.outcome}" />
+				</p:commandButton>
+			</p:panel>
+		</center>
+	</p:dialog>
+	<!-- End of Add Dialog -->
+</h:body>
+</html>

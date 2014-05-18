@@ -9,11 +9,53 @@
 
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Add Investment" widgetVar="addInvestment"
+	<p:dialog header="Add OutcomeDetails" widgetVar="addOutDetails"
 		modal="true" resizable="false">
-		<p:panelGrid id="displayAdd" columns="2" style="margin-bottom:10px">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
+		<p:panel id="outcomeId">
+			<p:outputLabel value="Outcome ID : #{outcomeC.outcomeIdModif}"/>
+		</p:panel>
+		<p:panelGrid id="displayAdd" columns="3">
+	
+			<p:outputLabel for="unitName" value="Unit Name" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitName" value="#{outcomeDetailsC.outDetails.detailsUnitName}" required="true"
+				requiredMessage="Please insert unit name"
+				validatorMessage="Unit name must no number" maxlength="35"
+				style="color:black">
+				<f:validateRegex pattern="^[a-zA-Z]+$" />
+			</p:inputText>
+
+			<p:outputLabel for="unitPrice" value="Unit Price" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitPrice" value="#{outcomeDetailsC.outDetails.detailsUnitPrice}" required="true"
+				requiredMessage="Please insert unit price"
+				validatorMessage="Price must be number" maxlength="10"
+				style="color:black">
+				<f:validateDoubleRange />
+			</p:inputText>
+
+			<p:outputLabel for="unitQty" value="Unit Qty" />
+			<p:outputLabel value=":" />
+			<p:inputText id="unitQty" value="#{outcomeDetailsC.outDetails.detailsUnitQty}" required="true"
+				requiredMessage="Please insert Qty"
+				validatorMessage="Qty must be number" maxlength="2"
+				style="color:black">
+				<f:validateDoubleRange maximum="2" />
+			</p:inputText>
+
+			<p:outputLabel for="info" value="Unit Info" />
+			<p:outputLabel value=":" />
+			<p:inputTextarea id="info" value="#{outcomeDetailsC.outDetails.detailsInfo}" required="true"
+				requiredMessage="Please insert unit information" maxlength="200" style="color:black"/>
+
+
+			<f:facet name="footer">
+				<p:commandButton id="btn1" value="Save"
+					update=":form8:tableOutcomeDetails :form0:msgs1 :form14:displayAdd"
+					action="#{outcomeDetailsC.create}" validateClient="true">
+					<f:ajax execute="@all" />
+				</p:commandButton>
+			</f:facet>
 		</p:panelGrid>
 	</p:dialog>
 	<!-- End of Add Dialog -->

@@ -9,12 +9,37 @@
 
 <h:body>
 	<!-- Delete Dialog Investment -->
-	<p:dialog header="Confirmation" widgetVar="deleteInvestment"
+	<p:dialog header="Confirmation" widgetVar="deleteOutDetails"
 		modal="true" resizable="false" id="dlg4">
 		<p:panel id="displayDelete">
-			<!-- Please write your code here -->
-			<h:outputText value="Under Contruction" />
+			<p:panel>
+				<p:outputLabel value="Are you sure to delete this Outcome Details?" />
+				<br />
+			</p:panel>
+			<p:panel>
+				<h:panelGrid columns="3">
+					<p:outputLabel value="Unit Name" />
+					<p:outputLabel value=":"/>
+					<h:outputText value="#{outcomeDetailsC.outDetails.detailsUnitName}" />
+					
+					<p:outputLabel value="Unit Qty" />
+					<p:outputLabel value=":"/>
+					<h:outputText value="#{outcomeDetailsC.outDetails.detailsUnitQty}" />
+					
+					<p:outputLabel value="Unit Price" />
+					<p:outputLabel value=":"/>
+					<h:outputText value="#{outcomeDetailsC.outDetails.detailsUnitPrice}" />
+				</h:panelGrid>
+			</p:panel>
 		</p:panel>
+
+		<f:facet name="footer">
+			<p:commandButton value="Yes" icon="ui-icon-check"
+				update=":form17:displayDelete :form14:displayAdd :form8:tableOutcomeDetails :form0:msgs1"
+				onclick="deleteOutDetails.hide();" action="#{outcomeDetailsC.delete}" />
+			<p:commandButton value="No" update="displayDelete"
+				icon="ui-icon-close" onclick="deleteOutDetails.hide();" />
+		</f:facet>
 	</p:dialog>
 	<!-- End of Delete Dialog of Investor -->
 </h:body>
