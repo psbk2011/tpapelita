@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 18, 2014 1:43:50 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
