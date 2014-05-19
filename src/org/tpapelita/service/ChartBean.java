@@ -243,6 +243,7 @@ public class ChartBean implements Serializable {
 		mapTahun.put("Tahun 2013 11", lapThn201311);
 		mapTahun.put("Tahun 2013 12", lapThn201312);
 
+		
 		mapTahun.put("Tahun 2014 1", lapThn20141);
 		mapTahun.put("Tahun 2014 2", lapThn20142);
 		mapTahun.put("Tahun 2014 3", lapThn20143);

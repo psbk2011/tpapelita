@@ -117,7 +117,8 @@ public class AdministratorDao implements Serializable {
 	 * puput 1-105
 	 */
 	
-	public Boolean Read(int id, String pass) {
+	@SuppressWarnings("unchecked")
+	public boolean Read(int id, String pass) {
 		List<Administrator> admin = new ArrayList<Administrator>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		System.out.println(id+", "+pass);
@@ -128,6 +129,24 @@ public class AdministratorDao implements Serializable {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Administrator> cekLogin(Administrator adm) {
+		List<Administrator> admin = new ArrayList<Administrator>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			admin = session.createQuery("FROM Administrator WHERE adminUsername = '"
+					+ adm.getAdminUsername() + "' and adminPass = '"
+					+ adm.getAdminPass()+"'").list();
+			return admin;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new ArrayList<Administrator>();
 		} finally {
 			session.flush();
 			session.close();

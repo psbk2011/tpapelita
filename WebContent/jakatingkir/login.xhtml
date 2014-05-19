@@ -26,17 +26,17 @@ body {
 					<p:growl id="msg" showDetail="true" life="3000" autoUpdate="true"/>
 					<p:panel header="Login" style="width: 280px;">
 						<h:panelGrid id="loginPanel" columns="3">
-							<p:outputLabel for="id" value="ID" />
+							<p:outputLabel for="username" value="Username" />
 							<p:outputLabel value=":"/>
-							<p:inputText id="id" value="#{administratorC.admin.adminId}" required="true" requiredMessage="Please insert your id"/>
+							<p:inputText id="username" value="#{LoginController.admin.adminUsername}" required="true" requiredMessage="Please insert your id" style="color:black;"/>
 
 							<p:outputLabel for="pass" value="Password" />
 							<p:outputLabel value=":"/>
-							<p:password id="pass" value="#{administratorC.admin.adminPass}" feedback="false" required="true" maxlength="16" requiredMessage="Please insert your password"/>
+							<p:password id="pass" value="#{LoginController.admin.adminPass}" feedback="false" required="true" maxlength="16" requiredMessage="Please insert your password" style="color:black;"/>
 								
 							<p:outputLabel/>
 							<p:outputLabel/>	
-							<p:commandButton action="#{administratorC.login}" value="Login"
+							<p:commandButton action="#{LoginController.loginAdmin}" value="Login"
 								update=":form:msg" ajax="false" validateClient="true"/>
 						</h:panelGrid>
 					</p:panel>

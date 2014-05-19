@@ -19,8 +19,22 @@
 				<p:outputLabel value=":" />
 				<p:inputText id="adminName"
 					value="#{administratorC.admin.adminName}" required="true"
-					requiredMessage="Please insert cs name" maxlength="35"
-					style="color:black" />
+					requiredMessage="Please insert cs name"
+					validatorMessage="Name must no number" maxlength="25"
+					style="color:black">
+					<f:validateRegex pattern="^[a-zA-Z\-'\s]+$" />
+				</p:inputText>
+				
+				<p:outputLabel for="adminUsername" value="Username" />
+				<p:outputLabel value=":" />
+				<p:inputText id="adminUsername"
+					value="#{administratorC.admin.adminUsername}" required="true"
+					requiredMessage="Please insert cs username"
+					validatorMessage="username min 5 character" maxlength="18"
+					style="color:black">
+					<f:validateRegex pattern="^[a-zA-Z\-'\s]+$" />
+					<f:validateLength minimum="5" />
+				</p:inputText>
 
 				<p:outputLabel for="adminEmail" value="Email" />
 				<p:outputLabel value=":" />

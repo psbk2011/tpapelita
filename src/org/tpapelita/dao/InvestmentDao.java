@@ -40,13 +40,14 @@ public class InvestmentDao implements Serializable {
 			session.close();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Investment> getRead() {
 		List<Investment> investment = new ArrayList<Investment>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			investment = session.createQuery("from Investment order by invesId Desc").list();
+			investment = session.createQuery(
+					"from Investment order by invesId Desc").list();
 			return investment;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -56,22 +57,24 @@ public class InvestmentDao implements Serializable {
 			session.close();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Investment> getReadLastId() {
-        List<Investment> inves = new ArrayList<Investment>();
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            inves = session.createQuery("from Investment order by invesId DESC").list();
-            return inves;
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return new ArrayList<Investment>();
-        } finally {
-            session.flush();
-            session.close();
-        }
-    }
+		List<Investment> inves = new ArrayList<Investment>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			inves = session
+					.createQuery("from Investment order by invesId DESC")
+					.list();
+			return inves;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return new ArrayList<Investment>();
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Investment> getReadManyToOne(int investorId) {
@@ -124,6 +127,27 @@ public class InvestmentDao implements Serializable {
 			}
 			e.printStackTrace();
 			return "Delete Failed";
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public int countRowBy(int min) {
+		int count = 0;
+		List<Investment> investment = new ArrayList<Investment>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			investment = session.createQuery(
+					"FROM Investment WHERE invesId > " + min+" ORDER BY invesId DESC").list();
+			if (investment.size() != 0) {
+				count = investment.get(0).getInvesId()-min;
+			}			
+			return count;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return count;
 		} finally {
 			session.flush();
 			session.close();

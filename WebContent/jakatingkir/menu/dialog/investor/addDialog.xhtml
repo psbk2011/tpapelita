@@ -20,9 +20,9 @@
 				<p:inputText id="investorName"
 					value="#{investorC.investor.investorName}" required="true"
 					requiredMessage="Please insert investor name"
-					validatorMessage="Name must no number" maxlength="35"
+					validatorMessage="Name must no number" maxlength="25"
 					style="color:black">
-					<f:validateRegex pattern="^[a-zA-Z]+$" />
+					<f:validateRegex pattern="^[a-zA-Z\-'\s]+$" />
 				</p:inputText>
 
 				<p:outputLabel for="investorEmail" value="Email" />

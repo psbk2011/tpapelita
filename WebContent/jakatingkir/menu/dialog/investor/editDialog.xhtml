@@ -28,7 +28,7 @@
 					requiredMessage="Please insert investor name"
 					validatorMessage="Name must no number" maxlength="35"
 					style="color:black">
-					<f:validateRegex pattern="^[a-zA-Z]+$" />
+					<f:validateRegex pattern="^[a-zA-Z\-'\s]+$" />
 				</p:inputText>
 
 				<p:outputLabel for="investorEmail" value="Email" />

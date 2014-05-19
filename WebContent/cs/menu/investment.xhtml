@@ -6,7 +6,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:body>
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/cs/cstemplate.xhtml">
@@ -39,17 +38,13 @@
 								filteredValue="#{investmentC.list}">
 								<f:facet name="header">Investment(Rp)</f:facet>
 								<p:column id="idColumn" headerText="ID" width="80"
-									filterMatchMode="contains" filterBy="#{list.invesIdModif}">
-									<h:outputText value="#{list.invesIdModif}" />
+									filterMatchMode="contains" filterBy="#{list.inves.invesId}">
+									<h:outputText value="#{list.inves.invesId}" />
 								</p:column>
-								<p:column id="dateColumn" headerText="Date"
-									filterMatchMode="contains" filterBy="#{list.invesDateModif}">
-									<h:outputText value="#{list.invesDateModif}" />
-								</p:column>
-								<p:column id="senderColumn" headerText="Sender"
+								<p:column id="senderColumn" headerText="ID Investor"
 									filterMatchMode="contains"
-									filterBy="#{list.inves.invesSenderName}">
-									<h:outputText value="#{list.inves.invesSenderName}" />
+									filterBy="#{list.investorIdModif}">
+									<h:outputText value="#{list.investorIdModif}" />
 								</p:column>
 								<p:column id="bankNameColumn" headerText="Bank Name"
 									filterMatchMode="contains"
@@ -60,9 +55,6 @@
 									filterMatchMode="contains"
 									filterBy="#{list.invesAccountNoModif}">
 									<h:outputText value="#{list.invesAccountNoModif}" />
-								</p:column>
-								<p:column id="typeInvesColumn" headerText="Type">
-									<h:outputText value="#{list.invesTypeModif}" />
 								</p:column>
 								<p:column id="statusColumn" headerText="Status">
 									<h:outputText value="#{list.invesStatusModif}" />

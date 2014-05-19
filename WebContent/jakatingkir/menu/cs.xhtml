@@ -45,6 +45,13 @@
 								filterMatchMode="contains">
 								<h:outputText value="#{list.admin.adminName}" />
 							</p:column>
+							
+							<p:column id="usernameColumn" headerText="Username"
+								filterBy="#{list.admin.adminUsername}"
+								filterMatchMode="contains">
+								<h:outputText value="#{list.admin.adminUsername}" />
+							</p:column>
+							
 							<p:column id="emailColumn" headerText="Email"
 								filterBy="#{list.admin.adminEmail}"
 								filterMatchMode="contains">

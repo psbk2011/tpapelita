@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 18, 2014 1:43:50 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +23,7 @@ public class Administrator implements java.io.Serializable {
 	private String adminEmail;
 	private String adminPhone;
 	private Boolean adminJob;
+	private String adminUsername;
 	private String adminPass;
 	private String adminLastPass;
 	private Boolean adminStatus;
@@ -38,8 +39,8 @@ public class Administrator implements java.io.Serializable {
 	}
 
 	public Administrator(int adminId, String adminName, String adminEmail,
-			String adminPhone, Boolean adminJob, String adminPass,
-			String adminLastPass, Boolean adminStatus,
+			String adminPhone, Boolean adminJob, String adminUsername,
+			String adminPass, String adminLastPass, Boolean adminStatus,
 			Set<Investment> investments, Set<Event> events,
 			Set<Outcome> outcomes) {
 		this.adminId = adminId;
@@ -47,6 +48,7 @@ public class Administrator implements java.io.Serializable {
 		this.adminEmail = adminEmail;
 		this.adminPhone = adminPhone;
 		this.adminJob = adminJob;
+		this.adminUsername = adminUsername;
 		this.adminPass = adminPass;
 		this.adminLastPass = adminLastPass;
 		this.adminStatus = adminStatus;
@@ -99,6 +101,15 @@ public class Administrator implements java.io.Serializable {
 
 	public void setAdminJob(Boolean adminJob) {
 		this.adminJob = adminJob;
+	}
+
+	@Column(name = "admin_username", length = 18)
+	public String getAdminUsername() {
+		return this.adminUsername;
+	}
+
+	public void setAdminUsername(String adminUsername) {
+		this.adminUsername = adminUsername;
 	}
 
 	@Column(name = "admin_pass", length = 65535)

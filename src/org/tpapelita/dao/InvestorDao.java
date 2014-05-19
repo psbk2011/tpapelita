@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.tpapelita.pojo.Investor;
@@ -64,6 +65,22 @@ public class InvestorDao implements Serializable {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             investors = session.createQuery("from Investor order by investorId DESC").list();
+            return investors;
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return new ArrayList<Investor>();
+        } finally {
+            session.flush();
+            session.close();
+        }
+    }
+	
+	@SuppressWarnings("unchecked")
+	public List<Investor> getReadBy() {
+        List<Investor> investors = new ArrayList<Investor>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            investors = session.createQuery("from Investor order by investorId").list();
             return investors;
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -150,5 +167,25 @@ public class InvestorDao implements Serializable {
 			session.flush();
 			session.close();
 		}
+	}
+	
+	public boolean cekLogin(Investor i) {
+		boolean kondisi = false;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			String sqlQuery = "FROM Investor WHERE investorId = '"
+					+ i.getInvestorId() + "' and investorPass = '"
+					+ i.getInvestorPass()+"'";
+			Query query = session.createQuery(sqlQuery);
+			if (!query.list().isEmpty()) {
+				kondisi = true;
+			} else {
+			}
+		} catch (Exception e) {
+		}  finally {
+			session.flush();
+			session.close();
+		}
+		return kondisi;
 	}
 }

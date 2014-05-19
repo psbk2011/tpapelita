@@ -16,10 +16,9 @@
 					<p:menuitem value="History investment" url="/investor/menu/historyinvestment.jsf" />
 					<p:menuitem value="TPA Report" url="/investor/menu/tpareport.jsf" />
 				</p:menuButton>
-				<p:button outcome="/investor/menu/profile" value="Profile" icon="ui-icon-person"/>
 			</p:toolbarGroup>
-			<p:toolbarGroup align="right">
-				<p:button type="button" value="Logout" icon="ui-icon-extlink" outcome="/investor/login"/>
+			<p:toolbarGroup align="right">s
+				<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{LoginController.doLogoutInvestor}" ajax="false"/>
 			</p:toolbarGroup>
 		</p:toolbar>
 	</h:form>

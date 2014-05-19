@@ -20,10 +20,9 @@
 					<p:menuitem value="Event" url="/jakatingkir/menu/event.jsf"/>
 					<p:menuitem value="Report" url="/jakatingkir/menu/report.jsf"/> 
 				</p:menuButton>
-				<p:button outcome="/jakatingkir/menu/profile" value="Profile" icon="ui-icon-person"/>
 			</p:toolbarGroup>
 			<p:toolbarGroup align="right">
-				<p:button type="button" value="Logout" icon="ui-icon-extlink" outcome="/jakatingkir/login"/>
+				<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{LoginController.doLogoutAdmin}" ajax="false"/>
 			</p:toolbarGroup>
 		</p:toolbar>
 	</h:form>

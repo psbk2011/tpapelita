@@ -28,15 +28,15 @@ body {
 						<h:panelGrid id="loginPanel" columns="3">
 							<p:outputLabel for="id" value="ID" />
 							<p:outputLabel value=":"/>
-							<p:inputText id="id" value="#{investorC.investor.investorId}" required="true" requiredMessage="Please insert your id"/>
+							<p:inputText id="id" value="#{LoginController.investor.investorId}" required="true" requiredMessage="Please insert your id" style="color:black;"/>
 
 							<p:outputLabel for="pass" value="Password" />
 							<p:outputLabel value=":"/>
-							<p:password id="pass" value="#{investorC.investor.investorPass}" feedback="false" required="true" maxlength="16" requiredMessage="Please insert your password"/>
+							<p:password id="pass" value="#{LoginController.investor.investorPass}" feedback="false" required="true" maxlength="16" requiredMessage="Please insert your password" style="color:black;"/>
 								
 							<p:outputLabel/>
 							<p:outputLabel/>	
-							<p:commandButton action="#{investorC.login}" value="Login"
+							<p:commandButton action="#{LoginController.loginInvestor}" value="Login"
 								update=":form:msg" ajax="false" validateClient="true"/>
 						</h:panelGrid>
 					</p:panel>
