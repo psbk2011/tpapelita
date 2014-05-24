@@ -1,17 +1,14 @@
 package org.tpapelita.pojo;
 
-// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +23,6 @@ public class Outcome implements java.io.Serializable {
 	private int outcomeId;
 	private Administrator administrator;
 	private Date outcomeDate;
-	private Set<OutcomeDetails> outcomeDetailses = new HashSet<OutcomeDetails>(
-			0);
 
 	public Outcome() {
 	}
@@ -36,12 +31,10 @@ public class Outcome implements java.io.Serializable {
 		this.outcomeId = outcomeId;
 	}
 
-	public Outcome(int outcomeId, Administrator administrator,
-			Date outcomeDate, Set<OutcomeDetails> outcomeDetailses) {
+	public Outcome(int outcomeId, Administrator administrator, Date outcomeDate) {
 		this.outcomeId = outcomeId;
 		this.administrator = administrator;
 		this.outcomeDate = outcomeDate;
-		this.outcomeDetailses = outcomeDetailses;
 	}
 
 	@Id
@@ -72,15 +65,6 @@ public class Outcome implements java.io.Serializable {
 
 	public void setOutcomeDate(Date outcomeDate) {
 		this.outcomeDate = outcomeDate;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "outcome")
-	public Set<OutcomeDetails> getOutcomeDetailses() {
-		return this.outcomeDetailses;
-	}
-
-	public void setOutcomeDetailses(Set<OutcomeDetails> outcomeDetailses) {
-		this.outcomeDetailses = outcomeDetailses;
 	}
 
 }

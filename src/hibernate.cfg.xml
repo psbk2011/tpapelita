@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory>
+ <session-factory >
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/master_tpapelita</property>
   <property name="hibernate.connection.username">root</property>
@@ -15,5 +15,6 @@
   <mapping class="org.tpapelita.pojo.OutcomeDetails" resource="org/tpapelita/pojo/OutcomeDetails.hbm.xml"/>
   <mapping class="org.tpapelita.pojo.ReportPublish" resource="org/tpapelita/pojo/ReportPublish.hbm.xml"/>
   <mapping class="org.tpapelita.pojo.SupportCenter" resource="org/tpapelita/pojo/SupportCenter.hbm.xml"/>
+  <mapping class="org.tpapelita.pojo.News" resource="org/tpapelita/pojo/News.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

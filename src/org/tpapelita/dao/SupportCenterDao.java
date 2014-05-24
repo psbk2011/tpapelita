@@ -47,7 +47,7 @@ public class SupportCenterDao implements Serializable {
         List<SupportCenter> sc = new ArrayList<SupportCenter>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            sc = session.createQuery("from SupportCenter order by supportShow, supportDate DESC").list();
+            sc = session.createQuery("from SupportCenter order by supportStatus, supportDate DESC").list();
             return sc;
         } catch (RuntimeException e) {
             e.printStackTrace();

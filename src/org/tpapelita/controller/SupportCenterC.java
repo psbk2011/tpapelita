@@ -25,6 +25,7 @@ public class SupportCenterC implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private SupportCenter sc;
 	private List<SupportCenterC> list;
+	private String answerMessage;
 
 
 	/*
@@ -33,7 +34,24 @@ public class SupportCenterC implements Serializable {
 	public SupportCenterC() {
 		this.sc = new SupportCenter();
 	}
+	
+	public String getAnswerMessage() {
+		return answerMessage;
+	}
 
+	public void setAnswerMessage(String answerMessage) {
+		this.answerMessage = answerMessage;
+	}
+	
+	public String getAnswerMessageModif(){
+		String answer="No Answer";
+		try {
+			answer = getSc().getSupportAnswer();
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+		return answer;
+	}
 	public SupportCenter getSc() {
 		return sc;
 	}
@@ -43,10 +61,10 @@ public class SupportCenterC implements Serializable {
 	}
 
 	public String getSupportCenterStatusModif() {
-		String status = "Aktif";
+		String status = "Open";
 		try {
-			if (getSc().getSupportStatus() == 0) {
-				status = "Nonaktif";
+			if (getSc().getSupportStatus() != 0) {
+				status = "Close";
 			}
 			return status;
 		} catch (NullPointerException e) {
@@ -111,11 +129,17 @@ public class SupportCenterC implements Serializable {
 	public void update() {
 		SupportCenterDao dao = new SupportCenterDao();
 		FacesContext context = FacesContext.getCurrentInstance();
-		String msg = dao.update(getSc());
-		System.out.println(msg);
-		context.addMessage(null, new FacesMessage(msg));
-		RequestContext.getCurrentInstance().execute("editInvestor.hide()");
-		clear();
+		if (!getAnswerMessage().equalsIgnoreCase("No Answer")) {
+			getSc().setSupportAnswer(getAnswerMessage());
+			getSc().setSupportStatus(1);
+			String msg = dao.update(getSc());
+			System.out.println(msg);
+			context.addMessage(null, new FacesMessage(msg));
+			clear();
+			RequestContext.getCurrentInstance().execute("answerSC.hide()");
+		} else {
+			context.addMessage(null, new FacesMessage("Ticket has closed, can not to answer."));
+		}
 	}
 
 	public void delete() {
@@ -125,5 +149,10 @@ public class SupportCenterC implements Serializable {
 		System.out.println(msg);
 		context.addMessage(null, new FacesMessage("Delete Succesfully"));
 		clear();
+	}
+	
+	//Function
+	public void send(){
+		update();
 	}
 }

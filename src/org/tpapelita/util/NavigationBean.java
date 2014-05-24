@@ -21,10 +21,10 @@ public class NavigationBean implements Serializable {
 		return "/jakatingkir/login.jsf?faces-redirect=true";
 	}
 	public String indexAdmin() {
-		return "/jakatingkir/index.jsf";
+		return "/jakatingkir/menu/index.jsf";
 	}
 	public String redirectToIndexAdmin(){
-		return "/jakatingkir/index.jsf?faces-redirect=true";
+		return "/jakatingkir/menu/index.jsf?faces-redirect=true";
 	}
 	public String toLoginCS() {
 		return "/cs/login.jsf";
@@ -33,10 +33,10 @@ public class NavigationBean implements Serializable {
 		return "/cs/login.jsf?faces-redirect=true";
 	}
 	public String indexCS() {
-		return "/cs/index.jsf";
+		return "/cs/menu/index.jsf";
 	}
 	public String redirectToIndexCS(){
-		return "/cs/index.jsf?faces-redirect=true";
+		return "/cs/menu/index.jsf?faces-redirect=true";
 	}
 	public String toLoginInvestor() {
 		return "/investor/login.jsf";
@@ -45,9 +45,9 @@ public class NavigationBean implements Serializable {
 		return "/investor/login.jsf?faces-redirect=true";
 	}
 	public String indexInvestor() {
-		return "/investor/index.jsf";
+		return "/investor/menu/index.jsf";
 	}
 	public String redirectToIndexInvestor(){
-		return "/investor/index.jsf?faces-redirect=true";
+		return "/investor/menu/index.jsf?faces-redirect=true";
 	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 20, 2014 3:44:51 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.tpapelita.pojo.News" table="news" catalog="master_tpapelita">
+        <id name="newsId" type="int">
+            <column name="news_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="newsDate" type="timestamp">
+            <column name="news_date" length="19" />
+        </property>
+        <property name="newsTitle" type="string">
+            <column name="news_title" length="25" />
+        </property>
+        <property name="newsContent" type="string">
+            <column name="news_content" length="65535" />
+        </property>
+        <property name="adminId" type="java.lang.Integer">
+            <column name="admin_id" />
+        </property>
+    </class>
+</hibernate-mapping>

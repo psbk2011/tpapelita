@@ -2,6 +2,7 @@ package org.tpapelita.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -26,8 +27,9 @@ public class OutcomeDetailsC implements Serializable {
 	private OutcomeDetails outDetails;
 	private List<OutcomeDetailsC> list;
 	private Outcome outcome;
-	private int totalOutDetails;
-	private int subTotalOutDetails;
+	private long totalOutDetails;
+	private long subTotalOutDetails;
+	private long totalInves;
 
 	/*
 	 * Support Method
@@ -37,19 +39,42 @@ public class OutcomeDetailsC implements Serializable {
 		this.outcome = new Outcome();
 	}
 	
-	public int getTotalOutDetails() {
+	public long getTotalOutDetails() {
+		OutcomeDetailsDao dao = new OutcomeDetailsDao();
+		List<OutcomeDetails> outDetails = dao.getRead();
+		totalOutDetails = 0;
+		for (int i = 0; i < outDetails.size(); i++) {
+			totalOutDetails += (outDetails.get(i).getDetailsUnitQty()*outDetails.get(i).getDetailsUnitPrice());
+		}
 		return totalOutDetails;
 	}
+	
+	public long getTotalInves() {
+		return totalInves;
+	}
 
-	public void setTotalOutDetails(int totalOutDetails) {
+	public void setTotalInves(long totalInves) {
+		this.totalInves = totalInves;
+	}
+
+	public void setTotalOutDetails(long totalOutDetails) {
 		this.totalOutDetails = totalOutDetails;
 	}
 
-	public int getSubTotalOutDetails() {
+	public long getSubTotalOutDetails() {
+		long temp = 0;
+		try {
+			int qty = getOutDetails().getDetailsUnitQty();
+			int price = getOutDetails().getDetailsUnitPrice();
+			temp = qty * price;
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+		subTotalOutDetails = temp;
 		return subTotalOutDetails;
 	}
 
-	public void setSubTotalOutDetails(int subTotalOutDetails) {
+	public void setSubTotalOutDetails(long subTotalOutDetails) {
 		this.subTotalOutDetails = subTotalOutDetails;
 	}
 
@@ -80,6 +105,20 @@ public class OutcomeDetailsC implements Serializable {
 	public void clear() {
 		setOutDetails(new OutcomeDetails());
 	}
+	
+	
+	@SuppressWarnings("deprecation")
+	public String getGenOutDetailsId() {
+		Date d = new Date();
+		OutcomeDetailsDao outDao = new OutcomeDetailsDao();
+		int year = (d.getYear()+1900);
+		int month = (1+d.getMonth());
+		int date = d.getDate();
+		long temp = (year*10000)+(month*100)+date;
+		long count = outDao.countRowBy((temp));
+		long id = count;
+		return String.valueOf(id);			
+	}
 
 	/*
 	 * CRUD Method
@@ -87,12 +126,19 @@ public class OutcomeDetailsC implements Serializable {
 	public void create() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		OutcomeDetailsDao dao = new OutcomeDetailsDao();
-		getOutDetails().setOutcome(getOutcome());
-		String msg = dao.create(getOutDetails());
-		System.out.println(msg);
-		clear();
-		context.addMessage(null, new FacesMessage(msg));
-		RequestContext.getCurrentInstance().execute("addOutDetails.hide()");
+		InvestmentC ic = new InvestmentC();
+		setTotalInves(ic.getTotalInves());
+		long balance = getTotalInves()-getTotalOutDetails();
+		if ((balance-(getOutDetails().getDetailsUnitPrice()*getOutDetails().getDetailsUnitQty())) >= 0) {
+			getOutDetails().setDetailsId(getGenOutDetailsId());
+			String msg = dao.create(getOutDetails());
+			System.out.println(msg);
+			clear();
+			context.addMessage(null, new FacesMessage(msg));
+			RequestContext.getCurrentInstance().execute("addOutDetails.hide()");
+		} else {
+			context.addMessage(null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Balance not enough", ("Balance is Rp "+String.valueOf(getTotalInves()))));
+		}
 	}
 
 	public List<OutcomeDetailsC> getRead() {
@@ -100,22 +146,6 @@ public class OutcomeDetailsC implements Serializable {
 		try {
 			OutcomeDetailsDao dao = new OutcomeDetailsDao();
 			List<OutcomeDetails> outDetails = dao.getRead();
-			for (int i = 0; i < outDetails.size(); i++) {
-				OutcomeDetailsC odc = new OutcomeDetailsC();
-				odc.setOutDetails(outDetails.get(i));
-				list.add(odc);
-			}
-			return list;
-		} catch (NullPointerException e) {
-			return new ArrayList<OutcomeDetailsC>();
-		}
-	}
-	
-	public List<OutcomeDetailsC> getReadById() {
-		List<OutcomeDetailsC> list = new ArrayList<OutcomeDetailsC>();
-		try {
-			OutcomeDetailsDao dao = new OutcomeDetailsDao();
-			List<OutcomeDetails> outDetails = dao.getReadById(getOutcome().getOutcomeId());
 			for (int i = 0; i < outDetails.size(); i++) {
 				OutcomeDetailsC odc = new OutcomeDetailsC();
 				odc.setOutDetails(outDetails.get(i));

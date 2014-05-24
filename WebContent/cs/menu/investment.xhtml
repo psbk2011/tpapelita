@@ -6,9 +6,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
+
 <h:body>
 	<ui:composition
-		template="/WEB-INF/templates/backendtemplate/cs/cstemplate.xhtml">
+		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
 		<ui:define name="title"> - Investment &amp; Outcome</ui:define>
 		<ui:define name="content">
 			<p:panel>
@@ -42,8 +43,7 @@
 									<h:outputText value="#{list.inves.invesId}" />
 								</p:column>
 								<p:column id="senderColumn" headerText="ID Investor"
-									filterMatchMode="contains"
-									filterBy="#{list.investorIdModif}">
+									filterMatchMode="contains" filterBy="#{list.investorIdModif}">
 									<h:outputText value="#{list.investorIdModif}" />
 								</p:column>
 								<p:column id="bankNameColumn" headerText="Bank Name"
@@ -85,119 +85,58 @@
 				<!-- Outcome Panel -->
 				<p:panel header="Outcome" toggleable="true" toggleSpeed="500"
 					widgetVar="panelOutCome">
-					<h:panelGrid columns="3">
-						<h:form id="form5">
-							<p:toolbar>
-								<p:toolbarGroup>
-									<p:commandButton type="button" value="Add Outcome"
-										update=":form12:displayAdd" onclick="addOutcome.show()" />
-								</p:toolbarGroup>
-							</p:toolbar>
-						</h:form>
-						<br />
-						<h:form id="form6">
-							<p:toolbar>
-								<p:toolbarGroup>
-									<p:commandButton type="button" value="Add Outcome Details"
-										onclick="addOutDetailsAuth.show()" />
-								</p:toolbarGroup>
-							</p:toolbar>
-						</h:form>
-						<h:form id="form7">
-							<p:panel>
-								<!-- Table Outcome -->
-								<p:dataTable id="tableOutcome" var="list"
-									value="#{outcomeC.read}" paginator="true" rows="10"
-									paginatorPosition="bottom"
-									paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-									emptyMessage="No record of Outcome"
-									filteredValue="#{outcomeC.list}">
-									<f:facet name="header">Outcome(Rp)</f:facet>
-									<p:column id="idColumn" headerText="ID" width="120"
-										filterBy="#{list.outcomeIdModif}" filterMatchMode="contains">
-										<h:outputText value="#{list.outcomeIdModif}" />
-									</p:column>
-									<p:column id="dateColumn" headerText="Date"
-										filterMatchMode="contains" filterBy="#{list.outcomeDateModif}">
-										<h:outputText value="#{list.outcomeDateModif}" />
-									</p:column>
-									<p:column id="responsibilityColumn" headerText="Responsibility">
-										<h:outputText value="#{list.outcomeResponsibility}" />
-									</p:column>
-									<p:column id="subTotalColumn" headerText="Sub Total">
-										<h:outputText value="#{list.totalOutcomeDetails}" />
-									</p:column>
-									<p:column id="actionColumn" headerText="Action">
-										<p:commandButton id="viewBtn" icon="ui-icon-search"
-											title="View"
-											update=":form8:outcomeId :form8:tableOutcomeDetails :form14:displayAdd :form14:outcomeId">
-											<f:setPropertyActionListener value="#{list.outcome}"
-												target="#{outcomeC.outcome}" />
-											<f:setPropertyActionListener value="#{list.outcome}"
-												target="#{outcomeDetailsC.outcome}" />
-										</p:commandButton>
-										<p:commandButton id="deleteBtn" icon="ui-icon-trash"
-											title="Delete" update=":form13:displayDelete"
-											onclick="deleteOutcome.show()">
-											<f:setPropertyActionListener value="#{list.outcome}"
-												target="#{outcomeC.outcome}" />
-										</p:commandButton>
-									</p:column>
-								</p:dataTable>
-								<!-- End of Table Outcome -->
-							</p:panel>
-						</h:form>
-						<br />
-						<h:form id="form8">
-							<p:panel>
-								<p:outputLabel id="outcomeId"
-									value="Outcome ID : #{outcomeC.outcomeIdModif}" />
-							</p:panel>
-							<p:panel>
-								<p:dataTable id="tableOutcomeDetails" var="list"
-									value="#{outcomeDetailsC.readById}" rowIndexVar="rowIndex"
-									emptyMessage="No record">
-									<f:facet name="header">Details (Rp)</f:facet>
-									<p:column id="noColumn" headerText="No">
-										<h:outputText value="#{rowIndex+1}" />
-									</p:column>
-									<p:column id="unitNameColumn" headerText="Name">
-										<h:outputText value="#{list.outDetails.detailsUnitName}" />
-									</p:column>
-									<p:column id="unitPriceColumn" headerText="Price">
-										<h:outputText value="#{list.outDetails.detailsUnitPrice}" />
-									</p:column>
-									<p:column id="unitQtyColumn" headerText="Qty">
-										<h:outputText value="#{list.outDetails.detailsUnitQty}" />
-									</p:column>
-									<p:column id="unitInfoColumn" headerText="Info">
-										<h:outputText value="#{list.outDetails.detailsInfo}" />
-									</p:column>
-									<p:column id="subTotalColumn" headerText="Sub Total">
-										<h:outputText value="#{list.subTotalOutDetails}" />
-									</p:column>
-									<p:column id="actionColumn" headerText="Action" width="80">
-										<p:commandButton id="editBtn2"
-											oncomplete="editOutDetails.show()" icon="ui-icon-pencil"
-											title="Edit">
-											<f:setPropertyActionListener value="#{list.outDetails}"
-												target="#{outcomeDetailsC.outDetails}" />
-										</p:commandButton>
-										<p:commandButton id="editButton"
-											oncomplete="deleteOutDetails.show()" icon="ui-icon-trash"
-											title="Delete">
-											<f:setPropertyActionListener value="#{list.outDetails}"
-												target="#{outcomeDetailsC.outDetails}" />
-										</p:commandButton>
-									</p:column>
-									<f:facet name="footer">
-										<h:outputText
-											value="Total : #{outcomeDetailsC.totalOutDetails}" />
-									</f:facet>
-								</p:dataTable>
-							</p:panel>
-						</h:form>
-					</h:panelGrid>
+					<h:form id="form5">
+						<p:toolbar>
+							<p:toolbarGroup>
+								<p:commandButton type="button" value="Add Outcome"
+									update=":form12:displayAdd" onclick="addOutDetails.show()" />
+							</p:toolbarGroup>
+						</p:toolbar>
+					</h:form>
+					<br />
+					<h:form id="form8">
+						<p:panel>
+							<p:dataTable id="tableOutcomeDetails" var="list"
+								value="#{outcomeDetailsC.read}"  paginator="true" rows="10"
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+								emptyMessage="No record">
+								<f:facet name="header">Details (Rp)</f:facet>
+								<p:column id="noColumn" headerText="ID">
+									<h:outputText value="#{list.outDetails.detailsId}" />
+								</p:column>
+								<p:column id="unitNameColumn" headerText="Name">
+									<h:outputText value="#{list.outDetails.detailsUnitName}" />
+								</p:column>
+								<p:column id="unitPriceColumn" headerText="Price">
+									<h:outputText value="#{list.outDetails.detailsUnitPrice}" />
+								</p:column>
+								<p:column id="unitQtyColumn" headerText="Qty">
+									<h:outputText value="#{list.outDetails.detailsUnitQty}" />
+								</p:column>
+								<p:column id="unitInfoColumn" headerText="Info">
+									<h:outputText value="#{list.outDetails.detailsInfo}" />
+								</p:column>
+								<p:column id="subTotalColumn" headerText="Sub Total">
+									<h:outputText value="#{list.subTotalOutDetails}" />
+								</p:column>
+								<p:column id="actionColumn" headerText="Action" width="80">
+									<p:commandButton id="editBtn2"
+										oncomplete="editOutDetails.show()" icon="ui-icon-pencil"
+										title="Edit">
+										<f:setPropertyActionListener value="#{list.outDetails}"
+											target="#{outcomeDetailsC.outDetails}" />
+									</p:commandButton>
+									<p:commandButton id="editButton"
+										oncomplete="deleteOutDetails.show()" icon="ui-icon-trash"
+										title="Delete">
+										<f:setPropertyActionListener value="#{list.outDetails}"
+											target="#{outcomeDetailsC.outDetails}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</h:form>
 				</p:panel>
 				<!-- Dialog -->
 				<h:form id="form9">
@@ -209,17 +148,8 @@
 				<h:form id="form11">
 					<ui:include src="dialog/investment/deleteDialog.xhtml" />
 				</h:form>
-				<h:form id="form12">
-					<ui:include src="dialog/outcome/addDialog.xhtml" />
-				</h:form>
-				<h:form id="form13">
-					<ui:include src="dialog/outcome/deleteDialog.xhtml" />
-				</h:form>
 				<h:form id="form14">
 					<ui:include src="dialog/outcomedetails/addDialog.xhtml" />
-				</h:form>
-				<h:form id="form15">
-					<ui:include src="dialog/outcomedetails/addDialogAuth.xhtml" />
 				</h:form>
 				<h:form id="form16">
 					<ui:include src="dialog/outcomedetails/editDialog.xhtml" />

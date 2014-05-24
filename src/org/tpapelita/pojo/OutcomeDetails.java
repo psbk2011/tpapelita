@@ -1,15 +1,10 @@
 package org.tpapelita.pojo;
 
-// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,8 +14,7 @@ import javax.persistence.Table;
 @Table(name = "outcome_details", catalog = "master_tpapelita")
 public class OutcomeDetails implements java.io.Serializable {
 
-	private Integer detailsId;
-	private Outcome outcome;
+	private String detailsId;
 	private String detailsUnitName;
 	private Integer detailsUnitPrice;
 	private Integer detailsUnitQty;
@@ -29,9 +23,13 @@ public class OutcomeDetails implements java.io.Serializable {
 	public OutcomeDetails() {
 	}
 
-	public OutcomeDetails(Outcome outcome, String detailsUnitName,
+	public OutcomeDetails(String detailsId) {
+		this.detailsId = detailsId;
+	}
+
+	public OutcomeDetails(String detailsId, String detailsUnitName,
 			Integer detailsUnitPrice, Integer detailsUnitQty, String detailsInfo) {
-		this.outcome = outcome;
+		this.detailsId = detailsId;
 		this.detailsUnitName = detailsUnitName;
 		this.detailsUnitPrice = detailsUnitPrice;
 		this.detailsUnitQty = detailsUnitQty;
@@ -39,24 +37,13 @@ public class OutcomeDetails implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "details_id", unique = true, nullable = false)
-	public Integer getDetailsId() {
+	@Column(name = "details_id", unique = true, nullable = false, length = 11)
+	public String getDetailsId() {
 		return this.detailsId;
 	}
 
-	public void setDetailsId(Integer detailsId) {
+	public void setDetailsId(String detailsId) {
 		this.detailsId = detailsId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "outcome_id")
-	public Outcome getOutcome() {
-		return this.outcome;
-	}
-
-	public void setOutcome(Outcome outcome) {
-		this.outcome = outcome;
 	}
 
 	@Column(name = "details_unit_name", length = 50)

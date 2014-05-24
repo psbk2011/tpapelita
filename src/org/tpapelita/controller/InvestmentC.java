@@ -37,6 +37,8 @@ public class InvestmentC implements Serializable {
 	private int totalInvesDetails;
 	private String invesResponsibility;
 	private Investor investor;
+	private long totalInves;
+	
 
 	/*
 	 * Support Method
@@ -76,6 +78,13 @@ public class InvestmentC implements Serializable {
 	public int getTotalInvesDetails() {
 		return totalInvesDetails;
 	}
+	
+	
+
+	public void setTotalInves(long totalInves) {
+		this.totalInves = totalInves;
+	}
+
 
 	public void setTotalInvesDetails(int totalInvesDetails) {
 		this.totalInvesDetails = totalInvesDetails;
@@ -89,6 +98,16 @@ public class InvestmentC implements Serializable {
 			return "0000-00-00";
 		}
 	}
+	
+	public long getTotalInves() {
+		InvestmentDao dao = new InvestmentDao();
+		List<Investment> inves = dao.getRead();
+		totalInves = 0;
+		for (int i = 0; i < inves.size(); i++) {
+			totalInves += (inves.get(i).getInvesTransfer());
+		}
+		return totalInves;
+	}
 
 	public List<InvestmentC> getList() {
 		return list;
@@ -99,16 +118,16 @@ public class InvestmentC implements Serializable {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public int getGenInvesId() {
+	public String getGenInvesId() {
 		Date d = new Date();
 		InvestmentDao invesDao = new InvestmentDao();
 		int year = (d.getYear()+1900);
 		int month = (1+d.getMonth());
 		int date = d.getDate();
-		int temp = (year*1000)+(month*100)+date;
-		int count = invesDao.countRowBy((temp*1000));
-		int id = (temp*1000)+(count+1);
-		return id;			
+		long temp = (year*10000)+(month*100)+date;
+		long count = invesDao.countRowBy((temp));
+		long id = count;
+		return String.valueOf(id);			
 	}
 	
 	public String getInvestorIdModif() {

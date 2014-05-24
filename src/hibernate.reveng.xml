@@ -6,6 +6,7 @@
   <table-filter match-catalog="master_tpapelita" match-name="event"/>
   <table-filter match-catalog="master_tpapelita" match-name="investment"/>
   <table-filter match-catalog="master_tpapelita" match-name="investor"/>
+  <table-filter match-catalog="master_tpapelita" match-name="news"/>
   <table-filter match-catalog="master_tpapelita" match-name="outcome"/>
   <table-filter match-catalog="master_tpapelita" match-name="outcome_details"/>
   <table-filter match-catalog="master_tpapelita" match-name="report_publish"/>

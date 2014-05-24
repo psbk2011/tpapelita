@@ -24,7 +24,7 @@
 	</servlet-mapping>
   <context-param>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Development</param-value>
+    <param-value>Production</param-value>
   </context-param>
   <filter>
   	<filter-name>LoginFilterAdmin</filter-name>
@@ -33,7 +33,6 @@
   <filter-mapping>
   	<filter-name>LoginFilterAdmin</filter-name>
   	<url-pattern>/jakatingkir/menu/*</url-pattern>
-  	<url-pattern>/jakatingkir/index.jsf</url-pattern>
   </filter-mapping>
   <filter>
  	<filter-name>LoginFilterCS</filter-name>
@@ -46,12 +45,10 @@
   <filter-mapping>
   	<filter-name>LoginFilterInvestor</filter-name>
   	<url-pattern>/investor/menu/*</url-pattern>
-  	<url-pattern>/investor/index.jsf</url-pattern>
   </filter-mapping>
   <filter-mapping>
   	<filter-name>LoginFilterCS</filter-name>
   	<url-pattern>/cs/menu/*</url-pattern>
-  	<url-pattern>/cs/index.jsf</url-pattern>
   </filter-mapping>
   <context-param>
         <param-name>primefaces.THEME</param-name>

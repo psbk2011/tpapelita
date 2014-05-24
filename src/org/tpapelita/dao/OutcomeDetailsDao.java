@@ -46,7 +46,7 @@ public class OutcomeDetailsDao implements Serializable {
 		List<OutcomeDetails> invesDetails = new ArrayList<OutcomeDetails>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			invesDetails = session.createQuery("from OutcomeDetails").list();
+			invesDetails = session.createQuery("from OutcomeDetails ORDER BY detailsId DESC").list();
 			return invesDetails;
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -73,22 +73,6 @@ public class OutcomeDetailsDao implements Serializable {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<OutcomeDetails> getReadManyToOne(int investmentId) {
-		List<OutcomeDetails> invesDetails = new ArrayList<OutcomeDetails>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			invesDetails = session.createQuery(
-					"from InvestmentDetails where investment = " + investmentId).list();
-			return invesDetails;
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-			return new ArrayList<OutcomeDetails>();
-		} finally {
-			session.flush();
-			session.close();
-		}
-	}
 
 	public String update(OutcomeDetails invesDetails) {
 		Transaction trns = null;
@@ -124,6 +108,28 @@ public class OutcomeDetailsDao implements Serializable {
 			}
 			e.printStackTrace();
 			return "Delete Failed";
+		} finally {
+			session.flush();
+			session.close();
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public long countRowBy(long min) {
+		long count = 0;
+		List<OutcomeDetails> outcome = new ArrayList<OutcomeDetails>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			outcome= session.createQuery(
+					"FROM OutcomeDetails WHERE detailsId LIKE '"+ min+"%' ORDER BY detailsId DESC").list();
+			if (outcome.size() != 0) {
+				count = Long.valueOf(outcome.get(0).getDetailsId())+1;
+			} else {
+				count = (min*1000)+1;
+			}
+			return count;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return count;
 		} finally {
 			session.flush();
 			session.close();

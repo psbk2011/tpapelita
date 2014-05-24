@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name = "investment", catalog = "master_tpapelita")
 public class Investment implements java.io.Serializable {
 
-	private int invesId;
+	private String invesId;
 	private Administrator administrator;
 	private Investor investor;
 	private Date invesDate;
@@ -34,11 +34,11 @@ public class Investment implements java.io.Serializable {
 	public Investment() {
 	}
 
-	public Investment(int invesId) {
+	public Investment(String invesId) {
 		this.invesId = invesId;
 	}
 
-	public Investment(int invesId, Administrator administrator,
+	public Investment(String invesId, Administrator administrator,
 			Investor investor, Date invesDate, Integer invesType,
 			Integer invesStatus, Integer invesTransfer, String invesSenderName,
 			String invesBankName, String invesAccountNo) {
@@ -55,12 +55,12 @@ public class Investment implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "inves_id", unique = true, nullable = false)
-	public int getInvesId() {
+	@Column(name = "inves_id", unique = true, nullable = false, length = 11)
+	public String getInvesId() {
 		return this.invesId;
 	}
 
-	public void setInvesId(int invesId) {
+	public void setInvesId(String invesId) {
 		this.invesId = invesId;
 	}
 

@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 19, 2014 9:35:17 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -25,6 +25,7 @@ public class SupportCenter implements java.io.Serializable {
 	private String supportSubject;
 	private String supportEmail;
 	private String supportMessage;
+	private String supportAnswer;
 	private Boolean supportShow;
 	private Integer supportStatus;
 
@@ -33,12 +34,13 @@ public class SupportCenter implements java.io.Serializable {
 
 	public SupportCenter(Date supportDate, String supportName,
 			String supportSubject, String supportEmail, String supportMessage,
-			Boolean supportShow, Integer supportStatus) {
+			String supportAnswer, Boolean supportShow, Integer supportStatus) {
 		this.supportDate = supportDate;
 		this.supportName = supportName;
 		this.supportSubject = supportSubject;
 		this.supportEmail = supportEmail;
 		this.supportMessage = supportMessage;
+		this.supportAnswer = supportAnswer;
 		this.supportShow = supportShow;
 		this.supportStatus = supportStatus;
 	}
@@ -98,6 +100,15 @@ public class SupportCenter implements java.io.Serializable {
 
 	public void setSupportMessage(String supportMessage) {
 		this.supportMessage = supportMessage;
+	}
+
+	@Column(name = "support_answer", length = 65535)
+	public String getSupportAnswer() {
+		return this.supportAnswer;
+	}
+
+	public void setSupportAnswer(String supportAnswer) {
+		this.supportAnswer = supportAnswer;
 	}
 
 	@Column(name = "support_show")

@@ -11,18 +11,18 @@
 	<!-- Add Dialog -->
 	<p:dialog header="Add OutcomeDetails" widgetVar="addOutDetails"
 		modal="true" resizable="false">
-		<p:panel id="outcomeId">
-			<p:outputLabel value="Outcome ID : #{outcomeC.outcomeIdModif}"/>
-		</p:panel>
 		<p:panelGrid id="displayAdd" columns="3">
-	
+			<p:outputLabel value="ID"/>
+			<p:outputLabel value=":"/>
+			<h:outputText value="#{outcomeDetailsC.genOutDetailsId}"/>
+						
 			<p:outputLabel for="unitName" value="Unit Name" />
 			<p:outputLabel value=":" />
 			<p:inputText id="unitName" value="#{outcomeDetailsC.outDetails.detailsUnitName}" required="true"
 				requiredMessage="Please insert unit name"
-				validatorMessage="Unit name must no number" maxlength="35"
+				validatorMessage="Unit name must no number" maxlength="20"
 				style="color:black">
-				<f:validateRegex pattern="^[a-zA-Z]+$" />
+				<f:validateRegex pattern="^[a-zA-Z\-'\s]+$"/>
 			</p:inputText>
 
 			<p:outputLabel for="unitPrice" value="Unit Price" />
@@ -40,7 +40,7 @@
 				requiredMessage="Please insert Qty"
 				validatorMessage="Qty must be number" maxlength="2"
 				style="color:black">
-				<f:validateDoubleRange maximum="2" />
+				<f:validateDoubleRange/>
 			</p:inputText>
 
 			<p:outputLabel for="info" value="Unit Info" />
@@ -53,8 +53,10 @@
 				<p:commandButton id="btn1" value="Save"
 					update=":form8:tableOutcomeDetails :form0:msgs1 :form14:displayAdd"
 					action="#{outcomeDetailsC.create}" validateClient="true">
-					<f:ajax execute="@all" />
+					<f:setPropertyActionListener value="#{investmentC.totalInves}" target="#{outcomeDetailsC.totalInves}"/>
 				</p:commandButton>
+				<p:commandButton id="btn2" value="Cancel"
+					update=":form8:tableOutcomeDetails :form0:msgs1 :form14:displayAdd" action="#{investmentC.clear}" oncomplete="addOutDetails.hide()"/>
 			</f:facet>
 		</p:panelGrid>
 	</p:dialog>

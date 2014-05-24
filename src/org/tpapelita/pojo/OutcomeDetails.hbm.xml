@@ -1,16 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 19, 2014 9:35:18 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 20, 2014 3:44:51 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.tpapelita.pojo.OutcomeDetails" table="outcome_details" catalog="master_tpapelita">
-        <id name="detailsId" type="java.lang.Integer">
-            <column name="details_id" />
-            <generator class="identity" />
+        <id name="detailsId" type="string">
+            <column name="details_id" length="11" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="outcome" class="org.tpapelita.pojo.Outcome" fetch="select">
-            <column name="outcome_id" />
-        </many-to-one>
         <property name="detailsUnitName" type="string">
             <column name="details_unit_name" length="50" />
         </property>

@@ -12,19 +12,25 @@
 	<p:dialog header="Edit Outcome Details" widgetVar="editOutDetails"
 		modal="true" resizable="false">
 		<p:panelGrid id="displayEdit" columns="3">
+			<p:outputLabel value="ID" />
+			<p:outputLabel value=":" />
+			<h:outputText value="#{outcomeDetailsC.outDetails.detailsId}" />
+
 			<p:outputLabel for="unitName" value="Unit Name" />
 			<p:outputLabel value=":" />
-			<p:inputText id="unitName" value="#{outcomeDetails.outDetails.detailsUnitName}" required="true"
+			<p:inputText id="unitName"
+				value="#{outcomeDetails.outDetails.detailsUnitName}" required="true"
 				requiredMessage="Please insert unit name"
 				validatorMessage="Unit name must no number" maxlength="35"
 				style="color:black">
-				<f:validateRegex pattern="^[a-zA-Z]+$" />
+				<f:validateRegex pattern="^[a-zA-Z\-'\s]+$" />
 			</p:inputText>
 
 			<p:outputLabel for="unitPrice" value="Unit Price" />
 			<p:outputLabel value=":" />
-			<p:inputText id="unitPrice" value="#{outcomeDetails.outDetails.detailsUnitPrice}" required="true"
-				requiredMessage="Please insert unit price"
+			<p:inputText id="unitPrice"
+				value="#{outcomeDetails.outDetails.detailsUnitPrice}"
+				required="true" requiredMessage="Please insert unit price"
 				validatorMessage="Price must be number" maxlength="10"
 				style="color:black">
 				<f:validateDoubleRange />
@@ -32,7 +38,8 @@
 
 			<p:outputLabel for="unitQty" value="Unit Qty" />
 			<p:outputLabel value=":" />
-			<p:inputText id="unitQty" value="#{outcomeDetails.outDetails.detailsUnitQty}" required="true"
+			<p:inputText id="unitQty"
+				value="#{outcomeDetails.outDetails.detailsUnitQty}" required="true"
 				requiredMessage="Please insert Qty"
 				validatorMessage="Qty must be number" maxlength="2"
 				style="color:black">
@@ -41,8 +48,9 @@
 
 			<p:outputLabel for="info" value="Unit Info" />
 			<p:outputLabel value=":" />
-			<p:inputTextarea id="info" value="#{outcomeDetails.outDetails.detailsInfo}" required="true"
-				requiredMessage="Please insert unit information" maxlength="200"/>
+			<p:inputTextarea id="info"
+				value="#{outcomeDetails.outDetails.detailsInfo}" required="true"
+				requiredMessage="Please insert unit information" maxlength="200" />
 
 
 			<f:facet name="footer">

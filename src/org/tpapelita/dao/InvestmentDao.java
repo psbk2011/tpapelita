@@ -134,16 +134,18 @@ public class InvestmentDao implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public int countRowBy(int min) {
-		int count = 0;
+	public long countRowBy(long min) {
+		long count = 0;
 		List<Investment> investment = new ArrayList<Investment>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			investment = session.createQuery(
-					"FROM Investment WHERE invesId > " + min+" ORDER BY invesId DESC").list();
+					"FROM Investment WHERE invesId LIKE '"+ min+"%' ORDER BY invesId DESC").list();
 			if (investment.size() != 0) {
-				count = investment.get(0).getInvesId()-min;
-			}			
+				count = Long.valueOf(investment.get(0).getInvesId())+1;
+			} else {
+				count = (min*1000)+1;
+			}
 			return count;
 		} catch (RuntimeException e) {
 			e.printStackTrace();

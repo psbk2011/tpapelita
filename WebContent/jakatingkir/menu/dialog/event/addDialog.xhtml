@@ -28,13 +28,10 @@
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</p:inputMask>
 
-			<h:outputLabel for="allDay" value="All Day:" />
-			<h:selectBooleanCheckbox id="allDay" value="#{schedule.event.allDay}" />
-
 			<p:commandButton type="reset" value="Reset" />
 			<p:commandButton id="addButton" value="Save"
-				actionListener="#{scheduleController.addEvent}"
-				oncomplete="PF(':form1:myschedule').update();PF('eventDialog').hide();" />
+				actionListener="#{schedule.addEvent}" update=":form1:schedule"
+				oncomplete="eventDialog.hide();" />
 		</h:panelGrid>
 	</p:dialog>
 	<!-- End of Add Dialog -->

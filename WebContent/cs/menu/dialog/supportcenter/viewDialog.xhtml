@@ -8,10 +8,32 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<!-- View Dialog -->
-		<p:dialog header="View Investor" widgetVar="viewInvestor" modal="true"
+		<p:dialog header="View Ticket" widgetVar="viewSc" modal="true"
 			resizable="false" id="dlg3">
 			<p:panel id="displayView">
-				Under Contruction
+				<p:panelGrid columns="3">
+					<p:outputLabel value="Name"/>
+					<p:outputLabel value=":"/>
+					<h:outputText id="name" value="#{supportCenterC.sc.supportName}"/>
+				
+					<p:outputLabel value="Email"/>
+					<p:outputLabel value=":"/>
+					<h:outputText id="email" value="#{supportCenterC.sc.supportEmail}"/>
+				
+					
+					<p:outputLabel value="Subject"/>
+					<p:outputLabel value=":"/>
+					<h:outputText id="subject" value="#{supportCenterC.sc.supportSubject}"/>
+					
+					
+					<p:outputLabel value="Messages"/>
+					<p:outputLabel value=":"/>
+					<p:inputTextarea id="message" value="#{supportCenterC.sc.supportMessage}" readonly="true"/>
+					
+					<p:outputLabel value="Answer"/>
+					<p:outputLabel value=":"/>
+					<p:inputTextarea id="answer" value="#{supportCenterC.answerMessageModif}" readonly="true"/>
+				</p:panelGrid>
 			</p:panel>
 		</p:dialog>
 	<!-- End of View Dialog -->

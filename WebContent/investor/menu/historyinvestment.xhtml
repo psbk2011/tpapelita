@@ -13,10 +13,43 @@
 	<ui:composition
 		template="/WEB-INF/templates/backendtemplate/investor/investortemplate.xhtml">
 		<ui:define name="content">
-			<p:panel>
-				<!-- Please write your code here -->
-				<h:outputText value="Under Contruction"/>
-			</p:panel>
+			<!-- Table Income -->
+					<p:panel>
+						<h:form id="form2">
+							<p:dataTable id="tableInvestment" var="list"
+								value="#{investmentC.read}" paginator="true" rows="10"
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+								emptyMessage="No record of investment"
+								filteredValue="#{investmentC.list}">
+								<f:facet name="header">Investment(Rp)</f:facet>
+								<p:column id="idColumn" headerText="ID" width="80"
+									filterMatchMode="contains" filterBy="#{list.inves.invesId}">
+									<h:outputText value="#{list.inves.invesId}" />
+								</p:column>
+								<p:column id="senderColumn" headerText="ID Investor"
+									filterMatchMode="contains" filterBy="#{list.investorIdModif}">
+									<h:outputText value="#{list.investorIdModif}" />
+								</p:column>
+								<p:column id="bankNameColumn" headerText="Bank Name"
+									filterMatchMode="contains"
+									filterBy="#{list.inves.invesBankName}">
+									<h:outputText value="#{list.inves.invesBankName}" />
+								</p:column>
+								<p:column id="accountNoColumn" headerText="Account No"
+									filterMatchMode="contains"
+									filterBy="#{list.invesAccountNoModif}">
+									<h:outputText value="#{list.invesAccountNoModif}" />
+								</p:column>
+								<p:column id="statusColumn" headerText="Status">
+									<h:outputText value="#{list.invesStatusModif}" />
+								</p:column>
+								<p:column id="transferColumn" headerText="Tranfer">
+									<h:outputText value="#{list.inves.invesTransfer}" />
+								</p:column>
+							</p:dataTable>
+						</h:form>
+					</p:panel>
 		</ui:define>
 	</ui:composition>
 </h:body>

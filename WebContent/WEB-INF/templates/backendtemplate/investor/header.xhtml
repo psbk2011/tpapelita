@@ -11,13 +11,13 @@
 	<h:form>
 		<p:toolbar>
 			<p:toolbarGroup align="left">
-				<p:button outcome="/investor/index" value="Home" icon="ui-icon-home"/>
+				<p:button outcome="/investor/menu/index" value="Home" icon="ui-icon-home"/>
 				<p:menuButton value="Menu">
 					<p:menuitem value="History investment" url="/investor/menu/historyinvestment.jsf" />
 					<p:menuitem value="TPA Report" url="/investor/menu/tpareport.jsf" />
 				</p:menuButton>
 			</p:toolbarGroup>
-			<p:toolbarGroup align="right">s
+			<p:toolbarGroup align="right">
 				<p:commandButton value="Logout" icon="ui-icon-extlink" action="#{LoginController.doLogoutInvestor}" ajax="false"/>
 			</p:toolbarGroup>
 		</p:toolbar>

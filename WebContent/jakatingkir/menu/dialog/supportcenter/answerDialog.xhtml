@@ -9,20 +9,49 @@
 
 <h:body>
 	<!-- Add Dialog -->
-	<p:dialog header="Answer Tiket" widgetVar="answerSc"
-		modal="true" resizable="false">
-		<p:panelGrid id="displayAnswer" columns="2" style="margin-bottom:10px">
+	<p:dialog header="Answer Tiket" widgetVar="answerSc" modal="true"
+		resizable="false">
+		<p:panel id="displayAnswer">
 			<p:panel>
-				Under Contruction
+				<p:panelGrid columns="3">
+					<p:outputLabel value="Name" />
+					<p:outputLabel value=":" />
+					<h:outputText id="name" value="#{supportCenterC.sc.supportName}" />
+
+					<p:outputLabel value="Email" />
+					<p:outputLabel value=":" />
+					<h:outputText id="email" value="#{supportCenterC.sc.supportEmail}" />
+
+
+					<p:outputLabel value="Subject" />
+					<p:outputLabel value=":" />
+					<h:outputText id="subject"
+						value="#{supportCenterC.sc.supportSubject}" />
+
+
+					<p:outputLabel value="Messages" />
+					<p:outputLabel value=":" />
+					<p:inputTextarea id="message"
+						value="#{supportCenterC.sc.supportMessage}" readonly="true" />
+				</p:panelGrid>
 			</p:panel>
-			<f:facet name="footer">
-				<p:commandButton id="btn1" value="Save"
-					update="displayAnswer :form1:tableSc :form0:msg"
-					action="#{supportCenterC.send}" oncomplete="answerSc.hide();">
-					<f:ajax execute="@all"/>
-				</p:commandButton>
-			</f:facet>
-		</p:panelGrid>
+			<p:panel>
+				<p:panelGrid columns="3">
+					<p:outputLabel value="Answer" />
+					<p:outputLabel value=":" />
+					<p:inputTextarea id="answerMessage"
+						value="#{supportCenterC.answerMessage}"/>
+						
+					<f:facet name="footer">
+						<p:commandButton id="btn1" value="Send"
+							update="displayAnswer :form1:tableSc :form0:msg"
+							action="#{supportCenterC.send}">
+							<f:ajax execute="@all" />
+						</p:commandButton>
+					</f:facet>
+				</p:panelGrid>
+			</p:panel>
+		</p:panel>
 	</p:dialog>
 	<!-- End of Add Dialog -->
 </h:body>

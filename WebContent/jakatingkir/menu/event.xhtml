@@ -20,7 +20,7 @@
 				</h:form>
 				<h:form id="form1">
 					<p:schedule id="schedule" value="#{schedule.eventModel}"
-						widgetVar="myschedule">
+						widgetVar="myschedule" rightHeaderTemplate="month">
 						<p:ajax event="dateSelect" listener="#{schedule.onDateSelect}"
 							update=":form2:eventDetails" oncomplete="PF('eventDialog').show()" />
 						<p:ajax event="eventSelect" listener="#{schedule.onEventSelect}"
