@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 26, 2014 1:14:55 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +27,6 @@ public class Administrator implements java.io.Serializable {
 	private String adminPass;
 	private String adminLastPass;
 	private Boolean adminStatus;
-	private Set<Investment> investments = new HashSet<Investment>(0);
 	private Set<Event> events = new HashSet<Event>(0);
 	private Set<Outcome> outcomes = new HashSet<Outcome>(0);
 
@@ -41,8 +40,7 @@ public class Administrator implements java.io.Serializable {
 	public Administrator(int adminId, String adminName, String adminEmail,
 			String adminPhone, Boolean adminJob, String adminUsername,
 			String adminPass, String adminLastPass, Boolean adminStatus,
-			Set<Investment> investments, Set<Event> events,
-			Set<Outcome> outcomes) {
+			Set<Event> events, Set<Outcome> outcomes) {
 		this.adminId = adminId;
 		this.adminName = adminName;
 		this.adminEmail = adminEmail;
@@ -52,7 +50,6 @@ public class Administrator implements java.io.Serializable {
 		this.adminPass = adminPass;
 		this.adminLastPass = adminLastPass;
 		this.adminStatus = adminStatus;
-		this.investments = investments;
 		this.events = events;
 		this.outcomes = outcomes;
 	}
@@ -137,15 +134,6 @@ public class Administrator implements java.io.Serializable {
 
 	public void setAdminStatus(Boolean adminStatus) {
 		this.adminStatus = adminStatus;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "administrator")
-	public Set<Investment> getInvestments() {
-		return this.investments;
-	}
-
-	public void setInvestments(Set<Investment> investments) {
-		this.investments = investments;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "administrator")

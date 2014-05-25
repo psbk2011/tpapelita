@@ -1,6 +1,7 @@
 package org.tpapelita.controller;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,12 +18,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 
 import org.primefaces.context.RequestContext;
 import org.tpapelita.dao.InvestmentDao;
 import org.tpapelita.dao.InvestorDao;
 import org.tpapelita.pojo.Investment;
 import org.tpapelita.pojo.Investor;
+import org.tpapelita.service.SimpleMailSender;
 
 @ManagedBean
 @SessionScoped
@@ -245,21 +248,53 @@ public class InvestmentC implements Serializable {
 	public void update() {
 		InvestmentDao dao = new InvestmentDao();
 		FacesContext context = FacesContext.getCurrentInstance();
-		clear();
+		String msg = "Error";
 		if (!getInves().getInvesBankName().equalsIgnoreCase("NO BANK") && !getInves().getInvesAccountNo().isEmpty()) {
-			String msg = dao.update(getInves());
+			msg = dao.update(getInves());
 			System.out.println(msg);
-			context.addMessage(null, new FacesMessage(msg));
-			RequestContext.getCurrentInstance().execute("editInvestment.hide()");
 		} else if (getInves().getInvesBankName().equalsIgnoreCase("NO BANK")) {
 			getInves().setInvesAccountNo("");
-			String msg = dao.update(getInves());
+			msg = dao.update(getInves());
 			System.out.println(msg);
-			context.addMessage(null, new FacesMessage(msg));
-			RequestContext.getCurrentInstance().execute("editInvestment.hide()");
 		} else {
 			context.addMessage(null, new FacesMessage( FacesMessage.SEVERITY_WARN, "Please Insert Account No", "Please Insert Account No"));
 		}
+		if (getInves().getInvesStatus() == 1) {
+			InvestorDao id = new InvestorDao();
+			int tempId = getInvestor().getInvestorId();
+			List<Investor> l = id.getReadById(tempId);
+			if (l.size() > 0) {
+				Investor inv = l.get(0);
+				if (!inv.getInvestorEmail().isEmpty()) {
+					SimpleMailSender sms = new SimpleMailSender();
+					String host = "smtp.gmail.com";
+					int port = 587;
+					String username = "subhan.gustiar@gmail.com";
+					String pass = "5ubh4n6r";
+					String from = username;
+					String to = inv.getInvestorEmail();
+					String subject = "Payment Has Recieved";
+					StringBuilder text = new StringBuilder();
+					text.append("Notification\n");
+					text.append("Payment has recieved with details:\n");
+					text.append("Bank Name : "+getInves().getInvesBankName()+"\n");
+					text.append("No Account: "+getInves().getInvesAccountNo()+"\n");
+					text.append("Tranfer   : "+getInves().getInvesTransfer()+"\n");
+					try {
+						sms.send(host,port,username,pass,from, to,subject, text.toString());
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (MessagingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		clear();
+		context.addMessage(null, new FacesMessage(msg));
+		RequestContext.getCurrentInstance().execute("editInvestment.hide()");
 	}
 
 	public void delete() {

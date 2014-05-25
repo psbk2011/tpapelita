@@ -1,33 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 20, 2014 3:44:51 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 26, 2014 1:14:56 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="org.tpapelita.pojo.Investment" table="investment" catalog="master_tpapelita">
         <id name="invesId" type="string">
             <column name="inves_id" length="11" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="administrator" class="org.tpapelita.pojo.Administrator" fetch="select">
-            <column name="admin_id" />
-        </many-to-one>
         <many-to-one name="investor" class="org.tpapelita.pojo.Investor" fetch="select">
             <column name="investor_id" />
         </many-to-one>
         <property name="invesDate" type="timestamp">
             <column name="inves_date" length="19" />
         </property>
-        <property name="invesType" type="java.lang.Integer">
-            <column name="inves_type" />
-        </property>
         <property name="invesStatus" type="java.lang.Integer">
             <column name="inves_status" />
         </property>
         <property name="invesTransfer" type="java.lang.Integer">
             <column name="inves_transfer" />
-        </property>
-        <property name="invesSenderName" type="string">
-            <column name="inves_sender_name" length="45" />
         </property>
         <property name="invesBankName" type="string">
             <column name="inves_bank_name" length="45" />

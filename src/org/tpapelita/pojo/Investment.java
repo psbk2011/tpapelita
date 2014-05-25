@@ -1,6 +1,6 @@
 package org.tpapelita.pojo;
 
-// Generated May 20, 2014 3:44:50 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 26, 2014 1:14:55 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,13 +21,10 @@ import javax.persistence.TemporalType;
 public class Investment implements java.io.Serializable {
 
 	private String invesId;
-	private Administrator administrator;
 	private Investor investor;
 	private Date invesDate;
-	private Integer invesType;
 	private Integer invesStatus;
 	private Integer invesTransfer;
-	private String invesSenderName;
 	private String invesBankName;
 	private String invesAccountNo;
 
@@ -38,18 +35,14 @@ public class Investment implements java.io.Serializable {
 		this.invesId = invesId;
 	}
 
-	public Investment(String invesId, Administrator administrator,
-			Investor investor, Date invesDate, Integer invesType,
-			Integer invesStatus, Integer invesTransfer, String invesSenderName,
-			String invesBankName, String invesAccountNo) {
+	public Investment(String invesId, Investor investor, Date invesDate,
+			Integer invesStatus, Integer invesTransfer, String invesBankName,
+			String invesAccountNo) {
 		this.invesId = invesId;
-		this.administrator = administrator;
 		this.investor = investor;
 		this.invesDate = invesDate;
-		this.invesType = invesType;
 		this.invesStatus = invesStatus;
 		this.invesTransfer = invesTransfer;
-		this.invesSenderName = invesSenderName;
 		this.invesBankName = invesBankName;
 		this.invesAccountNo = invesAccountNo;
 	}
@@ -62,16 +55,6 @@ public class Investment implements java.io.Serializable {
 
 	public void setInvesId(String invesId) {
 		this.invesId = invesId;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "admin_id")
-	public Administrator getAdministrator() {
-		return this.administrator;
-	}
-
-	public void setAdministrator(Administrator administrator) {
-		this.administrator = administrator;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -94,15 +77,6 @@ public class Investment implements java.io.Serializable {
 		this.invesDate = invesDate;
 	}
 
-	@Column(name = "inves_type")
-	public Integer getInvesType() {
-		return this.invesType;
-	}
-
-	public void setInvesType(Integer invesType) {
-		this.invesType = invesType;
-	}
-
 	@Column(name = "inves_status")
 	public Integer getInvesStatus() {
 		return this.invesStatus;
@@ -119,15 +93,6 @@ public class Investment implements java.io.Serializable {
 
 	public void setInvesTransfer(Integer invesTransfer) {
 		this.invesTransfer = invesTransfer;
-	}
-
-	@Column(name = "inves_sender_name", length = 45)
-	public String getInvesSenderName() {
-		return this.invesSenderName;
-	}
-
-	public void setInvesSenderName(String invesSenderName) {
-		this.invesSenderName = invesSenderName;
 	}
 
 	@Column(name = "inves_bank_name", length = 45)

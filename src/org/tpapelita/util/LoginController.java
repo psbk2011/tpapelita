@@ -100,8 +100,7 @@ public class LoginController implements Serializable {
 		String adminUsername = admin.getAdminUsername();
 		String adminPass = admin.getAdminPass();
 		Administrator adm = new Administrator(-1, "", "", "", false,
-				adminUsername, adminPass, "", false,
-				new HashSet<Investment>(0), new HashSet<Event>(0),
+				adminUsername, adminPass, "", false, new HashSet<Event>(0),
 				new HashSet<Outcome>(0));
 		List<Administrator> admin = new ArrayList<Administrator>();
 		try {
@@ -133,8 +132,7 @@ public class LoginController implements Serializable {
 		String adminUsername = admin.getAdminUsername();
 		String adminPass = admin.getAdminPass();
 		Administrator adm = new Administrator(-1, "", "", "", false,
-				adminUsername, adminPass, "", false,
-				new HashSet<Investment>(0), new HashSet<Event>(0),
+				adminUsername, adminPass, "", false, new HashSet<Event>(0),
 				new HashSet<Outcome>(0));
 		List<Administrator> admin = new ArrayList<Administrator>();
 		try {

@@ -18,11 +18,9 @@
 
 			<p:outputLabel for="investorId" value="Investor ID" />
 			<p:outputLabel value=":" />
-			<p:selectOneMenu id="investorId"
-				value="#{investmentC.investor.investorId}" filter="true" filterMatchMode="startsWith">
-				<f:selectItem itemLabel="Not Register" itemValue="0" />
-				<f:selectItems value="#{investmentC.investorList}" var="investor"/>
-			</p:selectOneMenu>
+			<h:outputText id="investorId"
+				value="INV#{investmentC.investor.investorId}"/>
+				
 
 			<p:outputLabel for="invesBankName" value="Inves Bank Name" />
 			<p:outputLabel value=":" />

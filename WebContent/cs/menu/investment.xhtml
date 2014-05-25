@@ -9,7 +9,7 @@
 
 <h:body>
 	<ui:composition
-		template="/WEB-INF/templates/backendtemplate/admin/admintemplate.xhtml">
+		template="/WEB-INF/templates/backendtemplate/cs/cstemplate.xhtml">
 		<ui:define name="title"> - Investment &amp; Outcome</ui:define>
 		<ui:define name="content">
 			<p:panel>
@@ -68,6 +68,8 @@
 										title="Edit">
 										<f:setPropertyActionListener value="#{list.inves}"
 											target="#{investmentC.inves}" />
+										<f:setPropertyActionListener value="#{list.inves.investor}"
+											target="#{investmentC.investor}" />
 									</p:commandButton>
 									<p:commandButton id="deleteBtn" icon="ui-icon-trash"
 										update=":form11:displayDelete" title="Delete"
